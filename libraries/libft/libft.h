@@ -6,12 +6,16 @@
 /*   By: wsonepou <wsonepou@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/18 15:08:38 by wsonepou      #+#    #+#                 */
-/*   Updated: 2023/10/30 15:41:56 by wsonepou      ########   odam.nl         */
+/*   Updated: 2024/02/05 14:15:10 by wsonepou      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
+
+# ifndef GNLBUFFER_SIZE
+#  define GNLBUFFER_SIZE 100
+# endif
 
 # include <bsd/string.h>
 # include <unistd.h>
@@ -19,6 +23,7 @@
 # include <limits.h>
 # include <stdio.h>
 # include <fcntl.h>
+# include <stdarg.h>
 
 int		ft_atoi(const char *nptr);
 void	ft_bzero(void *s, size_t n);
@@ -45,19 +50,16 @@ void	ft_striteri(char *s, void (*f)(unsigned int, char*));
 char	*ft_strjoin(char const *s1, char const *s2);
 size_t	ft_strlcat(char *dst, const char *src, size_t size);
 size_t	ft_strlcpy(char *dst, const char *src, size_t size);
-size_t	ft_strlen(const char *s);
+int		ft_strlen(const char *s);
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 char	*ft_strnstr(const char *big, const char *little, size_t len);
 char	*ft_strrchr(const char *s, int c);
 char	*ft_strtrim(char const *s1, char const *set);
-char	*ft_substr(char const *s, unsigned int start, size_t len);
+char	*ft_substr(char const *s, int start, int len);
 int		ft_tolower(int c);
 int		ft_toupper(int c);
 
-/*
- * Bonus part
- */
 typedef struct s_list
 {
 	void			*content;
@@ -73,5 +75,17 @@ void	ft_lstdelone(t_list *lst, void (*del)(void *));
 void	ft_lstclear(t_list **lst, void (*del)(void *));
 void	ft_lstiter(t_list *lst, void (*f)(void *));
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
+int		ft_printf(const char *str, ...);
+int		ft_nmbrs(long n, char *base);
+int		ft_ptrs(void *n);
+int		ft_putchar(char c);
+int		ft_putstr(char *s);
+char	*get_next_line(int fd);
+char	*ft_read(int fd, char *rem);
+char	*ft_rem(char *rem, char **line_address);
+char	*ft_line(char *rem);
+char	*ft_strjoin2(char *s1, char *s2);
+int		ft_nlcheck(char *str);
+char	*ft_free2(char **str);
 
 #endif

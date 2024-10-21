@@ -1,25 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_strlen.c                                        :+:    :+:            */
+/*   error_handler.c                                    :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: wsonepou <wsonepou@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2023/10/03 12:34:41 by wsonepou      #+#    #+#                 */
-/*   Updated: 2024/01/16 14:07:22 by wsonepou      ########   odam.nl         */
+/*   Created: 2024/10/21 17:09:11 by wsonepou      #+#    #+#                 */
+/*   Updated: 2024/10/21 18:07:06 by wsonepou      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../include/cub3d.h"
 
-int	ft_strlen(const char *s)
+void	error_handler(int i)
 {
-	unsigned long	c;
-
-	c = 0;
-	if (s == NULL)
-		return (0);
-	while (s[c] != '\0')
-		c++;
-	return (c);
+	if (i == 1)
+	{
+		write(2, "ERROR: Too many arguments\n", 20);
+		exit(1);
+	}
+	if (i == 2)
+	{
+		write(2, "ERROR: Incorrect map type\n", 20);
+		exit(2);
+	}
+	if (i == 3)
+	{
+		write(2, "ERROR: Couldn't open map\n", 20);
+		exit(3);
+	}
 }

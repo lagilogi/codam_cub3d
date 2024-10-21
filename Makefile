@@ -1,26 +1,33 @@
 # Name
-NAME				= cub3D
+NAME				=	cub3D
 
 # Directories
-SRC_DIR				= srcs/
-BLD_DIR				= build/
-LIBMLX				= ./libraries/MLX42/
-OBJ_DIR				= ./build/objects/
-INC				= -I ./include -I $(LIBMLX)include
+SRC_DIR				=	srcs/
+BLD_DIR				=	build/
+LIBMLX				=	./libraries/MLX42/
+LIBFTDR				=	./libraries/libft/
+OBJ_DIR				=	./build/objects/
+INC					=	-I ./include -I $(LIBMLX)include
 
 # Compiler and CFlags
-CC					= cc
-CFLAGS				= -g -Wall -Werror -Wextra #-g -fsanitize=address
-LIBFT				= ./libraries/libft/libft.a
-MLXFLAGS			= $(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm
+CC					=	cc
+CFLAGS				=	-g -Wall -Werror -Wextra #-g -fsanitize=address
+LIBFT				=	./libraries/libft/libft.a
+MLXFLAGS			=	$(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm
 
 # Source Files
 MAIN_DIR			=	$(SRC_DIR)main.c
 
-PARSER_DIR			=	$(SRC_DIR)parser/parse_map.c
+PARSER_DIR			=	$(SRC_DIR)parser/parse_map.c \
+						$(SRC_DIR)parser/parse_utils.c
+
+CLOSING_DIR			=	$(SRC_DIR)close_program/error_handler.c \
+						$(SRC_DIR)close_program/close_program.c
+
+
 
 # Concatenate all source files
-SRCS 				= $(MAIN_DIR) $(PARSER_DIR)
+SRCS 				= $(MAIN_DIR) $(PARSER_DIR) $(CLOSING_DIR)
 
 # Apply the pattern substitution to each source file in SRC and produce a corresponding list of object files in the OBJ_DIR
 OBJ 				= $(patsubst $(SRC_DIR)%.c,$(OBJ_DIR)%.o,$(SRCS))

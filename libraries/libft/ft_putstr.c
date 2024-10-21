@@ -1,25 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_strlen.c                                        :+:    :+:            */
+/*   ft_putstr.c                                        :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: wsonepou <wsonepou@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2023/10/03 12:34:41 by wsonepou      #+#    #+#                 */
-/*   Updated: 2024/01/16 14:07:22 by wsonepou      ########   odam.nl         */
+/*   Created: 2023/10/31 16:55:41 by wsonepou      #+#    #+#                 */
+/*   Updated: 2024/01/15 17:09:15 by wsonepou      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_strlen(const char *s)
+int	ft_putstr(char *s)
 {
-	unsigned long	c;
+	int	i;
 
-	c = 0;
-	if (s == NULL)
-		return (0);
-	while (s[c] != '\0')
-		c++;
-	return (c);
+	i = 0;
+	if (!s)
+		s = "(null)";
+	while (s[i])
+		i++;
+	return (write(1, s, i));
 }

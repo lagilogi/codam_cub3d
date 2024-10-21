@@ -1,25 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_strlen.c                                        :+:    :+:            */
+/*   close_program.c                                    :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: wsonepou <wsonepou@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2023/10/03 12:34:41 by wsonepou      #+#    #+#                 */
-/*   Updated: 2024/01/16 14:07:22 by wsonepou      ########   odam.nl         */
+/*   Created: 2024/10/21 17:49:45 by wsonepou      #+#    #+#                 */
+/*   Updated: 2024/10/21 19:34:53 by wsonepou      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../include/cub3d.h"
 
-int	ft_strlen(const char *s)
+void	close_program(t_cub3d *cub3d, char *msg, int exit_code)
 {
-	unsigned long	c;
-
-	c = 0;
-	if (s == NULL)
-		return (0);
-	while (s[c] != '\0')
-		c++;
-	return (c);
+	if (close(cub3d->map_fd) == -1)
+		write(2, "Failed closing map fd\n", 23);
+	if (msg != NULL)
+		write(2, msg, ft_strlen(msg));
+	exit(exit_code);
 }
