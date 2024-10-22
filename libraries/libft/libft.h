@@ -17,7 +17,6 @@
 #  define GNLBUFFER_SIZE 100
 # endif
 
-# include <bsd/string.h>
 # include <unistd.h>
 # include <stdlib.h>
 # include <limits.h>

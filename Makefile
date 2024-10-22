@@ -16,7 +16,7 @@ LIBFT				=	./libraries/libft/libft.a
 MLXFLAGS			=	$(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm
 
 # Source Files
-MAIN_DIR			=	$(SRC_DIR)main.c
+MAIN_DIR			=	$(SRC_DIR)main.c $(SRC_DIR)init.c $(SRC_DIR)render.c $(SRC_DIR)input.c $(SRC_DIR)fps.c
 
 PARSER_DIR			=	$(SRC_DIR)parser/parse_map.c \
 						$(SRC_DIR)parser/parse_utils.c
@@ -58,12 +58,12 @@ clean:
 					@echo "Cleaning..."
 					@rm -rf $(OBJ_DIR)
 					@rm -rf $(BLD_DIR)
-					@rm -rf $(LIBMLX)/build
+					# @rm -rf $(LIBMLX)/build
 					@make clean -C ./libraries/libft
 
 fclean: 			clean
 					@rm -rf $(NAME)
-					@rm -rf $(LIBFT)
+					# @rm -rf $(LIBFT)
 					@echo "All clean"
 
 re: 				fclean all

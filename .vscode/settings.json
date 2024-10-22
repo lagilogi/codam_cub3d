@@ -1,0 +1,7 @@
+{
+	"files.associations": {
+		"raycaster.h": "c",
+		"time.h": "c",
+		"mlx42.h": "c"
+	}
+}
