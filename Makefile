@@ -16,9 +16,10 @@ LIBFT				=	./libraries/libft/libft.a
 MLXFLAGS			=	$(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm
 
 # Source Files
-MAIN_DIR			=	$(SRC_DIR)main.c $(SRC_DIR)init.c $(SRC_DIR)render.c $(SRC_DIR)input.c $(SRC_DIR)fps.c
+MAIN_DIR			=	$(SRC_DIR)main.c
 
-PARSER_DIR			=	$(SRC_DIR)parser/parse_map.c \
+PARSER_DIR			=	$(SRC_DIR)parser/check_file.c \
+						$(SRC_DIR)parser/load_file.c \
 						$(SRC_DIR)parser/parse_utils.c
 
 CLOSING_DIR			=	$(SRC_DIR)close_program/error_handler.c \

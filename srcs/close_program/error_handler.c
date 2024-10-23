@@ -12,6 +12,11 @@
 
 #include "../../include/cub3d.h"
 
+void	check_file_error_handler(t_cub3d *cub3d, int i)
+{
+	return ;
+}
+
 void	error_handler(int i)
 {
 	if (i == 1)
@@ -21,7 +26,7 @@ void	error_handler(int i)
 	}
 	if (i == 2)
 	{
-		write(2, "ERROR: Incorrect map type\n", 20);
+		write(2, "ERROR: Incorrect file type\n", 20);
 		exit(2);
 	}
 	if (i == 3)

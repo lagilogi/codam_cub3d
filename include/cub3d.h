@@ -27,12 +27,19 @@ typedef struct s_player
 	char	f;
 }	t_player;
 
+typedef struct s_file
+{
+	int		line_count;
+	int		addit_data_count;
+	int		map_cols;
+	int		map_rows;
+	char	**file_data;
+}	t_file;
+
 typedef struct s_map
 {
 	char			**grid;
 	int				info;
-	int				col;
-	int				row;
 	int				f_r;
 	int				f_g;
 	int				f_b;
@@ -50,6 +57,7 @@ typedef struct s_cub3d
 	mlx_t		*mlx;
 	int			map_fd;
 	t_map		map;
+	t_file		file;
 	t_player	player;
 }	t_cub3d;
 
