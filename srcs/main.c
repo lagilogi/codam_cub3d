@@ -6,7 +6,7 @@
 /*   By: wsonepou <wsonepou@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/21 13:22:33 by wsonepou      #+#    #+#                 */
-/*   Updated: 2024/10/21 19:25:40 by wsonepou      ########   odam.nl         */
+/*   Updated: 2024/10/24 21:08:32 by wsonepou      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,24 +16,24 @@ static void	parse_tester(t_cub3d *cub3d)
 {
 	int	x = 0, y = 0;
 	
+	if (cub3d->map.f_r != -1 && cub3d->map.f_g != -1 && cub3d->map.f_b != -1)
+		printf("floor rgb: %d,%d,%d\n", cub3d->map.f_r, cub3d->map.f_g, cub3d->map.f_b);
 	if (cub3d->map.c_r != -1 && cub3d->map.c_g != -1 && cub3d->map.c_b != -1)
 		printf("ceiling rgb: %d,%d,%d\n", cub3d->map.c_r, cub3d->map.c_g, cub3d->map.c_b);
-	if (cub3d->map.f_r != -1 && cub3d->map.f_g != -1 && cub3d->map.f_b != -1)
-		printf("ceiling rgb: %d,%d,%d\n", cub3d->map.f_r, cub3d->map.f_g, cub3d->map.f_b);
 	if (cub3d->map.NO != NULL)
-		printf("NO not NULL\n");
+		printf("NORTH txtr Found\n");
 	if (cub3d->map.SO != NULL)
-		printf("NO not NULL\n");
+		printf("SOUTH txtr Found\n");
 	if (cub3d->map.WE != NULL)
-		printf("NO not NULL\n");
+		printf("WEST txtr Found\n");
 	if (cub3d->map.EA != NULL)
-		printf("NO not NULL\n");
+		printf("EAST txtr Found\n");
 	if (cub3d->map.grid != NULL)
 	{
 		while (cub3d->map.grid[y][x] != '\0')
-		while (y < cub3d->map.row)
+		while (y < cub3d->file.map_rows)
 		{
-			while (x < cub3d->map.col)
+			while (x < cub3d->file.map_cols)
 			{
 				printf("%c", cub3d->map.grid[y][x]);
 				x++;
@@ -67,18 +67,10 @@ static void	input_check(t_cub3d *cub3d, char *input)
 
 static void	cub3d_init(t_cub3d *cub3d)
 {
-	cub3d->mlx = NULL;
-    cub3d->map_fd = -1;
-	cub3d->map.grid = NULL;
-	cub3d->map.info = 0;
-	cub3d->map.NO = NULL;
-	cub3d->map.SO = NULL;
-	cub3d->map.WE = NULL;
-	cub3d->map.EA = NULL;
-    cub3d->file.file_data = NULL;
-    cub3d->file.line_count = 0;
-    cub3d->file.map_col = 0;
-    cub3d->file.map_row = 0;
+	ft_bzero(cub3d, sizeof(t_cub3d));
+	ft_bzero(&cub3d->file, sizeof(t_file));
+	ft_bzero(&cub3d->map, sizeof(t_map));
+	ft_bzero(&cub3d->player, sizeof(t_player));
 }
 
 int	main(int argc, char **argv)
@@ -87,10 +79,10 @@ int	main(int argc, char **argv)
 
 	if (argc != 2)
 		error_handler(1);
-	input_check(&cub3d, argv[1]);
 	cub3d_init(&cub3d);
+	input_check(&cub3d, argv[1]);
 	check_file(&cub3d);
-    load_file(&cub3d, argv[1]);
+    parse_file(&cub3d, argv[1]);
 	parse_tester(&cub3d);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: wsonepou <wsonepou@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/21 13:14:48 by wsonepou      #+#    #+#                 */
-/*   Updated: 2024/10/21 19:53:49 by wsonepou      ########   odam.nl         */
+/*   Updated: 2024/10/24 19:47:31 by wsonepou      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,16 @@ typedef struct s_player
 
 typedef struct s_file
 {
-	int		line_count;
 	int		addit_data_count;
 	int		map_cols;
 	int		map_rows;
+	int		NO;
+	int		SO;
+	int		WE;
+	int		EA;
+	int		F;
+	int		C;
+	bool	after_map;
 	char	**file_data;
 }	t_file;
 
@@ -62,14 +68,21 @@ typedef struct s_cub3d
 }	t_cub3d;
 
 // Map parser
-void	parse_map(t_cub3d *cub3d);
+void	check_file(t_cub3d *cub3d);
+int		get_floor_color(t_cub3d *cub3d, char *line, int i);
+int		get_ceiling_color(t_cub3d *cub3d, char *line, int i);
+void	parse_file(t_cub3d *cub3d, char *input);
 
 // Close program
 void	close_program(t_cub3d *cub3d, char *msg, int exit_code);
 void	error_handler(int i);
+void	checkfile_error_handler(t_cub3d *cub3d, int i);
+void	parsefile_error_handler(t_cub3d *cub3d, int i);
 
 // Utils
 int		check_whitespace(char c);
-int		ft_special_atoi(char *num);
+int		check_identifier(t_cub3d *cub3d, char *line);
+void	clear_gnl(t_cub3d *cub3d, int r_code, int error_h);
+char	*fix_line(char *line);
 
 #endif

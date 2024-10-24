@@ -12,22 +12,22 @@
 
 #include "../../include/cub3d.h"
 
-char	*line_fix(t_cub3d *cub3d, char *line)
+char	*fix_line(char *line)
 {
 	int		i;
 	int		o;
 	int		len;
 	char	*fixed_line;
 
-	i = 0;
-	while (line[i] && check_whitespace(line[i]))
+	i = 2;
+	while (check_whitespace(line[i]))
 		i++;
 	len = ft_strlen(line + i);
 	fixed_line = malloc(len * sizeof(char));
 	if (fixed_line == NULL)
 		return (NULL);
 	o = 0;
-	while (o < len)
+	while (o < len - 1)
 	{
 		fixed_line[o] = line[i];
 		i++;
@@ -35,33 +35,56 @@ char	*line_fix(t_cub3d *cub3d, char *line)
 	}
 	fixed_line[o] = '\0';
 	return (fixed_line);
-	
 }
 
 int	check_whitespace(char c)
 {
-	if (c == ' ' || (c >= '\t' && c <= '\r'))
+	if (c == ' ')
+		return (1);
+	else if (c == '\t')
+		return (1);
+	else if (c == '\v')
+		return (1);
+	else if (c == '\f')
+		return (1);
+	else if (c == '\r')
 		return (1);
 	return (0);
 }
 
-int	ft_special_atoi(char *num)
+int	check_identifier(t_cub3d *cub3d, char *line)
 {
-	int	i;
-	int	o;
+	if (ft_strnstr(line, "NO", 2))
+		cub3d->file.NO++;
+	else if (ft_strnstr(line, "SO", 2))
+		cub3d->file.SO++;
+	else if (ft_strnstr(line, "WE", 2))
+		cub3d->file.WE++;
+	else if (ft_strnstr(line, "EA", 2))
+		cub3d->file.EA++;	
+	else if (ft_strnstr(line, "F", 1))
+		cub3d->file.F++;
+	else if (ft_strnstr(line, "C", 1))
+		cub3d->file.C++;
+	if (cub3d->file.NO > 1 || cub3d->file.SO > 1 || cub3d->file.WE > 1 || cub3d->file.EA > 1)
+		return (3);
+	if (cub3d->file.F > 1 || cub3d->file.C > 1)
+		return (3);
+	return (0);
+}
 
-	i = 0;
-	o = 0;
-	if (num[i] == '+')
-		i++;
-	while (num[i] >= '0' && num[i] <= '9')
+void	clear_gnl(t_cub3d *cub3d, int r_code, int error_h)
+{
+	char	*line;
+
+	line = get_next_line(cub3d->map_fd);
+	while (line != NULL)
 	{
-		o = o * 10 + (num[i] - '0');
-		if (o > 255)
-			return (-1);
-		i++;
+		free (line);
+		line = get_next_line(cub3d->map_fd);
 	}
-	if (num[i] != ',' && num[i] != '\0')
-		return (-1);
-	return (o);
+	if (error_h == 1)
+		checkfile_error_handler(cub3d, r_code);
+	else if (error_h == 2)
+		parsefile_error_handler(cub3d, r_code);
 }

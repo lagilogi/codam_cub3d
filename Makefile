@@ -19,7 +19,8 @@ MLXFLAGS			=	$(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm
 MAIN_DIR			=	$(SRC_DIR)main.c
 
 PARSER_DIR			=	$(SRC_DIR)parser/check_file.c \
-						$(SRC_DIR)parser/load_file.c \
+						$(SRC_DIR)parser/get_fc_colors.c \
+						$(SRC_DIR)parser/parse_file.c \
 						$(SRC_DIR)parser/parse_utils.c
 
 CLOSING_DIR			=	$(SRC_DIR)close_program/error_handler.c \
