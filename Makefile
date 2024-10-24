@@ -70,8 +70,8 @@ clean:
 	@echo "Cleaning..."
 	@rm -rf $(OBJ_DIR)
 	@rm -rf $(BLD_DIR)
-	@rm -rf $(LIBMLX)/build
-	@make clean -C ./libraries/libft
+#	@rm -rf $(LIBMLX)/build
+#	@make clean -C ./libraries/libft
 
 fclean: clean
 	@rm -rf $(NAME)

@@ -12,7 +12,7 @@
 // Window and game settings
 #define WINDOW_WIDTH 1920
 #define WINDOW_HEIGHT 1080
-#define WALL_HEIGHT 64     // Standard wall height
+#define WALL_HEIGHT 60     // Standard wall height
 #define FOV 60            // Field of view in degrees
 #define MOVE_SPEED 0.1    // Player movement speed
 #define ROT_SPEED 0.05    // Player rotation speed

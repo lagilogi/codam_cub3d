@@ -14,7 +14,7 @@ void draw_vertical_line(mlx_image_t *img, int x, int start, int end, int color)
 	uint8_t g = (color >> 8) & 0xFF;
 	uint8_t b = color & 0xFF;
 	// Draw the line pixel by pixel
-	for (int y = start; y <= end; y++)
+	for (int y = end; y >= start; y--)
 	{
 		// Calculate pixel index (4 bytes per pixel: RGBA)
 		int index = (y * img->width + x) * 4; // it is stored bottom to top in index and * 4 is because there are 3 colours and transparency
@@ -26,69 +26,50 @@ void draw_vertical_line(mlx_image_t *img, int x, int start, int end, int color)
 	}
 }
 
-#define TEX_WIDTH 60
-#define TEX_HEIGHT 60
-
 void draw_vertical_line_texture(t_game *game, int x, int start, int end,
-                       double wall_x, int side)
+								double wall_x, int side)
 {
-    // Clamp coordinates
-    if (start < 0) start = 0;
-    if (end >= WINDOW_HEIGHT) end = WINDOW_HEIGHT - 1;
+	// Clamp coordinates
+	if (start < 0)
+		start = 0;
+	if (end >= WINDOW_HEIGHT)
+		end = WINDOW_HEIGHT - 1;
 
-	// wall_x = 0.4;
-    // Get texture X coordinate
-	int tex_x = (int)(wall_x * TEX_WIDTH);
+	// Get texture X coordinate
+	int tex_x = (int)(wall_x * WALL_HEIGHT);
 	if (side == 0 && game->player.dir_x > 0)
-		tex_x = TEX_WIDTH - tex_x - 1;
+		tex_x = WALL_HEIGHT - tex_x - 1;
 	if (side == 1 && game->player.dir_y < 0)
-		tex_x = TEX_WIDTH - tex_x - 1;
+		tex_x = WALL_HEIGHT - tex_x - 1;
 
 	// Calculate texture step and starting texture coordinate
-    double step = (double)TEX_HEIGHT / (end - start);
-    double tex_pos = (start - WINDOW_HEIGHT / 2 + (end - start) / 2) * step;
+	double step = (double)WALL_HEIGHT / (end - start);
+	double tex_pos = (start - WINDOW_HEIGHT / 2 + (end - start) / 2) * step;
 
-    // Draw the textured vertical line
-    for (int y = start; y < end; y++)
-    {
-        int tex_y = (int)tex_pos & (TEX_HEIGHT - 1);
-        tex_pos += step;
+	// Draw the textured vertical line
+	for (int y = start; y < end; y++)
+	{
+		int tex_y = (int)tex_pos;
+		tex_pos += step;
 
-        // Get texture color
-		int index = (TEX_HEIGHT * tex_y + tex_x) * 4;
+		// Get texture color
+		int index = (WALL_HEIGHT * tex_y + tex_x) * 4;
 
 		uint8_t r = game->wall_image->pixels[index];
 		uint8_t g = game->wall_image->pixels[index + 1];
 		uint8_t b = game->wall_image->pixels[index + 2];
-		// uint8_t a = game->wall_texture->pixels[index + 3];
 
-		// unsigned int color = r << 24 | g << 16 | b << 8 | a;
-
-        // // Darken colors for y-sides (simple shading)
-        // if (side == 1)
-        // {
-        //     r = r * 0.7;
-		// 	b = b * 0.7;
-		// 	g = g * 0.7;
-        //     // color = (r << 16) | (g << 8) | b;
-        // }
-
-        // Draw pixel
-        index = (y * game->img->width + x) * 4;
-        game->img->pixels[index] = r;
-        game->img->pixels[index + 1] = g;
-        game->img->pixels[index + 2] = b;
-        game->img->pixels[index + 3] = 255;
-    }
+		// Draw pixel
+		index = (y * WINDOW_WIDTH + x) * 4;
+		game->img->pixels[index] = r;
+		game->img->pixels[index + 1] = g;
+		game->img->pixels[index + 2] = b;
+		game->img->pixels[index + 3] = 255;
+	}
 }
-
-#define texture_height 60
-#define texture_width 60
 
 void render_frame(t_game *game)
 {
-
-
 	for (int x = 0; x < WINDOW_WIDTH; x++)
 	{
 		// calculate ray position and direction
@@ -114,8 +95,6 @@ void render_frame(t_game *game)
 		// what direction to step in x or y-direction (either +1 or -1)
 		int stepX;
 		int stepY;
-
-
 
 		// calculate step and initial sideDist
 		if (rayDirX < 0)

@@ -31,7 +31,7 @@ void init_game(t_game *game)
         mlx_terminate(game->mlx);
         exit(1);
     }
-    game->wall_texture = mlx_load_png("images/path.png");
+    game->wall_texture = mlx_load_png("images/exit.png");
 	if (!game->wall_texture)
 		exit(1);
 	game->wall_image = mlx_texture_to_image(game->mlx, game->wall_texture);
