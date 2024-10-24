@@ -10,11 +10,11 @@
 #include <stdio.h>	  // For sprintf
 
 // Window and game settings
-#define WINDOW_WIDTH 640
-#define WINDOW_HEIGHT 640
+#define WINDOW_WIDTH 1920
+#define WINDOW_HEIGHT 1080
 #define WALL_HEIGHT 64     // Standard wall height
 #define FOV 60            // Field of view in degrees
-#define MOVE_SPEED 1    // Player movement speed
+#define MOVE_SPEED 0.1    // Player movement speed
 #define ROT_SPEED 0.05    // Player rotation speed
 
 // FPS counter settings
@@ -46,6 +46,8 @@ typedef struct s_game {
     clock_t last_fps_update; // Last FPS counter update
     int frame_count;         // Frames since last FPS update
     double current_fps;      // Current FPS value
+    mlx_texture_t *wall_texture;
+	mlx_image_t *wall_image;
 } t_game;
 
 /* Function prototypes */

@@ -9,11 +9,11 @@ int main(void)
 
     // Initialize game resources
     init_game(&game);
-    
+
     // Set up game loop with input handling
     mlx_loop_hook(game.mlx, handle_input, &game);
     mlx_loop(game.mlx);
-    
+
     // Clean up resources
     cleanup(&game);
     return (0);
