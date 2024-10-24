@@ -36,7 +36,7 @@ void draw_vertical_line_texture(t_game *game, int x, int start, int end,
     if (start < 0) start = 0;
     if (end >= WINDOW_HEIGHT) end = WINDOW_HEIGHT - 1;
 
-	wall_x = 0.4;
+	// wall_x = 0.4;
     // Get texture X coordinate
 	int tex_x = (int)(wall_x * TEX_WIDTH);
 	if (side == 0 && game->player.dir_x > 0)
@@ -55,7 +55,7 @@ void draw_vertical_line_texture(t_game *game, int x, int start, int end,
         tex_pos += step;
 
         // Get texture color
-		int index = TEX_HEIGHT * tex_y + tex_x;
+		int index = (TEX_HEIGHT * tex_y + tex_x) * 4;
 
 		uint8_t r = game->wall_image->pixels[index];
 		uint8_t g = game->wall_image->pixels[index + 1];
@@ -67,10 +67,10 @@ void draw_vertical_line_texture(t_game *game, int x, int start, int end,
         // // Darken colors for y-sides (simple shading)
         // if (side == 1)
         // {
-        //     uint8_t r = ((color >> 16) & 0xFF) * 0.7;
-        //     uint8_t g = ((color >> 8) & 0xFF) * 0.7;
-        //     uint8_t b = (color & 0xFF) * 0.7;
-        //     color = (r << 16) | (g << 8) | b;
+        //     r = r * 0.7;
+		// 	b = b * 0.7;
+		// 	g = g * 0.7;
+        //     // color = (r << 16) | (g << 8) | b;
         // }
 
         // Draw pixel

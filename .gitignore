@@ -1,0 +1,11 @@
+# Ignore everything in the build folder
+build/
+
+# Ignore the cub3D program
+cub3D
+
+# Ignore everything in the libraries/MLX42 folder
+libraries/MLX42/
+
+# Ignore everything in the libraries/libft/objects folder
+libraries/libft/objects/
