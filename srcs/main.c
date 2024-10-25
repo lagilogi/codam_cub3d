@@ -16,32 +16,35 @@ static void	parse_tester(t_cub3d *cub3d)
 {
 	int	x = 0, y = 0;
 	
-	if (cub3d->map.f_r != -1 && cub3d->map.f_g != -1 && cub3d->map.f_b != -1)
-		printf("floor rgb: %d,%d,%d\n", cub3d->map.f_r, cub3d->map.f_g, cub3d->map.f_b);
-	if (cub3d->map.c_r != -1 && cub3d->map.c_g != -1 && cub3d->map.c_b != -1)
-		printf("ceiling rgb: %d,%d,%d\n", cub3d->map.c_r, cub3d->map.c_g, cub3d->map.c_b);
-	if (cub3d->map.NO != NULL)
-		printf("NORTH txtr Found\n");
-	if (cub3d->map.SO != NULL)
-		printf("SOUTH txtr Found\n");
-	if (cub3d->map.WE != NULL)
-		printf("WEST txtr Found\n");
-	if (cub3d->map.EA != NULL)
-		printf("EAST txtr Found\n");
-	if (cub3d->map.grid != NULL)
+	printf("\n");
+	printf("floor rgb: %d,%d,%d\n", cub3d->map.f_r, cub3d->map.f_g, cub3d->map.f_b);
+	printf("ceiling rgb: %d,%d,%d\n", cub3d->map.c_r, cub3d->map.c_g, cub3d->map.c_b);
+
+	printf("\n");
+
+	printf("NORTH txtr Found\n");
+	printf("SOUTH txtr Found\n");
+	printf("WEST txtr Found\n");
+	printf("EAST txtr Found\n");
+
+	printf("\n");
+
+	printf("player count: %d\n", cub3d->file.player_count);
+	printf("player faces: %c\n", cub3d->player.facing);
+	printf("player y: %d, x: %d\n", cub3d->player.y, cub3d->player.x);
+
+	printf("\n");
+
+	while (y < cub3d->file.map_rows)
 	{
-		while (cub3d->map.grid[y][x] != '\0')
-		while (y < cub3d->file.map_rows)
+		while (x < cub3d->file.map_cols)
 		{
-			while (x < cub3d->file.map_cols)
-			{
-				printf("%c", cub3d->map.grid[y][x]);
-				x++;
-			}
-			printf("\n");
-			x = 0;
-			y++;
+			printf("%c", cub3d->map.grid[y][x]);
+			x++;
 		}
+		printf("\n");
+		x = 0;
+		y++;
 	}
 }
 
@@ -81,8 +84,9 @@ int	main(int argc, char **argv)
 		error_handler(1);
 	cub3d_init(&cub3d);
 	input_check(&cub3d, argv[1]);
-	check_file(&cub3d);
+	check_file(&cub3d, NULL, 0);
     parse_file(&cub3d, argv[1]);
 	parse_tester(&cub3d);
+	close_program(&cub3d, NULL, 0);
 	return (0);
 }

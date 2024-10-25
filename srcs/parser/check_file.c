@@ -12,16 +12,23 @@
 
 #include "../../include/cub3d.h"
 
-static int	check_map(t_cub3d *cub3d, char *line, int i)
+static int	check_map(t_cub3d *cub3d, char *str, int i)
 {
 	int map_size;
 
 	map_size = 0;
 	if (cub3d->file.addit_data_count != 6)
 		return (3);
-	while (line[i] != '\n' && line[i] != '\0')
+	while (str[i] != '\n' && str[i] != '\0')
 	{
-		if (line[i] != '1' && line[i] != '0' && line[i] != 'N' && line[i] != 'S' && line[i] != 'W' && line[i] != 'E' && line[i] != ' ')
+		if (str[i] == 'N' || str[i] == 'S' || str[i] == 'W' || str[i] == 'E')
+		{
+			cub3d->file.player_count++;
+			cub3d->player.y = cub3d->file.map_rows;
+			cub3d->player.x = i;
+			cub3d->player.facing = str[i];
+		}
+		if (check_char(str[i], 7) == 0)
 			return (4);
 		else
 			map_size++;
@@ -35,9 +42,6 @@ static int	check_map(t_cub3d *cub3d, char *line, int i)
 
 static int check_texture(t_cub3d *cub3d, char *line, int i)
 {
-	int	o;
-
-	o = 0;
 	if (!check_whitespace(line[2]))
 		return (2);
 	if (check_identifier(cub3d, line))
@@ -85,7 +89,7 @@ static int	check_line(t_cub3d *cub3d, char *line, int i)
 	else if (line[i] == '1' || line[i] == '0')
 	{
 		if (check_map(cub3d, line, 0) > 0)
-			return (3);
+			return (4);
 	}
 	else if (line[i] != '\n' && line[i] != '\0')
 		return (5);
@@ -94,17 +98,16 @@ static int	check_line(t_cub3d *cub3d, char *line, int i)
 	return (0);
 }
 
-void	check_file(t_cub3d *cub3d)
+void	check_file(t_cub3d *cub3d, char *line, int r_code)
 {
-	char	*line;
-	int		r_code;
-
 	line = get_next_line(cub3d->map_fd);
 	if (line == NULL)
-		close_program(cub3d, "empty file", 1);
+		checkfile_error_handler(10);
 	while (line != NULL)
 	{
 		r_code = check_line(cub3d, line, 0);
+		if (cub3d->file.addit_data_count == 6 && cub3d->file.map_rows == 0)
+			cub3d->file.lines_till_map++;
 		free(line);
 		if (r_code > 0)
 			clear_gnl(cub3d, r_code, 1);
@@ -112,10 +115,13 @@ void	check_file(t_cub3d *cub3d)
 	}
 	free(line);
 	if (cub3d->file.addit_data_count < 6 || cub3d->file.map_rows == 0)
-		checkfile_error_handler(cub3d, 6);
+		checkfile_error_handler(6);
 	else if (cub3d->file.map_cols < 3 || cub3d->file.map_rows < 3)
-		checkfile_error_handler(cub3d, 7);
+		checkfile_error_handler(7);
+	else if (cub3d->file.player_count != 1)
+		checkfile_error_handler(8);
 	if (close(cub3d->map_fd) == -1) 
-		checkfile_error_handler(cub3d, 8);
+		checkfile_error_handler(9);
 	cub3d->map_fd = 0;
+	cub3d->file.lines_till_map--;
 }

@@ -12,29 +12,20 @@
 
 #include "../../include/cub3d.h"
 
-char	*fix_line(char *line)
+int	check_char(char c, int len)
 {
+	char	*map_chars;
 	int		i;
-	int		o;
-	int		len;
-	char	*fixed_line;
 
-	i = 2;
-	while (check_whitespace(line[i]))
-		i++;
-	len = ft_strlen(line + i);
-	fixed_line = malloc(len * sizeof(char));
-	if (fixed_line == NULL)
-		return (NULL);
-	o = 0;
-	while (o < len - 1)
+	i = 0;
+	map_chars = "NSWE01 ";
+	while (i < len)
 	{
-		fixed_line[o] = line[i];
+		if (map_chars[i] == c)
+			return (1);
 		i++;
-		o++;
 	}
-	fixed_line[o] = '\0';
-	return (fixed_line);
+	return (0);
 }
 
 int	check_whitespace(char c)
@@ -73,6 +64,22 @@ int	check_identifier(t_cub3d *cub3d, char *line)
 	return (0);
 }
 
+void	gnl_till_map(t_cub3d *cub3d)
+{
+	char	*line;
+	int		i;
+
+	i = 0;
+	while (i < cub3d->file.lines_till_map)
+	{
+		line = get_next_line(cub3d->map_fd);
+		if (line == NULL)
+			parsefile_error_handler(cub3d, 1);
+		free (line);
+		i++;
+	}
+}
+
 void	clear_gnl(t_cub3d *cub3d, int r_code, int error_h)
 {
 	char	*line;
@@ -83,8 +90,10 @@ void	clear_gnl(t_cub3d *cub3d, int r_code, int error_h)
 		free (line);
 		line = get_next_line(cub3d->map_fd);
 	}
-	if (error_h == 1)
-		checkfile_error_handler(cub3d, r_code);
+	if (error_h == 0)
+		return ;
+	else if (error_h == 1)
+		checkfile_error_handler(r_code);
 	else if (error_h == 2)
 		parsefile_error_handler(cub3d, r_code);
 }

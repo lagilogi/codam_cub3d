@@ -24,7 +24,7 @@ typedef struct s_player
 {
 	int		x;
 	int		y;
-	char	f;
+	char	facing;
 }	t_player;
 
 typedef struct s_file
@@ -38,14 +38,14 @@ typedef struct s_file
 	int		EA;
 	int		F;
 	int		C;
+	int		lines_till_map;	// Lines till map after last info found
+	int		player_count;
 	bool	after_map;
-	char	**file_data;
 }	t_file;
 
 typedef struct s_map
 {
 	char			**grid;
-	int				info;
 	int				f_r;
 	int				f_g;
 	int				f_b;
@@ -67,22 +67,24 @@ typedef struct s_cub3d
 	t_player	player;
 }	t_cub3d;
 
-// Map parser
-void	check_file(t_cub3d *cub3d);
+// Parser
+void	check_file(t_cub3d *cub3d, char *line, int r_code);
 int		get_floor_color(t_cub3d *cub3d, char *line, int i);
 int		get_ceiling_color(t_cub3d *cub3d, char *line, int i);
 void	parse_file(t_cub3d *cub3d, char *input);
+void	parse_map(t_cub3d *cub3d);
+
+// Parser Utils
+int		check_whitespace(char c);
+int		check_identifier(t_cub3d *cub3d, char *line);
+void	clear_gnl(t_cub3d *cub3d, int r_code, int error_h);
+void	gnl_till_map(t_cub3d *cub3d);
+int		check_char(char c, int x);
 
 // Close program
 void	close_program(t_cub3d *cub3d, char *msg, int exit_code);
 void	error_handler(int i);
-void	checkfile_error_handler(t_cub3d *cub3d, int i);
+void	checkfile_error_handler(int i);
 void	parsefile_error_handler(t_cub3d *cub3d, int i);
-
-// Utils
-int		check_whitespace(char c);
-int		check_identifier(t_cub3d *cub3d, char *line);
-void	clear_gnl(t_cub3d *cub3d, int r_code, int error_h);
-char	*fix_line(char *line);
 
 #endif
