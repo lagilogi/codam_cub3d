@@ -6,7 +6,7 @@
 /*   By: wsonepou <wsonepou@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/24 18:43:25 by wsonepou      #+#    #+#                 */
-/*   Updated: 2024/10/24 21:00:48 by wsonepou      ########   odam.nl         */
+/*   Updated: 2024/10/28 14:18:35 by wsonepou      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ static int	ft_special_atoi(char *num)
 
 	i = 0;
 	o = 0;
+	if (num[i] == '\n' || num[i] == '\0')
+		return (-1);
 	if (num[i] == '+')
 		i++;
 	while (num[i] >= '0' && num[i] <= '9')

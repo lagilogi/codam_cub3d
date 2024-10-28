@@ -1,42 +1,42 @@
-// /* ************************************************************************** */
-// /*                                                                            */
-// /*                                                        ::::::::            */
-// /*   parse_map.c                                        :+:    :+:            */
-// /*                                                     +:+                    */
-// /*   By: wsonepou <wsonepou@student.codam.nl>         +#+                     */
-// /*                                                   +#+                      */
-// /*   Created: 2024/10/21 13:26:13 by wsonepou      #+#    #+#                 */
-// /*   Updated: 2024/10/21 20:01:42 by wsonepou      ########   odam.nl         */
-// /*                                                                            */
-// /* ************************************************************************** */
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   parse_file.c                                       :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: wsonepou <wsonepou@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/10/21 13:26:13 by wsonepou      #+#    #+#                 */
+/*   Updated: 2024/10/28 14:05:22 by wsonepou      ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../../include/cub3d.h"
 
-static int set_texture(t_cub3d *cub3d, char *txtr_str, char c)
+static int	set_texture(t_cub3d *cub3d, char *txtr_str, char c)
 {
 	if (c == 'N')
 	{
 		cub3d->map.NO = mlx_load_png(txtr_str);
 		if (cub3d->map.NO == NULL)
-			return (2);
+			return (1);
 	}
 	if (c == 'S')
 	{
 		cub3d->map.SO = mlx_load_png(txtr_str);
 		if (cub3d->map.SO == NULL)
-			return (2);
+			return (1);
 	}
 	if (c == 'W')
 	{
 		cub3d->map.WE = mlx_load_png(txtr_str);
 		if (cub3d->map.WE == NULL)
-			return (2);
+			return (1);
 	}
 	if (c == 'E')
 	{
 		cub3d->map.EA = mlx_load_png(txtr_str);
 		if (cub3d->map.EA == NULL)
-			return (2);
+			return (1);
 	}
 	return (0);
 }
@@ -62,7 +62,7 @@ static int	get_txtr_str(t_cub3d *cub3d, char *line)
 	if (set_texture(cub3d, txtr_str, line[0]) > 0)
 	{
 		free (txtr_str);
-		return (2);
+		return (1);
 	}
 	free (txtr_str);
 	return (-1);

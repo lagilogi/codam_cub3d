@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   parse_map.c                                        :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: wsonepou <wsonepou@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/10/28 13:28:10 by wsonepou      #+#    #+#                 */
+/*   Updated: 2024/10/28 14:07:11 by wsonepou      ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/cub3d.h"
 
 static void	check_map_edge(t_cub3d *cub3d, int rows, int cols)
@@ -35,7 +47,7 @@ static void	check_inner_map(t_cub3d *cub3d, int rows, int cols)
 		{
 			if (check_char(cub3d->map.grid[y][x], 5))
 			{
-				if (!check_char(cub3d->map.grid[y + 1][x], 6) || !check_char(cub3d->map.grid[y + 1][x], 6) || !check_char(cub3d->map.grid[y][x + 1], 6) || !check_char(cub3d->map.grid[y][x - 1], 6))
+				if (!check_char(cub3d->map.grid[y + 1][x], 6) || !check_char(cub3d->map.grid[y - 1][x], 6) || !check_char(cub3d->map.grid[y][x + 1], 6) || !check_char(cub3d->map.grid[y][x - 1], 6))
 					parsefile_error_handler(cub3d, 2);
 			}
 			x++;
@@ -101,11 +113,11 @@ void	parse_map(t_cub3d *cub3d)
 		y++;
 	}
 	clear_gnl(cub3d, 0, 0);
-	if (close(cub3d->map_fd) == -1) 
+	if (close(cub3d->map_fd) == -1)
 		parsefile_error_handler(cub3d, 3);
 	cub3d->map_fd = 0;
 	check_map_edge(cub3d, cub3d->file.map_rows, cub3d->file.map_cols);
 	check_inner_map(cub3d, cub3d->file.map_rows, cub3d->file.map_cols);
-	if (close(cub3d->map_fd) == -1) 
+	if (close(cub3d->map_fd) == -1)
 		parsefile_error_handler(cub3d, 3);
 }

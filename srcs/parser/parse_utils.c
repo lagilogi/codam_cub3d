@@ -1,14 +1,14 @@
-// /* ************************************************************************** */
-// /*                                                                            */
-// /*                                                        ::::::::            */
-// /*   parse_utils.c                                      :+:    :+:            */
-// /*                                                     +:+                    */
-// /*   By: wsonepou <wsonepou@student.codam.nl>         +#+                     */
-// /*                                                   +#+                      */
-// /*   Created: 2024/10/21 18:10:42 by wsonepou      #+#    #+#                 */
-// /*   Updated: 2024/10/21 20:01:14 by wsonepou      ########   odam.nl         */
-// /*                                                                            */
-// /* ************************************************************************** */
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   parse_utils.c                                      :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: wsonepou <wsonepou@student.codam.nl>         +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/10/21 18:10:42 by wsonepou      #+#    #+#                 */
+/*   Updated: 2024/10/28 14:06:04 by wsonepou      ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../../include/cub3d.h"
 
@@ -52,7 +52,7 @@ int	check_identifier(t_cub3d *cub3d, char *line)
 	else if (ft_strnstr(line, "WE", 2))
 		cub3d->file.WE++;
 	else if (ft_strnstr(line, "EA", 2))
-		cub3d->file.EA++;	
+		cub3d->file.EA++;
 	else if (ft_strnstr(line, "F", 1))
 		cub3d->file.F++;
 	else if (ft_strnstr(line, "C", 1))

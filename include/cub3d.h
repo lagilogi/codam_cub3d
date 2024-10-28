@@ -6,7 +6,7 @@
 /*   By: wsonepou <wsonepou@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/21 13:14:48 by wsonepou      #+#    #+#                 */
-/*   Updated: 2024/10/24 19:47:31 by wsonepou      ########   odam.nl         */
+/*   Updated: 2024/10/28 16:06:45 by wsonepou      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ typedef struct s_player
 
 typedef struct s_file
 {
-	int		addit_data_count;
+	int		data_c;
 	int		map_cols;
 	int		map_rows;
 	int		NO;
@@ -38,7 +38,7 @@ typedef struct s_file
 	int		EA;
 	int		F;
 	int		C;
-	int		lines_till_map;	// Lines till map after last info found
+	int		lines_till_map;
 	int		player_count;
 	bool	after_map;
 }	t_file;

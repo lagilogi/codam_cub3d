@@ -6,7 +6,7 @@
 /*   By: wsonepou <wsonepou@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/21 17:09:11 by wsonepou      #+#    #+#                 */
-/*   Updated: 2024/10/24 19:30:52 by wsonepou      ########   odam.nl         */
+/*   Updated: 2024/10/28 14:26:45 by wsonepou      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,19 +34,17 @@ void	checkfile_error_handler(int i)
 	else if (i == 3)
 		write(2, "ERROR: invalid amount of required info\n", 40);
 	else if (i == 4)
-		write(2, "ERROR: invalid map\n", 20);
+		write(2, "ERROR: invalid maps\n", 21);
 	else if (i == 5)
 		write(2, "ERROR: Invalid identifier in file\n", 35);
 	else if (i == 6)
 		write(2, "ERROR: Missing map information\n", 32);
-	else if (i == 7)
-		write(2, "ERROR: Invalid map size\n", 25);
 	else if (i == 8)
 		write(2, "ERROR: invalid player amount\n", 30);
 	else if (i == 9)
 		write(2, "ERROR: couldn't close map_fd\n", 30);
 	else if (i == 10)
-		write(2, "ERROR: check_file failed malloc\n", 33);
+		write(2, "ERROR: empty file or failed malloc gnl\n", 36);
 	close_program(NULL, NULL, 1);
 }
 
