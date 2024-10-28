@@ -10,69 +10,57 @@ void draw_vertical_line(mlx_image_t *img, int x, int start, int end, int color)
 		end = WINDOW_HEIGHT - 1;
 
 	// Extract RGB components from color
-	uint8_t r = (color >> 16) & 0xFF;
-	uint8_t g = (color >> 8) & 0xFF;
-	uint8_t b = color & 0xFF;
+	// uint8_t r = (color >> 16) & 0xFF;
+	// uint8_t g = (color >> 8) & 0xFF;
+	// uint8_t b = color & 0xFF;
 	// Draw the line pixel by pixel
 	for (int y = start; y <= end; y++)
 	{
-		// Calculate pixel index (4 bytes per pixel: RGBA)
-		int index = (y * img->width + x) * 4; // it is stored bottom to top in index and * 4 is because there are 3 colours and transparency
-		// Set pixel color components
-		img->pixels[index] = r;
-		img->pixels[index + 1] = g;
-		img->pixels[index + 2] = b;
-		img->pixels[index + 3] = 255; // Alpha (fully opaque)
+		mlx_put_pixel(img, x, y, color);
+		// // Calculate pixel index (4 bytes per pixel: RGBA)
+		// int index = (y * img->width + x) * 4; // it is stored bottom to top in index and * 4 is because there are 3 colours and transparency
+		// // Set pixel color components
+		// img->pixels[index] = r;
+		// img->pixels[index + 1] = g;
+		// img->pixels[index + 2] = b;
+		// img->pixels[index + 3] = 255; // Alpha (fully opaque)
 	}
 }
 
-#define TEX_WIDTH 60
-#define TEX_HEIGHT 60
 
 void draw_vertical_line_texture(t_game *game, int x, int start, int end,
                        double wall_x, int side)
 {
-    // Clamp coordinates
-    if (start < 0) start = 0;
-    if (end >= WINDOW_HEIGHT) end = WINDOW_HEIGHT - 1;
-
-	wall_x = 0.4;
+	double tex_pos = 0;
+    double step = (double)WALL_HEIGHT / (end - start);
+	if (end < WINDOW_HEIGHT)
+		tex_pos = 0;
+	else
+		tex_pos = (end - WINDOW_HEIGHT) * step;
     // Get texture X coordinate
-	int tex_x = (int)(wall_x * TEX_WIDTH);
+	int tex_x = (int)(wall_x * WALL_HEIGHT);
 	if (side == 0 && game->player.dir_x > 0)
-		tex_x = TEX_WIDTH - tex_x - 1;
+		tex_x = WALL_HEIGHT - tex_x - 1;
 	if (side == 1 && game->player.dir_y < 0)
-		tex_x = TEX_WIDTH - tex_x - 1;
+		tex_x = WALL_HEIGHT - tex_x - 1;
 
 	// Calculate texture step and starting texture coordinate
-    double step = (double)TEX_HEIGHT / (end - start);
-    double tex_pos = (start - WINDOW_HEIGHT / 2 + (end - start) / 2) * step;
-
-    // Draw the textured vertical line
+	    // Clamp coordinates
+    if (start < 0) start = 0;
+	if (end >= WINDOW_HEIGHT)
+		end = WINDOW_HEIGHT;
+	// Draw the textured vertical line
     for (int y = start; y < end; y++)
     {
-        int tex_y = (int)tex_pos & (TEX_HEIGHT - 1);
+        int tex_y = (int)tex_pos;
         tex_pos += step;
 
         // Get texture color
-		int index = TEX_HEIGHT * tex_y + tex_x;
+		int index = (WALL_HEIGHT * tex_y + tex_x) * 4;
 
 		uint8_t r = game->wall_image->pixels[index];
 		uint8_t g = game->wall_image->pixels[index + 1];
 		uint8_t b = game->wall_image->pixels[index + 2];
-		// uint8_t a = game->wall_texture->pixels[index + 3];
-
-		// unsigned int color = r << 24 | g << 16 | b << 8 | a;
-
-        // // Darken colors for y-sides (simple shading)
-        // if (side == 1)
-        // {
-        //     uint8_t r = ((color >> 16) & 0xFF) * 0.7;
-        //     uint8_t g = ((color >> 8) & 0xFF) * 0.7;
-        //     uint8_t b = (color & 0xFF) * 0.7;
-        //     color = (r << 16) | (g << 8) | b;
-        // }
-
         // Draw pixel
         index = (y * game->img->width + x) * 4;
         game->img->pixels[index] = r;
@@ -82,111 +70,101 @@ void draw_vertical_line_texture(t_game *game, int x, int start, int end,
     }
 }
 
-#define texture_height 60
-#define texture_width 60
-
 void render_frame(t_game *game)
 {
-
-
+	t_raycast cast;
 	for (int x = 0; x < WINDOW_WIDTH; x++)
 	{
 		// calculate ray position and direction
-		double cameraX = 2 * x / (double)WINDOW_WIDTH - 1; // x-coordinate in camera space left side -1 right side 1
-		double rayDirX = game->player.dir_x + game->player.plane_x * cameraX;
-		double rayDirY = game->player.dir_y + game->player.plane_y * cameraX;
+		cast.camera_x = 2 * x / (double)WINDOW_WIDTH - 1; // x-coordinate in camera space left side -1 right side 1
+		cast.ray_dir_x = game->player.dir_x + game->player.plane_x * cast.camera_x;
+		cast.ray_dir_y = game->player.dir_y + game->player.plane_y * cast.camera_x;
 
 		// which box of the map we're in
 		// length of ray from current position to next x or y-side
-		double sideDistX;
-		double sideDistY;
 
-		int mapX = (int)game->player.pos_x;
-		int mapY = (int)game->player.pos_y;
+		cast.map_x = (int)game->player.pos_x;
+		cast.map_y = (int)game->player.pos_y;
 
 		// length of ray from one x or y-side to next x or y-side
-		double deltaDistX = sqrt(1 + (rayDirY * rayDirY) / (rayDirX * rayDirX));
-		double deltaDistY = sqrt(1 + (rayDirX * rayDirX) / (rayDirY * rayDirY));
-		// double deltaDistX = fabs(1 / rayDirX); // get absolute value of x and y
-		// double deltaDistY = fabs(1 / rayDirY);
-		double perpWallDist;
+		cast.delta_dist_x = sqrt(1 + (cast.ray_dir_y * cast.ray_dir_y) / (cast.ray_dir_x * cast.ray_dir_x));
+		cast.delta_dist_y = sqrt(1 + (cast.ray_dir_x * cast.ray_dir_x) / (cast.ray_dir_y * cast.ray_dir_y));
+		// double cast.delta_dist_x = fabs(1 / cast.ray_dir_x); // get absolute value of x and y
+		// double cast.delta_dist_y = fabs(1 / cast.ray_dir_y);
 
 		// what direction to step in x or y-direction (either +1 or -1)
-		int stepX;
-		int stepY;
 
 
 
 		// calculate step and initial sideDist
-		if (rayDirX < 0)
+		if (cast.ray_dir_x < 0)
 		{
-			stepX = -1;
-			sideDistX = (game->player.pos_x - mapX) * deltaDistX;
+			cast.step_x = -1;
+			cast.side_dist_x = (game->player.pos_x - cast.map_x) * cast.delta_dist_x;
 		}
 		else
 		{
-			stepX = 1;
-			sideDistX = (mapX + 1.0 - game->player.pos_x) * deltaDistX;
+			cast.step_x = 1;
+			cast.side_dist_x = (cast.map_x + 1.0 - game->player.pos_x) * cast.delta_dist_x;
 		}
-		if (rayDirY < 0)
+		if (cast.ray_dir_y < 0)
 		{
-			stepY = -1;
-			sideDistY = (game->player.pos_y - mapY) * deltaDistY;
+			cast.step_y = -1;
+			cast.side_dist_y = (game->player.pos_y - cast.map_y) * cast.delta_dist_y;
 		}
 		else
 		{
-			stepY = 1;
-			sideDistY = (mapY + 1.0 - game->player.pos_y) * deltaDistY;
+			cast.step_y = 1;
+			cast.side_dist_y = (cast.map_y + 1.0 - game->player.pos_y) * cast.delta_dist_y;
 		}
 		// perform DDA
 
-		int hit = 0; // was there a wall hit?
-		int side;	 // was a NS or a EW wall hit?
-		while (hit == false)
+		// int hit = 0; // was there a wall hit?
+		while (1)
 		{
 			// jump to next map square, OR in x-direction, OR in y-direction
-			if (sideDistX < sideDistY)
+			if (cast.side_dist_x < cast.side_dist_y)
 			{
-				sideDistX += deltaDistX;
-				mapX += stepX;
-				side = 0;
+				cast.side_dist_x += cast.delta_dist_x;
+				cast.map_x += cast.step_x;
+				cast.side_hit = vertical;
 			}
 			else
 			{
-				sideDistY += deltaDistY;
-				mapY += stepY;
-				side = 1;
+				cast.side_dist_y += cast.delta_dist_y;
+				cast.map_y += cast.step_y;
+				cast.side_hit = horizontal;
 			}
 			// Check if ray has hit a wall
-			if (game->world_map[mapX + mapY * game->map_width] > 0)
-				hit = true;
+			if (game->world_map[cast.map_x + cast.map_y * game->map_width] > 0)
+				break ;
 		}
 
 		// Calculate distance of perpendicular ray (Euclidean distance would give fisheye effect!)
-		if (side == 0)
-			perpWallDist = (mapX - game->player.pos_x + (1 - stepX) / 2) / rayDirX;
+		if (cast.side_hit == vertical)
+			cast.perp_wall_dist = (cast.map_x - game->player.pos_x + (1 - cast.step_x) / 2) / cast.ray_dir_x;
 		else
-			perpWallDist = (mapY - game->player.pos_y + (1 - stepY) / 2) / rayDirY;
+			cast.perp_wall_dist = (cast.map_y - game->player.pos_y + (1 - cast.step_y) / 2) / cast.ray_dir_y;
 
 		// Calculate height of line to draw on screen
-		int lineHeight = (int)(WINDOW_HEIGHT / perpWallDist);
+		cast.wall_height = (int)(WINDOW_HEIGHT / cast.perp_wall_dist);
 
 		// calculate lowest and highest pixel to fill in current stripe
-		int drawStart = -lineHeight / 2 + WINDOW_HEIGHT / 2;
-		if (drawStart < 0)
-			drawStart = 0;
-		int drawEnd = lineHeight / 2 + WINDOW_HEIGHT / 2;
-		if (drawEnd >= WINDOW_HEIGHT)
-			drawEnd = WINDOW_HEIGHT - 1;
+		cast.wall_top = -cast.wall_height / 2 + WINDOW_HEIGHT / 2;
+		// if (cast.wall_top < 0)
+		// 	cast.wall_top = 0;
+		cast.wall_bottom = cast.wall_height / 2 + WINDOW_HEIGHT / 2;
+		// if (cast.wall_bottom >= WINDOW_HEIGHT)
+		// 	cast.wall_bottom = WINDOW_HEIGHT - 1;
 		double wallX; // where exactly the wall was hit
-		if (side == 0)
-			wallX = game->player.pos_y + perpWallDist * rayDirY;
+		if (cast.side_hit == 0)
+			wallX = game->player.pos_y + cast.perp_wall_dist * cast.ray_dir_y;
 		else
-			wallX = game->player.pos_x + perpWallDist * rayDirX;
+			wallX = game->player.pos_x + cast.perp_wall_dist * cast.ray_dir_x;
 		wallX -= floor((wallX));
 
-		draw_vertical_line_texture(game, x, drawStart, drawEnd, wallX, side);
-		draw_vertical_line(game->img, x, 0, drawStart, 0x87CEEB);
-		draw_vertical_line(game->img, x, drawEnd, WINDOW_HEIGHT, 0x808080);
+		draw_vertical_line_texture(game, x, cast.wall_top, cast.wall_bottom, wallX, cast.side_hit);
+		draw_vertical_line(game->img, x, 0, cast.wall_top, 0x000000FF);
+		draw_vertical_line(game->img, x, cast.wall_bottom, WINDOW_HEIGHT, 0xFFFFFFFF);
 	}
 }

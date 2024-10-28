@@ -11,11 +11,11 @@
 
 // Window and game settings
 #define WINDOW_WIDTH 1920
-#define WINDOW_HEIGHT 1080
-#define WALL_HEIGHT 64     // Standard wall height
-#define FOV 60            // Field of view in degrees
+#define WINDOW_HEIGHT 1920
+#define WALL_HEIGHT 60     // Standard wall height
 #define MOVE_SPEED 0.1    // Player movement speed
 #define ROT_SPEED 0.05    // Player rotation speed
+
 
 // FPS counter settings
 #define FPS_UPDATE_INTERVAL 0.5  // Update FPS display every 0.5 seconds
@@ -27,8 +27,8 @@ typedef struct s_player {
     double pos_y;         // Player Y position
     double dir_x;         // X component of direction vector
     double dir_y;         // Y component of direction vector
-    double plane_x;       // Camera plane X (for FOV)
-    double plane_y;       // Camera plane Y (for FOV)
+	double plane_x;
+	double plane_y;
 } t_player;
 
 // Main game structure
@@ -49,6 +49,34 @@ typedef struct s_game {
     mlx_texture_t *wall_texture;
 	mlx_image_t *wall_image;
 } t_game;
+
+enum e_side_hit
+{
+	vertical,
+	horizontal
+};
+
+typedef struct s_raycast	t_raycast;
+
+struct s_raycast {
+	double			camera_x; // x coordinate in camera space for current width pixel on screen
+	double			ray_dir_x; //x angle ray travel
+	double			ray_dir_y; // y angle ray travel
+	int				map_x; // current x coordinate map to check
+	int				map_y; // curent y coordinate map to check
+	double			perp_wall_dist; // distance to the wall at angle of 90 degrees
+	double			side_dist_x; // length between player and x side for first position
+	double			side_dist_y; // length between player and y side for first position
+	short			step_x; // check if ray is left(-) or right(+)
+	short			step_y; // check if ray is down(-) or up(+)
+	double			delta_dist_x; // length of one x side to next x side; (1 / ray_dir_x)
+	double			delta_dist_y; // length of one y side to next y side; (1 / ray_dir_y)
+	int				wall_height; // height of the wall to draw
+	int				wall_bottom; // where to start drawing the wall
+	int				wall_top; // where to stop drawing the wall
+	enum e_side_hit	side_hit;
+
+};
 
 /* Function prototypes */
 void init_game(t_game *game);
