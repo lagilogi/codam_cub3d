@@ -6,11 +6,18 @@
 /*   By: wsonepou <wsonepou@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/21 17:09:11 by wsonepou      #+#    #+#                 */
-/*   Updated: 2024/10/28 14:26:45 by wsonepou      ########   odam.nl         */
+/*   Updated: 2024/10/29 13:19:32 by wsonepou      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
+
+void	execution_error_handler(t_cub3d *cub3d, int i)
+{
+	if (i == 1)
+		write(2, "ERROR: MLX failed initializing\n", 32);
+	close_program(cub3d, 1);
+}
 
 void	parsefile_error_handler(t_cub3d *cub3d, int i)
 {
@@ -22,7 +29,7 @@ void	parsefile_error_handler(t_cub3d *cub3d, int i)
 		write(2, "ERROR: couldn't close map_fd\n", 30);
 	else if (i == 4)
 		write(2, "ERROR: Parse_file failed malloc\n", 33);
-	close_program(cub3d, NULL, 1);
+	close_program(cub3d, 1);
 }
 
 void	checkfile_error_handler(int i)
@@ -45,7 +52,7 @@ void	checkfile_error_handler(int i)
 		write(2, "ERROR: couldn't close map_fd\n", 30);
 	else if (i == 10)
 		write(2, "ERROR: empty file or failed malloc gnl\n", 36);
-	close_program(NULL, NULL, 1);
+	close_program(NULL, 1);
 }
 
 void	error_handler(int i)
@@ -56,5 +63,5 @@ void	error_handler(int i)
 		write(2, "ERROR: Incorrect file type\n", 28);
 	else if (i == 3)
 		write(2, "ERROR: Couldn't open file\n", 27);
-	close_program(NULL, NULL, 1);
+	close_program(NULL, 1);
 }

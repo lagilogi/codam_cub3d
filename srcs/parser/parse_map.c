@@ -6,7 +6,7 @@
 /*   By: wsonepou <wsonepou@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/28 13:28:10 by wsonepou      #+#    #+#                 */
-/*   Updated: 2024/10/28 14:07:11 by wsonepou      ########   odam.nl         */
+/*   Updated: 2024/10/29 16:00:31 by wsonepou      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,12 +62,12 @@ static void	create_map_array(t_cub3d *cub3d)
 	int	y;
 
 	y = 0;
-	cub3d->map.grid = malloc(cub3d->file.map_rows * sizeof(char *));
+	cub3d->map.grid = malloc(cub3d->map.rows * sizeof(char *));
 	if (cub3d->map.grid == NULL)
 		parsefile_error_handler(cub3d, 4);
-	while (y < cub3d->file.map_rows)
+	while (y < cub3d->map.rows)
 	{
-		cub3d->map.grid[y] = malloc(cub3d->file.map_cols * sizeof(char));
+		cub3d->map.grid[y] = malloc(cub3d->map.cols * sizeof(char));
 		if (cub3d->map.grid[y] == NULL)
 		{
 			clear_gnl(cub3d, 4, 2);
@@ -83,7 +83,7 @@ static void	copy_map_data(t_cub3d *cub3d, char *line, int y)
 
 	x = 0;
 	eol = false;
-	while (x < cub3d->file.map_cols)
+	while (x < cub3d->map.cols)
 	{
 		if (eol == false && (line[x] == '\n' || line[x] == '\0'))
 			eol = true;
@@ -103,7 +103,7 @@ void	parse_map(t_cub3d *cub3d)
 	y = 0;
 	gnl_till_map(cub3d);
 	create_map_array(cub3d);
-	while (y < cub3d->file.map_rows)
+	while (y < cub3d->map.rows)
 	{
 		line = get_next_line(cub3d->map_fd);
 		if (line == NULL)
@@ -116,8 +116,8 @@ void	parse_map(t_cub3d *cub3d)
 	if (close(cub3d->map_fd) == -1)
 		parsefile_error_handler(cub3d, 3);
 	cub3d->map_fd = 0;
-	check_map_edge(cub3d, cub3d->file.map_rows, cub3d->file.map_cols);
-	check_inner_map(cub3d, cub3d->file.map_rows, cub3d->file.map_cols);
+	check_map_edge(cub3d, cub3d->map.rows, cub3d->map.cols);
+	check_inner_map(cub3d, cub3d->map.rows, cub3d->map.cols);
 	if (close(cub3d->map_fd) == -1)
 		parsefile_error_handler(cub3d, 3);
 }

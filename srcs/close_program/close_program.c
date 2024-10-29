@@ -6,7 +6,7 @@
 /*   By: wsonepou <wsonepou@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/21 17:49:45 by wsonepou      #+#    #+#                 */
-/*   Updated: 2024/10/21 19:34:53 by wsonepou      ########   odam.nl         */
+/*   Updated: 2024/10/29 13:45:31 by wsonepou      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,16 @@ static void	clean_up(t_cub3d *cub3d)
 		mlx_delete_texture(cub3d->map.EA);
 	if (cub3d->map.grid != NULL)
 		free_map_array(cub3d);
+	if (cub3d->mlx)
+		mlx_terminate(cub3d->mlx);
 }
 
-void	close_program(t_cub3d *cub3d, char *msg, int exit_code)
+void	close_program(t_cub3d *cub3d, int exit_code)
 {
 	if (cub3d == NULL)
 		exit(exit_code);
 	clean_up(cub3d);
-	if (msg != NULL)
-		write(2, msg, ft_strlen(msg));
+	if (exit_code == 0)
+		write(1, "Cub3d finished!\n", 17);
 	exit(exit_code);
 }

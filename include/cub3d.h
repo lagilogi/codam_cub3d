@@ -6,7 +6,7 @@
 /*   By: wsonepou <wsonepou@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/21 13:14:48 by wsonepou      #+#    #+#                 */
-/*   Updated: 2024/10/28 16:06:45 by wsonepou      ########   odam.nl         */
+/*   Updated: 2024/10/29 16:34:18 by wsonepou      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <errno.h>
+# define WIDTH 1920
+# define HEIGHT 1080
 
 typedef struct s_player
 {
@@ -46,6 +48,8 @@ typedef struct s_file
 typedef struct s_map
 {
 	char			**grid;
+	int				cols;
+	int				rows;
 	int				f_r;
 	int				f_g;
 	int				f_b;
@@ -81,10 +85,19 @@ void	clear_gnl(t_cub3d *cub3d, int r_code, int error_h);
 void	gnl_till_map(t_cub3d *cub3d);
 int		check_char(char c, int x);
 
+// Execution
+void	starting_exec(t_cub3d *cub3d);
+void	movement(mlx_key_data_t keydata, void *param);
+
+
 // Close program
-void	close_program(t_cub3d *cub3d, char *msg, int exit_code);
+void	close_program(t_cub3d *cub3d, int exit_code);
 void	error_handler(int i);
 void	checkfile_error_handler(int i);
 void	parsefile_error_handler(t_cub3d *cub3d, int i);
+void	execution_error_handler(t_cub3d *cub3d, int i);
+
+// Bonus
+void	minimap(t_cub3d *cub3d);
 
 #endif

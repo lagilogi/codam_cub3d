@@ -6,7 +6,7 @@
 /*   By: wsonepou <wsonepou@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/21 13:26:13 by wsonepou      #+#    #+#                 */
-/*   Updated: 2024/10/28 14:05:13 by wsonepou      ########   odam.nl         */
+/*   Updated: 2024/10/29 16:37:57 by wsonepou      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static int	check_map(t_cub3d *cub3d, char *str, int i)
 		if (str[i] == 'N' || str[i] == 'S' || str[i] == 'W' || str[i] == 'E')
 		{
 			cub3d->file.player_count++;
-			cub3d->player.y = cub3d->file.map_rows;
+			cub3d->player.y = cub3d->map.rows;
 			cub3d->player.x = i;
 			cub3d->player.facing = str[i];
 		}
@@ -34,9 +34,9 @@ static int	check_map(t_cub3d *cub3d, char *str, int i)
 			map_size++;
 		i++;
 	}
-	if (cub3d->file.map_cols < map_size)
-		cub3d->file.map_cols = map_size;
-	cub3d->file.map_rows++;
+	if (cub3d->map.cols < map_size)
+		cub3d->map.cols = map_size;
+	cub3d->map.rows++;
 	return (0);
 }
 
@@ -84,7 +84,7 @@ static int	check_line(t_cub3d *cub3d, char *line, int i)
 		return (check_map(cub3d, line, 0));
 	else if (line[i] != '\n' && line[i] != '\0')
 		return (5);
-	else if (cub3d->file.map_rows > 0 && (line[i] == '\n' || line[i] == '\0'))
+	else if (cub3d->map.rows > 0 && (line[i] == '\n' || line[i] == '\0'))
 		cub3d->file.after_map = true;
 	return (0);
 }
@@ -97,7 +97,7 @@ void	check_file(t_cub3d *cub3d, char *line, int r_code)
 	while (line != NULL)
 	{
 		r_code = check_line(cub3d, line, 0);
-		if (cub3d->file.data_c == 6 && cub3d->file.map_rows == 0)
+		if (cub3d->file.data_c == 6 && cub3d->map.rows == 0)
 			cub3d->file.lines_till_map++;
 		free(line);
 		if (r_code > 0)
@@ -105,9 +105,9 @@ void	check_file(t_cub3d *cub3d, char *line, int r_code)
 		line = get_next_line(cub3d->map_fd);
 	}
 	free(line);
-	if (cub3d->file.data_c < 6 || cub3d->file.map_rows == 0)
+	if (cub3d->file.data_c < 6 || cub3d->map.rows == 0)
 		checkfile_error_handler(6);
-	else if (cub3d->file.map_cols < 3 || cub3d->file.map_rows < 3)
+	else if (cub3d->map.cols < 3 || cub3d->map.rows < 3)
 		checkfile_error_handler(4);
 	else if (cub3d->file.player_count != 1)
 		checkfile_error_handler(8);

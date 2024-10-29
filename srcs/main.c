@@ -6,7 +6,7 @@
 /*   By: wsonepou <wsonepou@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/21 13:22:33 by wsonepou      #+#    #+#                 */
-/*   Updated: 2024/10/28 13:31:59 by wsonepou      ########   odam.nl         */
+/*   Updated: 2024/10/29 13:21:24 by wsonepou      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,8 @@ static void	input_check(t_cub3d *cub3d, char *input)
 		i++;
 	if (i < 5)
 		error_handler(2);
-	if (input[i - 4] == '.' && input[i - 3] == 'c' && input[i - 2] == 'u' && input[i - 1] == 'b')
+	if (input[i - 4] == '.' && input[i - 3] == 'c'
+		&& input[i - 2] == 'u' && input[i - 1] == 'b')
 	{
 		cub3d->map_fd = open(input, O_RDONLY);
 		if (cub3d->map_fd == -1)
@@ -66,7 +67,6 @@ static void	input_check(t_cub3d *cub3d, char *input)
 	else
 		error_handler(2);
 }
-
 
 static void	cub3d_init(t_cub3d *cub3d)
 {
@@ -85,8 +85,9 @@ int	main(int argc, char **argv)
 	cub3d_init(&cub3d);
 	input_check(&cub3d, argv[1]);
 	check_file(&cub3d, NULL, 0);
-    parse_file(&cub3d, argv[1]);
-	parse_tester(&cub3d);
-	close_program(&cub3d, NULL, 0);
+	parse_file(&cub3d, argv[1]);
+	parse_tester(&cub3d); 	// Testing parsing
+	starting_exec(&cub3d);
+	close_program(&cub3d, 0);
 	return (0);
 }
