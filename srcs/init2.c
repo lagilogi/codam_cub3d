@@ -1,4 +1,4 @@
-#include "raycaster.h"
+#include "raycaster2.h"
 
 // Initialize player position and direction
 void init_player(t_player *player)
@@ -13,8 +13,7 @@ void init_player(t_player *player)
 
     // Camera plane perpendicular to direction
     // plane_y = 0.66 gives roughly 66° FOV
-    player->plane_x = 0;
-    player->plane_y = 0.66;
+	player->player_angle = 0;
 }
 
 void init_game(t_game *game)
@@ -31,13 +30,13 @@ void init_game(t_game *game)
         mlx_terminate(game->mlx);
         exit(1);
     }
-    game->north_texture = mlx_load_png("images/exit.png");
-	game->south_texture = mlx_load_png("images/wall.png");
-	game->east_texture = mlx_load_png("images/path.png");
-	game->west_texture = mlx_load_png("images/exit.png");
+    // game->north_texture = mlx_load_png("images/exit.png");
+	// game->south_texture = mlx_load_png("images/wall.png");
+	// game->east_texture = mlx_load_png("images/path.png");
+	// game->west_texture = mlx_load_png("images/exit.png");
 
-	if (!game->north_texture || !game->south_texture || !game->east_texture || !game->west_texture)
-		exit(1);
+	// if (!game->north_texture || !game->south_texture || !game->east_texture || !game->west_texture)
+	// 	exit(1);
 	// game->wall_image = mlx_texture_to_image(game->mlx, game->wall_texture);
     mlx_image_to_window(game->mlx, game->img, 0, 0);
 

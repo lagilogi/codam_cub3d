@@ -1,11 +1,10 @@
 
-#include "raycaster.h"
+#include "raycaster2.h"
 
-void handle_input(void *param)
+void handle_input2(void *param)
 {
     t_game *game = (t_game *)param;
 
-	update_fps(game);
     // Forward/Backward movement
     if (mlx_is_key_down(game->mlx, MLX_KEY_W))
     {
@@ -14,9 +13,9 @@ void handle_input(void *param)
         double new_y = game->player.pos_y + game->player.dir_y * MOVE_SPEED;
 
         // Check for collisions before moving
-        if (game->world_map[(int)game->player.pos_y * game->map_width + (int)new_x] == 0)
+        // if (game->world_map[(int)game->player.pos_y * game->map_width + (int)new_x] == 0)
             game->player.pos_x = new_x;
-        if (game->world_map[(int)new_y * game->map_width + (int)game->player.pos_x] == 0)
+        // if (game->world_map[(int)new_y * game->map_width  (int)game->player.pos_x] == 0)
             game->player.pos_y = new_y;
     }
     if (mlx_is_key_down(game->mlx, MLX_KEY_S))
@@ -36,11 +35,9 @@ void handle_input(void *param)
         double old_dir_x = game->player.dir_x;
         game->player.dir_x = game->player.dir_x * cos(-ROT_SPEED) - game->player.dir_y * sin(-ROT_SPEED);
         game->player.dir_y = old_dir_x * sin(-ROT_SPEED) + game->player.dir_y * cos(-ROT_SPEED);
-
-        // Rotate camera plane
-        double old_plane_x = game->player.plane_x;
-        game->player.plane_x = game->player.plane_x * cos(-ROT_SPEED) - game->player.plane_y * sin(-ROT_SPEED);
-        game->player.plane_y = old_plane_x * sin(-ROT_SPEED) + game->player.plane_y * cos(-ROT_SPEED);
+		game->player.player_angle -= ROT_SPEED;
+		if (game->player.player_angle < 0)
+			game->player.player_angle += 360;
     }
     if (mlx_is_key_down(game->mlx, MLX_KEY_D))
     {
@@ -48,9 +45,9 @@ void handle_input(void *param)
         double old_dir_x = game->player.dir_x;
         game->player.dir_x = game->player.dir_x * cos(ROT_SPEED) - game->player.dir_y * sin(ROT_SPEED);
         game->player.dir_y = old_dir_x * sin(ROT_SPEED) + game->player.dir_y * cos(ROT_SPEED);
-        double old_plane_x = game->player.plane_x;
-        game->player.plane_x = game->player.plane_x * cos(ROT_SPEED) - game->player.plane_y * sin(ROT_SPEED);
-        game->player.plane_y = old_plane_x * sin(ROT_SPEED) + game->player.plane_y * cos(ROT_SPEED);
+		game->player.player_angle += ROT_SPEED;
+		if (game->player.player_angle > 360)
+			game->player.player_angle -= 360;
     }
 
     // Exit on ESC
@@ -58,5 +55,5 @@ void handle_input(void *param)
         mlx_close_window(game->mlx);
 
     // Update display
-    render_frame(game);
+    raycast(game);
 }

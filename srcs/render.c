@@ -10,45 +10,48 @@ void draw_vertical_line(mlx_image_t *img, int x, int start, int end, int color)
 		end = WINDOW_HEIGHT - 1;
 
 	// Extract RGB components from color
-	// uint8_t r = (color >> 16) & 0xFF;
-	// uint8_t g = (color >> 8) & 0xFF;
-	// uint8_t b = color & 0xFF;
+	uint8_t r = (color >> 16) & 0xFF;
+	uint8_t g = (color >> 8) & 0xFF;
+	uint8_t b = color & 0xFF;
 	// Draw the line pixel by pixel
 	for (int y = start; y <= end; y++)
 	{
-		mlx_put_pixel(img, x, y, color);
+		// mlx_put_pixel(img, x, y, color);
 		// // Calculate pixel index (4 bytes per pixel: RGBA)
-		// int index = (y * img->width + x) * 4; // it is stored bottom to top in index and * 4 is because there are 3 colours and transparency
+		int index = (y * img->width + x) * 4; // it is stored bottom to top in index and * 4 is because there are 3 colours and transparency
 		// // Set pixel color components
-		// img->pixels[index] = r;
-		// img->pixels[index + 1] = g;
-		// img->pixels[index + 2] = b;
-		// img->pixels[index + 3] = 255; // Alpha (fully opaque)
+		img->pixels[index] = r;
+		img->pixels[index + 1] = g;
+		img->pixels[index + 2] = b;
+		img->pixels[index + 3] = 255; // Alpha (fully opaque)
 	}
 }
 
 
 void draw_vertical_line_texture(t_game *game, int x, int start, int end,
-                       double wall_x, int side)
+                       double wall_x, int side, t_raycast *cast)
 {
-	double tex_pos = 0;
-    double step = (double)WALL_HEIGHT / (end - start);
+	double tex_pos;
+	double step = (double)WALL_DIMENSIONS / (end - start);
 	if (end < WINDOW_HEIGHT)
 		tex_pos = 0;
 	else
 		tex_pos = (end - WINDOW_HEIGHT) * step;
-    // Get texture X coordinate
-	int tex_x = (int)(wall_x * WALL_HEIGHT);
-	if (side == 0 && game->player.dir_x > 0)
-		tex_x = WALL_HEIGHT - tex_x - 1;
-	if (side == 1 && game->player.dir_y < 0)
-		tex_x = WALL_HEIGHT - tex_x - 1;
+	// Get texture X coordinate
+	int tex_x = (int)(wall_x * WALL_DIMENSIONS);
+	if (side == 0 && cast->step_x > 0)
+		tex_x = WALL_DIMENSIONS - tex_x - 1;
+	else if (side == 1 && cast->step_y < 0)
+		tex_x = WALL_DIMENSIONS - tex_x - 1;
+
 
 	// Calculate texture step and starting texture coordinate
-	    // Clamp coordinates
-    if (start < 0) start = 0;
-	if (end >= WINDOW_HEIGHT)
-		end = WINDOW_HEIGHT;
+	// Clamp coordinates
+	if (start < 0)
+	{
+		start = 0;
+		end = WINDOW_HEIGHT - 1;
+	}
 	// Draw the textured vertical line
     for (int y = start; y < end; y++)
     {
@@ -56,11 +59,11 @@ void draw_vertical_line_texture(t_game *game, int x, int start, int end,
         tex_pos += step;
 
         // Get texture color
-		int index = (WALL_HEIGHT * tex_y + tex_x) * 4;
+		int index = (WALL_DIMENSIONS * tex_y + tex_x) * 4;
 
-		uint8_t r = game->wall_image->pixels[index];
-		uint8_t g = game->wall_image->pixels[index + 1];
-		uint8_t b = game->wall_image->pixels[index + 2];
+		uint8_t r = cast->texture->pixels[index];
+		uint8_t g = cast->texture->pixels[index + 1];
+		uint8_t b = cast->texture->pixels[index + 2];
         // Draw pixel
         index = (y * game->img->width + x) * 4;
         game->img->pixels[index] = r;
@@ -73,7 +76,7 @@ void draw_vertical_line_texture(t_game *game, int x, int start, int end,
 void render_frame(t_game *game)
 {
 	t_raycast cast;
-	for (int x = 0; x < WINDOW_WIDTH; x++)
+	for (int x = 0; x < WINDOW_WIDTH; x +=)
 	{
 		// calculate ray position and direction
 		cast.camera_x = 2 * x / (double)WINDOW_WIDTH - 1; // x-coordinate in camera space left side -1 right side 1
@@ -89,13 +92,6 @@ void render_frame(t_game *game)
 		// length of ray from one x or y-side to next x or y-side
 		cast.delta_dist_x = sqrt(1 + (cast.ray_dir_y * cast.ray_dir_y) / (cast.ray_dir_x * cast.ray_dir_x));
 		cast.delta_dist_y = sqrt(1 + (cast.ray_dir_x * cast.ray_dir_x) / (cast.ray_dir_y * cast.ray_dir_y));
-		// double cast.delta_dist_x = fabs(1 / cast.ray_dir_x); // get absolute value of x and y
-		// double cast.delta_dist_y = fabs(1 / cast.ray_dir_y);
-
-		// what direction to step in x or y-direction (either +1 or -1)
-
-
-
 		// calculate step and initial sideDist
 		if (cast.ray_dir_x < 0)
 		{
@@ -142,9 +138,21 @@ void render_frame(t_game *game)
 
 		// Calculate distance of perpendicular ray (Euclidean distance would give fisheye effect!)
 		if (cast.side_hit == vertical)
+		{
+			if (cast.step_x == -1)
+				cast.texture = game->west_texture;
+			else
+				cast.texture = game->east_texture;
 			cast.perp_wall_dist = (cast.map_x - game->player.pos_x + (1 - cast.step_x) / 2) / cast.ray_dir_x;
+		}
 		else
+		{
+			if (cast.step_y == -1)
+				cast.texture = game->south_texture;
+			else
+				cast.texture = game->north_texture;
 			cast.perp_wall_dist = (cast.map_y - game->player.pos_y + (1 - cast.step_y) / 2) / cast.ray_dir_y;
+		}
 
 		// Calculate height of line to draw on screen
 		cast.wall_height = (int)(WINDOW_HEIGHT / cast.perp_wall_dist);
@@ -163,8 +171,8 @@ void render_frame(t_game *game)
 			wallX = game->player.pos_x + cast.perp_wall_dist * cast.ray_dir_x;
 		wallX -= floor((wallX));
 
-		draw_vertical_line_texture(game, x, cast.wall_top, cast.wall_bottom, wallX, cast.side_hit);
-		draw_vertical_line(game->img, x, 0, cast.wall_top, 0x000000FF);
-		draw_vertical_line(game->img, x, cast.wall_bottom, WINDOW_HEIGHT, 0xFFFFFFFF);
+		draw_vertical_line_texture(game, x, cast.wall_top, cast.wall_bottom, wallX, cast.side_hit, &cast);
+		draw_vertical_line(game->img, x, 0, cast.wall_top, 0x000000);
+		draw_vertical_line(game->img, x, cast.wall_bottom, WINDOW_HEIGHT, 0xFFFFFF);
 	}
 }

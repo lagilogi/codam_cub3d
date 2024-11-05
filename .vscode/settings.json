@@ -1,5 +1,8 @@
 {
 	"files.associations": {
-		"random": "c"
+		"random": "c",
+		"glut.h": "c",
+		"raycaster2.h": "c",
+		"raycaster.h": "c"
 	}
 }
