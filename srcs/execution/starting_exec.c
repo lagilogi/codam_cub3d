@@ -6,7 +6,7 @@
 /*   By: wsonepou <wsonepou@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/29 13:15:43 by wsonepou      #+#    #+#                 */
-/*   Updated: 2024/10/29 16:04:34 by wsonepou      ########   odam.nl         */
+/*   Updated: 2024/11/05 14:57:49 by wsonepou      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void	window_initilization(t_cub3d *cub3d)
 void	run_cub3d(t_cub3d *cub3d)
 {
 	// mlx_loop_hook(cub3d->mlx, &time_passage, cub3d);
-	mlx_key_hook(cub3d->mlx, &movement, cub3d);	
+	mlx_key_hook(cub3d->mlx, &user_input, cub3d);	
 	mlx_loop(cub3d->mlx);
 }
 
@@ -31,6 +31,6 @@ void	run_cub3d(t_cub3d *cub3d)
 void	starting_exec(t_cub3d *cub3d)
 {
 	window_initilization(cub3d);
-	minimap(cub3d);
+	create_minimap(cub3d);
 	run_cub3d(cub3d);
 }

@@ -6,7 +6,7 @@
 /*   By: wsonepou <wsonepou@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/21 13:14:48 by wsonepou      #+#    #+#                 */
-/*   Updated: 2024/10/29 16:34:18 by wsonepou      ########   odam.nl         */
+/*   Updated: 2024/11/07 17:48:17 by wsonepou      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,17 @@
 # include <errno.h>
 # define WIDTH 1920
 # define HEIGHT 1080
+# define DIM 50
+# define PI 3.14159265359
 
 typedef struct s_player
 {
-	int		x;
-	int		y;
-	char	facing;
+	float		x;
+	float		delta_x;
+	float		y;
+	float		delta_y;
+	float		angle;
+	char		facing;
 }	t_player;
 
 typedef struct s_file
@@ -62,11 +67,20 @@ typedef struct s_map
 	mlx_texture_t	*EA;
 }	t_map;
 
+typedef struct s_minimap
+{
+	mlx_image_t	*f;
+	mlx_image_t	*w;
+	mlx_image_t	*p;
+	mlx_image_t	*r;
+}	t_minimap;
+
 typedef struct s_cub3d
 {
 	mlx_t		*mlx;
 	int			map_fd;
 	t_map		map;
+	t_minimap	mini;
 	t_file		file;
 	t_player	player;
 }	t_cub3d;
@@ -87,7 +101,7 @@ int		check_char(char c, int x);
 
 // Execution
 void	starting_exec(t_cub3d *cub3d);
-void	movement(mlx_key_data_t keydata, void *param);
+void	user_input(mlx_key_data_t keydata, void *param);
 
 
 // Close program
@@ -98,6 +112,6 @@ void	parsefile_error_handler(t_cub3d *cub3d, int i);
 void	execution_error_handler(t_cub3d *cub3d, int i);
 
 // Bonus
-void	minimap(t_cub3d *cub3d);
+void	create_minimap(t_cub3d *cub3d);
 
 #endif

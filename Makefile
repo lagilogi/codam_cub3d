@@ -24,9 +24,11 @@ PARSER_DIR			=	$(SRC_DIR)parser/check_file.c \
 						$(SRC_DIR)parser/parse_map.c \
 						$(SRC_DIR)parser/parse_utils.c
 
-EXEC_DIR			=	$(SRC_DIR)execution/starting_exec.c \
-						$(SRC_DIR)execution/movement.c \
-						$(SRC_DIR)execution/minimap.c
+EXEC_DIR			=	$(SRC_DIR)execution/starting_exec.c
+
+MOVEMENT_DIR		=	$(SRC_DIR)movement/user_input.c
+
+MINIMAP_DIR			=	$(SRC_DIR)minimap/minimap.c
 
 CLOSING_DIR			=	$(SRC_DIR)close_program/error_handler.c \
 						$(SRC_DIR)close_program/close_program.c
@@ -34,7 +36,7 @@ CLOSING_DIR			=	$(SRC_DIR)close_program/error_handler.c \
 
 
 # Concatenate all source files
-SRCS 				= $(MAIN_DIR) $(PARSER_DIR) $(EXEC_DIR) $(CLOSING_DIR)
+SRCS 				= $(MAIN_DIR) $(PARSER_DIR) $(EXEC_DIR) $(MOVEMENT_DIR) $(MINIMAP_DIR) $(CLOSING_DIR)
 
 # Apply the pattern substitution to each source file in SRC and produce a corresponding list of object files in the OBJ_DIR
 OBJ 				= $(patsubst $(SRC_DIR)%.c,$(OBJ_DIR)%.o,$(SRCS))

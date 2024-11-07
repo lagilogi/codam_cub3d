@@ -6,7 +6,7 @@
 /*   By: wsonepou <wsonepou@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/21 17:09:11 by wsonepou      #+#    #+#                 */
-/*   Updated: 2024/10/29 13:19:32 by wsonepou      ########   odam.nl         */
+/*   Updated: 2024/11/05 14:43:15 by wsonepou      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,10 @@ void	execution_error_handler(t_cub3d *cub3d, int i)
 {
 	if (i == 1)
 		write(2, "ERROR: MLX failed initializing\n", 32);
+	if (i == 2)
+		write(2, "ERROR: failed creating minimap image\n", 38);
+	if (i == 3)
+		write(2, "ERROR: failed putting minimap image to window\n", 47);
 	close_program(cub3d, 1);
 }
 

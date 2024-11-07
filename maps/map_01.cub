@@ -1,0 +1,14 @@
+F 1,255,0
+C 220,30,0
+
+NO ./textures/north_txtr.png
+SO ./textures/south_txtr.png
+WE ./textures/west_txtr.png
+EA ./textures/east_txtr.png
+
+11111111
+10000001
+10N00001
+10000001
+11111111
+

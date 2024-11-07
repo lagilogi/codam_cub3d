@@ -6,7 +6,7 @@
 /*   By: wsonepou <wsonepou@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/21 13:22:33 by wsonepou      #+#    #+#                 */
-/*   Updated: 2024/10/29 13:21:24 by wsonepou      ########   odam.nl         */
+/*   Updated: 2024/11/07 18:08:52 by wsonepou      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void	parse_tester(t_cub3d *cub3d)
 
 	printf("player count: %d\n", cub3d->file.player_count);
 	printf("player faces: %c\n", cub3d->player.facing);
-	printf("player y: %d, x: %d\n", cub3d->player.y, cub3d->player.x);
+	printf("player y: %.2f, x: %.2f\n", cub3d->player.y, cub3d->player.x);
 
 	printf("\n");
 
@@ -74,6 +74,7 @@ static void	cub3d_init(t_cub3d *cub3d)
 	ft_bzero(&cub3d->file, sizeof(t_file));
 	ft_bzero(&cub3d->map, sizeof(t_map));
 	ft_bzero(&cub3d->player, sizeof(t_player));
+	ft_bzero(&cub3d->mini, sizeof(t_minimap));
 }
 
 int	main(int argc, char **argv)
