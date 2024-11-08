@@ -11,6 +11,7 @@ int main(void)
     init_game(&game);
 
     // Set up game loop with input handling
+	mlx_set_cursor_mode(game.mlx, MLX_MOUSE_HIDDEN);
     mlx_loop_hook(game.mlx, handle_input, &game);
     mlx_loop(game.mlx);
 
@@ -24,7 +25,6 @@ int main(void)
 /* render.c */
 
 /* cleanup.c */
-#include "raycaster.h"
 
 void cleanup(t_game *game)
 {
