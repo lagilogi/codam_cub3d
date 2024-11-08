@@ -6,7 +6,7 @@
 /*   By: wsonepou <wsonepou@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/21 17:09:11 by wsonepou      #+#    #+#                 */
-/*   Updated: 2024/11/05 14:43:15 by wsonepou      ########   odam.nl         */
+/*   Updated: 2024/11/08 16:22:22 by wsonepou      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ void	execution_error_handler(t_cub3d *cub3d, int i)
 		write(2, "ERROR: failed creating minimap image\n", 38);
 	if (i == 3)
 		write(2, "ERROR: failed putting minimap image to window\n", 47);
+	if (i == 4)
+		write(2, "ERROR: failed drawing minimap rays\n", 36);
 	close_program(cub3d, 1);
 }
 

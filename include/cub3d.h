@@ -6,7 +6,7 @@
 /*   By: wsonepou <wsonepou@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/21 13:14:48 by wsonepou      #+#    #+#                 */
-/*   Updated: 2024/11/07 17:48:17 by wsonepou      ########   odam.nl         */
+/*   Updated: 2024/11/08 16:20:37 by wsonepou      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # define WIDTH 1920
 # define HEIGHT 1080
 # define DIM 50
+# define SPEED 0.1
 # define PI 3.14159265359
 
 typedef struct s_player
@@ -113,5 +114,6 @@ void	execution_error_handler(t_cub3d *cub3d, int i);
 
 // Bonus
 void	create_minimap(t_cub3d *cub3d);
+void	redraw_player(t_cub3d *cub3d, mlx_t *mlx, int y, int x);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: wsonepou <wsonepou@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/29 16:03:39 by wsonepou      #+#    #+#                 */
-/*   Updated: 2024/11/07 19:37:24 by wsonepou      ########   odam.nl         */
+/*   Updated: 2024/11/08 16:18:41 by wsonepou      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,13 @@ static void	draw_map(t_cub3d *cub3d, mlx_t *mlx, int x, int y)
 	py = DIM * (cub3d->player.y + 0.25);
 	if (mlx_image_to_window(mlx, cub3d->mini.p, px, py) == -1)
 		execution_error_handler(cub3d, 3);
-	cub3d->player.x += 0.5;
-	cub3d->player.y += 0.5;
 }
 
 static void	draw_player(t_cub3d *cub3d, mlx_t *mlx, int x, int y)
 {
 	cub3d->mini.p = mlx_new_image(mlx, DIM / 2, DIM / 2);
+	if (cub3d->mini.p == NULL)
+		execution_error_handler(cub3d, 2);
 	while (y < DIM / 2)
 	{
 		while (x < DIM / 2)
@@ -61,9 +61,8 @@ static void	draw_player(t_cub3d *cub3d, mlx_t *mlx, int x, int y)
 		cub3d->player.angle = 1.5 * PI;
 	else if (cub3d->player.facing == 'E')
 		cub3d->player.angle = 2 * PI;
-	cub3d->player.delta_y = sin(cub3d->player.angle) * 5;
-	cub3d->player.delta_x = cos(cub3d->player.angle) * 5;
-	printf("Player angle: %f\n", cub3d->player.angle);
+	cub3d->player.delta_y = sin(cub3d->player.angle);
+	cub3d->player.delta_x = cos(cub3d->player.angle);
 }
 
 static void	draw_wall(t_cub3d *cub3d, mlx_t *mlx, int x, int y)
