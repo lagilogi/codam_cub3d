@@ -24,8 +24,8 @@ static int	check_map(t_cub3d *cub3d, char *str, int i)
 		if (str[i] == 'N' || str[i] == 'S' || str[i] == 'W' || str[i] == 'E')
 		{
 			cub3d->file.player_count++;
-			cub3d->player.y = cub3d->map.rows;
-			cub3d->player.x = i;
+			cub3d->player.y = cub3d->map.rows + 0.5;
+			cub3d->player.x = i + 0.5;
 			cub3d->player.facing = str[i];
 		}
 		if (check_char(str[i], 7) == 0)

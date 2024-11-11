@@ -19,11 +19,12 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <errno.h>
-# define WIDTH 1920
-# define HEIGHT 1080
+# define WIDTH 500
+# define HEIGHT 300
 # define DIM 50
 # define SPEED 0.1
 # define PI 3.14159265359
+# define ACC 2
 
 typedef struct s_player
 {
@@ -115,5 +116,6 @@ void	execution_error_handler(t_cub3d *cub3d, int i);
 // Bonus
 void	create_minimap(t_cub3d *cub3d);
 void	redraw_player(t_cub3d *cub3d, mlx_t *mlx, int y, int x);
+bool	collision_check(t_cub3d *cub3d, char c);
 
 #endif

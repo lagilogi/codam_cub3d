@@ -12,11 +12,6 @@
 
 #include "../../include/cub3d.h"
 
-void draw_rays(t_cub3d *cub3d, mlx_t *mlx)
-{
-	
-}
-
 void	redraw_player(t_cub3d *cub3d, mlx_t *mlx, int y, int x)
 {
 	int	px;
@@ -35,9 +30,8 @@ void	redraw_player(t_cub3d *cub3d, mlx_t *mlx, int y, int x)
 		x = 0;
 		y++;
 	}
-	px = DIM * (cub3d->player.x + 0.25);
-	py = DIM * (cub3d->player.y + 0.25);
+	px = DIM * (cub3d->player.x - 0.25);
+	py = DIM * (cub3d->player.y - 0.25);
 	if (mlx_image_to_window(mlx, cub3d->mini.p, px, py) == -1)
 		execution_error_handler(cub3d, 3);
-	draw_rays(cub3d, cub3d->mlx);
 }

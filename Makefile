@@ -28,14 +28,12 @@ EXEC_DIR			=	$(SRC_DIR)execution/starting_exec.c
 
 MOVEMENT_DIR		=	$(SRC_DIR)movement/user_input.c
 
-BONUS_DIR			=	$(SRC_DIR)bonus/minimap.c \
-						$(SRC_DIR)bonus/redraw.c \
-						$(SRC_DIR)bonus/collision.c
-
 CLOSING_DIR			=	$(SRC_DIR)close_program/error_handler.c \
 						$(SRC_DIR)close_program/close_program.c
 
-
+BONUS_DIR			=	$(SRC_DIR)bonus/minimap.c \
+						$(SRC_DIR)bonus/redraw.c \
+						$(SRC_DIR)bonus/collision.c
 
 # Concatenate all source files
 SRCS 				= $(MAIN_DIR) $(PARSER_DIR) $(EXEC_DIR) $(MOVEMENT_DIR) $(BONUS_DIR) $(CLOSING_DIR)

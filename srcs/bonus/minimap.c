@@ -32,8 +32,8 @@ static void	draw_map(t_cub3d *cub3d, mlx_t *mlx, int x, int y)
 		y++;
 		x = 0;
 	}
-	px = DIM * (cub3d->player.x + 0.25);
-	py = DIM * (cub3d->player.y + 0.25);
+	px = DIM * (cub3d->player.x - 0.25);
+	py = DIM * (cub3d->player.y - 0.25);
 	if (mlx_image_to_window(mlx, cub3d->mini.p, px, py) == -1)
 		execution_error_handler(cub3d, 3);
 }
