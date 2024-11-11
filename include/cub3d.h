@@ -6,7 +6,7 @@
 /*   By: wsonepou <wsonepou@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/21 13:14:48 by wsonepou      #+#    #+#                 */
-/*   Updated: 2024/11/08 16:20:37 by wsonepou      ########   odam.nl         */
+/*   Updated: 2024/11/11 18:34:39 by wsonepou      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,17 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <errno.h>
-# define WIDTH 500
-# define HEIGHT 300
-# define DIM 50
-# define SPEED 0.1
+# define WIDTH 1920
+# define HEIGHT 1080
+# define DIM 100
+# define SPEED 0.05
 # define PI 3.14159265359
-# define ACC 2
+# define M_WIDTH 300
+# define M_HEIGHT 250
+
+# define COLC1 (float)DIM / 200
+# define COLC2 COLC1 + (float)DIM / 1000
+// # define ACC 2 	<--- Has to do with Version 2 of collision
 
 typedef struct s_player
 {
@@ -33,7 +38,6 @@ typedef struct s_player
 	float		y;
 	float		delta_y;
 	float		angle;
-	char		facing;
 }	t_player;
 
 typedef struct s_file
@@ -75,6 +79,7 @@ typedef struct s_minimap
 	mlx_image_t	*w;
 	mlx_image_t	*p;
 	mlx_image_t	*r;
+	mlx_image_t	*map;
 }	t_minimap;
 
 typedef struct s_cub3d
@@ -103,7 +108,7 @@ int		check_char(char c, int x);
 
 // Execution
 void	starting_exec(t_cub3d *cub3d);
-void	user_input(mlx_key_data_t keydata, void *param);
+void	user_input(void *param);
 
 
 // Close program
@@ -115,7 +120,9 @@ void	execution_error_handler(t_cub3d *cub3d, int i);
 
 // Bonus
 void	create_minimap(t_cub3d *cub3d);
-void	redraw_player(t_cub3d *cub3d, mlx_t *mlx, int y, int x);
+// void	redraw_player(t_cub3d *cub3d, mlx_t *mlx, int y, int x);
+void	draw_player(t_cub3d *cub3d, mlx_t *mlx, int y, int x);
 bool	collision_check(t_cub3d *cub3d, char c);
+bool	out_of_bounds(t_cub3d *cub3d, int y, int x);
 
 #endif

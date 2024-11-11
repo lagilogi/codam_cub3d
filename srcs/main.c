@@ -6,7 +6,7 @@
 /*   By: wsonepou <wsonepou@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/21 13:22:33 by wsonepou      #+#    #+#                 */
-/*   Updated: 2024/11/07 18:08:52 by wsonepou      ########   odam.nl         */
+/*   Updated: 2024/11/11 18:25:03 by wsonepou      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static void	parse_tester(t_cub3d *cub3d)
 	printf("\n");
 
 	printf("player count: %d\n", cub3d->file.player_count);
-	printf("player faces: %c\n", cub3d->player.facing);
+	// printf("player faces: %c\n", cub3d->player.facing);
 	printf("player y: %.2f, x: %.2f\n", cub3d->player.y, cub3d->player.x);
 
 	printf("\n");

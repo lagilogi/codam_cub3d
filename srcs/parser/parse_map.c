@@ -6,7 +6,7 @@
 /*   By: wsonepou <wsonepou@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/28 13:28:10 by wsonepou      #+#    #+#                 */
-/*   Updated: 2024/10/29 16:00:31 by wsonepou      ########   odam.nl         */
+/*   Updated: 2024/11/11 18:28:35 by wsonepou      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,30 +69,38 @@ static void	create_map_array(t_cub3d *cub3d)
 	{
 		cub3d->map.grid[y] = malloc(cub3d->map.cols * sizeof(char));
 		if (cub3d->map.grid[y] == NULL)
-		{
 			clear_gnl(cub3d, 4, 2);
-		}
 		y++;
 	}
 }
 
-static void	copy_map_data(t_cub3d *cub3d, char *line, int y)
+static void	copy_map_data(t_cub3d *cub3d, char *line, int y, int x)
 {
-	int		x;
 	bool	eol;
 
-	x = 0;
 	eol = false;
 	while (x < cub3d->map.cols)
 	{
 		if (eol == false && (line[x] == '\n' || line[x] == '\0'))
 			eol = true;
 		if (eol == false)
+		{
 			cub3d->map.grid[y][x] = line[x];
+				if (line[x] == 'N')
+			cub3d->player.angle = 0.5 * PI;
+				else if (line[x] == 'W')
+			cub3d->player.angle = 2 * PI;
+				else if (line[x] == 'S')
+			cub3d->player.angle = 1.5 * PI;
+				else if (line[x] == 'E')
+			cub3d->player.angle = PI;
+		}
 		else
 			cub3d->map.grid[y][x] = ' ';
 		x++;
 	}
+	cub3d->player.delta_y = sin(cub3d->player.angle);
+	cub3d->player.delta_x = cos(cub3d->player.angle);
 }
 
 void	parse_map(t_cub3d *cub3d)
@@ -108,7 +116,7 @@ void	parse_map(t_cub3d *cub3d)
 		line = get_next_line(cub3d->map_fd);
 		if (line == NULL)
 			parsefile_error_handler(cub3d, 4);
-		copy_map_data(cub3d, line, y);
+		copy_map_data(cub3d, line, y, 0);
 		free(line);
 		y++;
 	}

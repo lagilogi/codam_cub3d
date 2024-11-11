@@ -6,7 +6,7 @@
 /*   By: wsonepou <wsonepou@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/21 13:26:13 by wsonepou      #+#    #+#                 */
-/*   Updated: 2024/10/29 16:37:57 by wsonepou      ########   odam.nl         */
+/*   Updated: 2024/11/11 18:29:54 by wsonepou      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ static int	check_map(t_cub3d *cub3d, char *str, int i)
 			cub3d->file.player_count++;
 			cub3d->player.y = cub3d->map.rows + 0.5;
 			cub3d->player.x = i + 0.5;
-			cub3d->player.facing = str[i];
 		}
 		if (check_char(str[i], 7) == 0)
 			return (4);

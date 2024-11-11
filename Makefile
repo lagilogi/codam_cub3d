@@ -24,7 +24,7 @@ PARSER_DIR			=	$(SRC_DIR)parser/check_file.c \
 						$(SRC_DIR)parser/parse_map.c \
 						$(SRC_DIR)parser/parse_utils.c
 
-EXEC_DIR			=	$(SRC_DIR)execution/starting_exec.c
+EXEC_DIR			=	$(SRC_DIR)execution/execution.c
 
 MOVEMENT_DIR		=	$(SRC_DIR)movement/user_input.c
 
@@ -33,7 +33,8 @@ CLOSING_DIR			=	$(SRC_DIR)close_program/error_handler.c \
 
 BONUS_DIR			=	$(SRC_DIR)bonus/minimap.c \
 						$(SRC_DIR)bonus/redraw.c \
-						$(SRC_DIR)bonus/collision.c
+						$(SRC_DIR)bonus/collision.c \
+						$(SRC_DIR)bonus/bonus_utils.c
 
 # Concatenate all source files
 SRCS 				= $(MAIN_DIR) $(PARSER_DIR) $(EXEC_DIR) $(MOVEMENT_DIR) $(BONUS_DIR) $(CLOSING_DIR)
