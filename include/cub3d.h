@@ -21,14 +21,14 @@
 # include <errno.h>
 # define WIDTH 1920
 # define HEIGHT 1080
-# define DIM 100
+# define DIM 40
 # define SPEED 0.05
 # define PI 3.14159265359
 # define M_WIDTH 300
 # define M_HEIGHT 250
 
-# define COLC1 (float)DIM / 200
-# define COLC2 COLC1 + (float)DIM / 1000
+# define COL SPEED + SPEED * 4
+# define COL2 SPEED + SPEED * 3
 // # define ACC 2 	<--- Has to do with Version 2 of collision
 
 typedef struct s_player
