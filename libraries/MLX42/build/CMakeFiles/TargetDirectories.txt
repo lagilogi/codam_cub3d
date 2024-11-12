@@ -1,7 +1,7 @@
-/home/wsonepou/Documents/cub3d/libraries/MLX42/build/CMakeFiles/mlx42.dir
-/home/wsonepou/Documents/cub3d/libraries/MLX42/build/CMakeFiles/edit_cache.dir
-/home/wsonepou/Documents/cub3d/libraries/MLX42/build/CMakeFiles/rebuild_cache.dir
-/home/wsonepou/Documents/cub3d/libraries/MLX42/build/CMakeFiles/list_install_components.dir
-/home/wsonepou/Documents/cub3d/libraries/MLX42/build/CMakeFiles/install.dir
-/home/wsonepou/Documents/cub3d/libraries/MLX42/build/CMakeFiles/install/local.dir
-/home/wsonepou/Documents/cub3d/libraries/MLX42/build/CMakeFiles/install/strip.dir
+/home/saleunin/codam_cub3d/libraries/MLX42/build/CMakeFiles/mlx42.dir
+/home/saleunin/codam_cub3d/libraries/MLX42/build/CMakeFiles/edit_cache.dir
+/home/saleunin/codam_cub3d/libraries/MLX42/build/CMakeFiles/rebuild_cache.dir
+/home/saleunin/codam_cub3d/libraries/MLX42/build/CMakeFiles/list_install_components.dir
+/home/saleunin/codam_cub3d/libraries/MLX42/build/CMakeFiles/install.dir
+/home/saleunin/codam_cub3d/libraries/MLX42/build/CMakeFiles/install/local.dir
+/home/saleunin/codam_cub3d/libraries/MLX42/build/CMakeFiles/install/strip.dir

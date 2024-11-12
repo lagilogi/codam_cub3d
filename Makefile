@@ -11,7 +11,8 @@ INC					=	-I ./include -I $(LIBMLX)include
 
 # Compiler and CFlags
 CC					=	cc
-CFLAGS				=	-g -Wall -Werror -Wextra #-g -fsanitize=address
+CFLAGS				=	-g -Wall -Wextra  #-g -fsanitize=address
+# CFLAGS				=	-Werror
 LIBFT				=	./libraries/libft/libft.a
 MLXFLAGS			=	$(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm
 

@@ -43,6 +43,8 @@ void ft_turn_left(t_cub3d *cub3d)
 		cub3d->player.angle += 2 * PI;
 	cub3d->player.delta_x = cos(cub3d->player.angle);
 	cub3d->player.delta_y = sin(cub3d->player.angle);
+	cub3d->player.plane_x = -0.66 * cub3d->player.delta_y;
+	cub3d->player.plane_y = 0.66 * cub3d->player.delta_x;
 }
 
 void ft_turn_right(t_cub3d *cub3d)
@@ -57,14 +59,12 @@ void ft_turn_right(t_cub3d *cub3d)
 void	user_input(mlx_key_data_t keydata, void *param)
 {
 	t_cub3d	*cub3d;
-	int		y;
-	int		x;
 
 	cub3d = param;
 	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
 		close_program(cub3d, 0);
-	y = cub3d->player.y;
-	x = cub3d->player.x;
+	// y = cub3d->player.y;
+	// x = cub3d->player.x;
 	if (keydata.key == MLX_KEY_W)
 		ft_forward(cub3d);
 	else if (keydata.key == MLX_KEY_S)

@@ -21,7 +21,7 @@
 # include <errno.h>
 # define WIDTH 1920
 # define HEIGHT 1080
-# define DIM 50
+# define DIM 20
 # define SPEED 0.1
 # define PI 3.14159265359
 
@@ -33,6 +33,8 @@ typedef struct s_player
 	float		delta_y;
 	float		angle;
 	char		facing;
+	float		plane_x;
+	float		plane_y;
 }	t_player;
 
 typedef struct s_file
@@ -84,7 +86,37 @@ typedef struct s_cub3d
 	t_minimap	mini;
 	t_file		file;
 	t_player	player;
+	mlx_image_t		*rays_minimap_img; // image to draw on
 }	t_cub3d;
+
+enum e_side_hit
+{
+	vertical,
+	horizontal
+};
+
+typedef struct s_raycast	t_raycast;
+
+struct s_raycast {
+	double			camera_x; // x coordinate in camera space for current width pixel on screen
+	double			ray_dir_x; //x angle ray travel
+	double			ray_dir_y; // y angle ray travel
+	int				map_x; // current x coordinate map to check
+	int				map_y; // curent y coordinate map to check
+	double			perp_wall_dist; // distance to the wall at angle of 90 degrees
+	double			side_dist_x; // length between player and x side for first position
+	double			side_dist_y; // length between player and y side for first position
+	short			step_x; // check if ray is left(-) or right(+)
+	short			step_y; // check if ray is down(-) or up(+)
+	double			delta_dist_x; // length of one x side to next x side; (1 / ray_dir_x)
+	double			delta_dist_y; // length of one y side to next y side; (1 / ray_dir_y)
+	int				wall_height; // height of the wall to draw
+	int				wall_bottom; // where to start drawing the wall
+	int				wall_top; // where to stop drawing the wall
+	enum e_side_hit	side_hit; // which side of wall was hit
+	mlx_texture_t	*texture; // texture of the wall
+
+};
 
 // Parser
 void	check_file(t_cub3d *cub3d, char *line, int r_code);
