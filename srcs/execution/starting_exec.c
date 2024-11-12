@@ -18,6 +18,9 @@ static void	window_initilization(t_cub3d *cub3d)
 	if (cub3d->mlx == NULL)
 		close_program(cub3d, 1);
 	mlx_set_setting(MLX_STRETCH_IMAGE, 1);
+	cub3d->render_img = mlx_new_image(cub3d->mlx, WIDTH, HEIGHT);
+	// mlx_image_to_window(cub3d->mlx, cub3d->render_img, 0, 0);
+
 }
 
 void	run_cub3d(t_cub3d *cub3d)
@@ -31,6 +34,7 @@ void	run_cub3d(t_cub3d *cub3d)
 void	starting_exec(t_cub3d *cub3d)
 {
 	window_initilization(cub3d);
+	
 	create_minimap(cub3d);
 	run_cub3d(cub3d);
 }

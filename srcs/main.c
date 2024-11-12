@@ -75,6 +75,7 @@ static void	cub3d_init(t_cub3d *cub3d)
 	ft_bzero(&cub3d->map, sizeof(t_map));
 	ft_bzero(&cub3d->player, sizeof(t_player));
 	ft_bzero(&cub3d->mini, sizeof(t_minimap));
+
 }
 
 int	main(int argc, char **argv)
@@ -88,6 +89,10 @@ int	main(int argc, char **argv)
 	check_file(&cub3d, NULL, 0);
 	parse_file(&cub3d, argv[1]);
 	parse_tester(&cub3d); 	// Testing parsing
+	cub3d.player.delta_x = -1;
+	cub3d.player.delta_y = 0;
+	cub3d.player.plane_x = 0;
+	cub3d.player.plane_y = 0.66;
 	starting_exec(&cub3d);
 	close_program(&cub3d, 0);
 	return (0);

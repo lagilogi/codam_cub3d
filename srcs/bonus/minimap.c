@@ -53,16 +53,16 @@ static void	draw_player(t_cub3d *cub3d, mlx_t *mlx, int x, int y)
 		x = 0;
 		y++;
 	}
-	if (cub3d->player.facing == 'N')
-		cub3d->player.angle = 0.5 * PI;
-	else if (cub3d->player.facing == 'W')
-		cub3d->player.angle = PI;
-	else if (cub3d->player.facing == 'S')
-		cub3d->player.angle = 1.5 * PI;
-	else if (cub3d->player.facing == 'E')
-		cub3d->player.angle = 2 * PI;
-	cub3d->player.delta_y = sin(cub3d->player.angle);
-	cub3d->player.delta_x = cos(cub3d->player.angle);
+	// if (cub3d->player.facing == 'N')
+	// 	cub3d->player.angle = 0.5 * PI;
+	// else if (cub3d->player.facing == 'W')
+	// 	cub3d->player.angle = PI;
+	// else if (cub3d->player.facing == 'S')
+	// 	cub3d->player.angle = 1.5 * PI;
+	// else if (cub3d->player.facing == 'E')
+	// 	cub3d->player.angle = 2 * PI;
+	// cub3d->player.delta_y = sin(cub3d->player.angle);
+	// cub3d->player.delta_x = cos(cub3d->player.angle);
 }
 
 static void	draw_wall(t_cub3d *cub3d, mlx_t *mlx, int x, int y)

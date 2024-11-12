@@ -41,10 +41,10 @@ void ft_turn_left(t_cub3d *cub3d)
 	cub3d->player.angle -= 0.1;
 	if (cub3d->player.angle < 0)
 		cub3d->player.angle += 2 * PI;
-	cub3d->player.delta_x = cos(cub3d->player.angle);
-	cub3d->player.delta_y = sin(cub3d->player.angle);
-	cub3d->player.plane_x = -0.66 * cub3d->player.delta_y;
-	cub3d->player.plane_y = 0.66 * cub3d->player.delta_x;
+	cub3d->player.delta_x = sin(cub3d->player.angle);
+	cub3d->player.delta_y = cos(cub3d->player.angle);
+	cub3d->player.plane_x = -0.57735 * sin(cub3d->player.angle);
+	cub3d->player.plane_y = 0.57735 * cos(cub3d->player.angle);
 }
 
 void ft_turn_right(t_cub3d *cub3d)
@@ -52,8 +52,10 @@ void ft_turn_right(t_cub3d *cub3d)
 	cub3d->player.angle += 0.1;
 	if (cub3d->player.angle > 2 * PI)
 		cub3d->player.angle -= 2 * PI;
-	cub3d->player.delta_x = cos(cub3d->player.angle);
-	cub3d->player.delta_y = sin(cub3d->player.angle);
+	cub3d->player.delta_x = sin(cub3d->player.angle);
+	cub3d->player.delta_y = cos(cub3d->player.angle);
+	cub3d->player.plane_x = -0.57735 * sin(cub3d->player.angle);
+	cub3d->player.plane_y = 0.57735 * cos(cub3d->player.angle);
 }
 
 void	user_input(mlx_key_data_t keydata, void *param)

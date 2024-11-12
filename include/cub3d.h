@@ -87,6 +87,7 @@ typedef struct s_cub3d
 	t_file		file;
 	t_player	player;
 	mlx_image_t		*rays_minimap_img; // image to draw on
+	mlx_image_t		*render_img; // image to draw on
 }	t_cub3d;
 
 enum e_side_hit
