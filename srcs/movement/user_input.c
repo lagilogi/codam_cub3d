@@ -6,7 +6,7 @@
 /*   By: wsonepou <wsonepou@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/29 13:30:05 by wsonepou      #+#    #+#                 */
-/*   Updated: 2024/11/11 18:32:28 by wsonepou      ########   odam.nl         */
+/*   Updated: 2024/11/12 18:15:00 by wsonepou      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ static void	ft_move(t_cub3d *cub3d, char c)
 
 static void ft_turn(t_cub3d *cub3d, int i)
 {
+	cub3d->moving = true;
 	if (i == 1)
 	{
 		cub3d->player.angle -= 0.1;
@@ -78,9 +79,9 @@ void	user_input(void *param)
 		ft_turn(cub3d, 1);
 	if (mlx_is_key_down(cub3d->mlx, MLX_KEY_RIGHT))
 		ft_turn(cub3d, 2);
-	// cub3d->player.moved = true;
-	draw_player(cub3d, cub3d->mlx, 0, 0);
-	// printf("POS y: %.2f, x: %.2f, Dy: %.2f, Dx: %.2f, angle: %.2f, degrees: %.2f\n", cub3d->player.y, cub3d->player.x, cub3d->player.delta_y, cub3d->player.delta_x, cub3d->player.angle, cub3d->player.angle * (180/PI));
+	if (cub3d->moving == true)
+		create_minimap(cub3d, cub3d->mlx);
+	cub3d->moving = false;
 }
 
 

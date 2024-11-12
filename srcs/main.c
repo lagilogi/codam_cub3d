@@ -6,7 +6,7 @@
 /*   By: wsonepou <wsonepou@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/21 13:22:33 by wsonepou      #+#    #+#                 */
-/*   Updated: 2024/11/11 18:25:03 by wsonepou      ########   odam.nl         */
+/*   Updated: 2024/11/12 14:59:15 by wsonepou      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ static void	cub3d_init(t_cub3d *cub3d)
 	ft_bzero(&cub3d->map, sizeof(t_map));
 	ft_bzero(&cub3d->player, sizeof(t_player));
 	ft_bzero(&cub3d->mini, sizeof(t_minimap));
+	cub3d->moving = false;
 }
 
 int	main(int argc, char **argv)

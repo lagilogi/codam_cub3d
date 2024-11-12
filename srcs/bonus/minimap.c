@@ -6,7 +6,7 @@
 /*   By: wsonepou <wsonepou@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/29 16:03:39 by wsonepou      #+#    #+#                 */
-/*   Updated: 2024/11/11 18:32:46 by wsonepou      ########   odam.nl         */
+/*   Updated: 2024/11/12 18:12:21 by wsonepou      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,59 +134,143 @@
 
 // VERSION 2 -----------
 
-void	draw_player(t_cub3d *cub3d, mlx_t *mlx, int x, int y)
+// void	draw_player(t_cub3d *cub3d, mlx_t *mlx, int x, int y)
+// {
+// 	if (cub3d->mini.p != NULL)
+// 		mlx_delete_image(cub3d->mlx, cub3d->mini.p);
+// 	cub3d->mini.p = mlx_new_image(mlx, DIM / 2, DIM / 2);
+// 	if (cub3d->mini.p == NULL)
+// 		execution_error_handler(cub3d, 2);
+// 	while (y < DIM / 2)
+// 	{
+// 		while (x < DIM / 2)
+// 		{
+// 			mlx_put_pixel(cub3d->mini.p, x, y, 0x00FF00FF);
+// 			x++;
+// 		}
+// 		x = 0;
+// 		y++;
+// 	}
+// 	x = DIM * (cub3d->player.x - 0.25) + OFFSET;
+// 	y = DIM * (cub3d->player.y - 0.25) + OFFSET;
+// 	if (mlx_image_to_window(cub3d->mlx, cub3d->mini.p, x, y) == -1)
+// 		execution_error_handler(cub3d, 3);
+// }
+
+// void	draw_minimap(t_cub3d *cub3d, int width, int height)
+// {
+// 	int	y;
+// 	int	x;
+	
+// 	y = 0;
+// 	x = 0;
+// 	cub3d->mini.map = mlx_new_image(cub3d->mlx, DIM * width, DIM * height);
+// 	if (cub3d->mini.map == NULL)
+// 		execution_error_handler(cub3d, 2);
+// 	while (y < DIM * height)
+// 	{
+// 		while (x < DIM * width)
+// 		{
+// 			if (check_char(cub3d->map.grid[(int)y/DIM][(int)x/DIM], 5))
+// 				mlx_put_pixel(cub3d->mini.map, x, y, 0xFFFFFFFF);
+// 			if (cub3d->map.grid[(int)y/DIM][(int)x/DIM] == '1')
+// 				mlx_put_pixel(cub3d->mini.map, x, y, 0x000000FF);
+// 			x++;
+// 		}
+// 		x = 0;
+// 		y++;
+// 	}
+// 	if (mlx_image_to_window(cub3d->mlx, cub3d->mini.map, OFFSET, OFFSET) == -1)
+// 		execution_error_handler(cub3d, 3);
+// }
+
+// void	create_minimap(t_cub3d *cub3d)
+// {
+// 	draw_minimap(cub3d, cub3d->map.cols, cub3d->map.rows);
+// 	draw_player(cub3d, cub3d->mlx, 0, 0);
+// 	printf("POS y: %f, x: %f, Dy: %f, Dx: %f, angle: %f\n", cub3d->player.y, cub3d->player.x, cub3d->player.delta_y, cub3d->player.delta_x, cub3d->player.angle);
+// }
+
+
+
+
+
+// VERSION 3 --------------
+
+void	draw_border(t_cub3d *cub3d)
 {
-	if (cub3d->mini.p != NULL)
-		mlx_delete_image(cub3d->mlx, cub3d->mini.p);
-	cub3d->mini.p = mlx_new_image(mlx, DIM / 2, DIM / 2);
-	if (cub3d->mini.p == NULL)
-		execution_error_handler(cub3d, 2);
-	while (y < DIM / 2)
+	int	x;
+	int y;
+
+	x = 0;
+	y = 0;
+	while (y < MAPSIZE)
 	{
-		while (x < DIM / 2)
+		while (x < MAPSIZE)
 		{
-			mlx_put_pixel(cub3d->mini.p, x, y, 0x00FF00FF);
+			if (x < 3 || x > 316 || y < 3 || y > 317)
+				mlx_put_pixel(cub3d->mini.map, x, y, 0x00FF00FF);
 			x++;
 		}
 		x = 0;
 		y++;
 	}
-	x = DIM * (cub3d->player.x - 0.25);
-	y = DIM * (cub3d->player.y - 0.25);
-	if (mlx_image_to_window(cub3d->mlx, cub3d->mini.p, x, y) == -1)
-		execution_error_handler(cub3d, 3);
 }
 
-void	draw_minimap(t_cub3d *cub3d, int width, int height)
+void	draw_minimap(t_cub3d *cub3d, int y, int x)
 {
-	int	y;
-	int	x;
-	
-	y = 0;
-	x = 0;
-	cub3d->mini.map = mlx_new_image(cub3d->mlx, DIM * width, DIM * height);
+	int	my;
+	int	mx;
+
+	my = cub3d->mini.my / DIM;
+	mx = cub3d->mini.mx / DIM;
+	if (x < 3 || x > 316 || y < 3 || y > 317)
+		return ;
+	else if (cub3d->mini.mx < 0 || cub3d->mini.my < 0 || mx >= cub3d->map.cols)
+		return ;
+	if (x >= 150 && x <= 170 && y >= 150 && y <= 170)
+		mlx_put_pixel(cub3d->mini.map, x, y, 0x00FF00FF);
+	else if (check_char(cub3d->map.grid[my][mx], 5))
+		mlx_put_pixel(cub3d->mini.map, x, y, 0xFFFFFFFF);
+	else if (cub3d->map.grid[my][mx] == '1')
+		mlx_put_pixel(cub3d->mini.map, x, y, 0x000000FF);
+}
+
+void	setup_map(t_cub3d *cub3d, int y, int x)
+{
+	int	my;
+
+	cub3d->mini.my = (cub3d->player.y * DIM) - MAPSIZE / 2;
+	while (y < MAPSIZE)
+	{
+		my = cub3d->mini.my / DIM;
+		cub3d->mini.mx = (cub3d->player.x * DIM) - MAPSIZE / 2;
+		while (x < MAPSIZE && my >= 0 && my < cub3d->map.rows)
+		{
+			draw_minimap(cub3d, y, x);
+			x++;
+			cub3d->mini.mx++;
+		}
+		x = 0;
+		y++;
+		cub3d->mini.my++;
+	}
+}
+
+void	create_minimap(t_cub3d *cub3d, mlx_t *mlx)
+{
+	int	width;
+	int height;
+
+	width = cub3d->map.cols;
+	height = cub3d->map.rows;
+	if (cub3d->mini.map)
+		mlx_delete_image(mlx, cub3d->mini.map);
+	cub3d->mini.map = mlx_new_image(mlx, 320, 320);
 	if (cub3d->mini.map == NULL)
 		execution_error_handler(cub3d, 2);
-	while (y < DIM * height)
-	{
-		while (x < DIM * width)
-		{
-			if (check_char(cub3d->map.grid[(int)y/DIM][(int)x/DIM], 5))
-				mlx_put_pixel(cub3d->mini.map, x, y, 0xFFFFFFFF);
-			if (cub3d->map.grid[(int)y/DIM][(int)x/DIM] == '1')
-				mlx_put_pixel(cub3d->mini.map, x, y, 0x000000FF);
-			x++;
-		}
-		x = 0;
-		y++;
-	}
-	if (mlx_image_to_window(cub3d->mlx, cub3d->mini.map, 0, 0) == -1)
+	setup_map(cub3d, 0, 0);
+	draw_border(cub3d);
+	if (mlx_image_to_window(mlx, cub3d->mini.map, OFFSET, OFFSET) == -1)
 		execution_error_handler(cub3d, 3);
-}
-
-void	create_minimap(t_cub3d *cub3d)
-{
-	draw_minimap(cub3d, cub3d->map.cols, cub3d->map.rows);
-	draw_player(cub3d, cub3d->mlx, 0, 0);
-	printf("POS y: %f, x: %f, Dy: %f, Dx: %f, angle: %f\n", cub3d->player.y, cub3d->player.x, cub3d->player.delta_y, cub3d->player.delta_x, cub3d->player.angle);
 }

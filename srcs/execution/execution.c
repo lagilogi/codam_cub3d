@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   starting_exec.c                                    :+:    :+:            */
+/*   execution.c                                        :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: wsonepou <wsonepou@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/29 13:15:43 by wsonepou      #+#    #+#                 */
-/*   Updated: 2024/11/11 16:07:36 by wsonepou      ########   odam.nl         */
+/*   Updated: 2024/11/12 17:42:21 by wsonepou      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,6 @@ void	run_cub3d(t_cub3d *cub3d)
 void	starting_exec(t_cub3d *cub3d)
 {
 	window_initilization(cub3d);
-	create_minimap(cub3d);
+	create_minimap(cub3d, cub3d->mlx);
 	run_cub3d(cub3d);
 }

@@ -6,7 +6,7 @@
 /*   By: wsonepou <wsonepou@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/21 13:14:48 by wsonepou      #+#    #+#                 */
-/*   Updated: 2024/11/11 18:34:39 by wsonepou      ########   odam.nl         */
+/*   Updated: 2024/11/12 18:13:14 by wsonepou      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,11 @@
 # define DIM 40
 # define SPEED 0.05
 # define PI 3.14159265359
-# define M_WIDTH 300
-# define M_HEIGHT 250
 
-# define COL SPEED + SPEED * 4
-# define COL2 SPEED + SPEED * 3
+# define COL SPEED + SPEED * 3
+# define COL2 SPEED + SPEED * 2
+# define MAPSIZE 320
+# define OFFSET 10
 // # define ACC 2 	<--- Has to do with Version 2 of collision
 
 typedef struct s_player
@@ -80,6 +80,8 @@ typedef struct s_minimap
 	mlx_image_t	*p;
 	mlx_image_t	*r;
 	mlx_image_t	*map;
+	int			my;
+	int			mx;
 }	t_minimap;
 
 typedef struct s_cub3d
@@ -90,6 +92,7 @@ typedef struct s_cub3d
 	t_minimap	mini;
 	t_file		file;
 	t_player	player;
+	bool		moving;
 }	t_cub3d;
 
 // Parser
@@ -110,7 +113,6 @@ int		check_char(char c, int x);
 void	starting_exec(t_cub3d *cub3d);
 void	user_input(void *param);
 
-
 // Close program
 void	close_program(t_cub3d *cub3d, int exit_code);
 void	error_handler(int i);
@@ -119,10 +121,12 @@ void	parsefile_error_handler(t_cub3d *cub3d, int i);
 void	execution_error_handler(t_cub3d *cub3d, int i);
 
 // Bonus
-void	create_minimap(t_cub3d *cub3d);
-// void	redraw_player(t_cub3d *cub3d, mlx_t *mlx, int y, int x);
-void	draw_player(t_cub3d *cub3d, mlx_t *mlx, int y, int x);
+// void	create_minimap(t_cub3d *cub3d);
 bool	collision_check(t_cub3d *cub3d, char c);
 bool	out_of_bounds(t_cub3d *cub3d, int y, int x);
+
+// void	draw_minimap(t_cub3d *cub3d, mlx_t *mlx);
+void	create_minimap(t_cub3d *cub3d, mlx_t *mlx);
+// void	draw_player(t_cub3d *cub3d, mlx_t *mlx, int y, int x);
 
 #endif
