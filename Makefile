@@ -11,7 +11,7 @@ INC					=	-I ./include -I $(LIBMLX)include
 
 # Compiler and CFlags
 CC					=	cc
-CFLAGS				=	-g -Wall -Wextra  #-g -fsanitize=address
+CFLAGS				=	-g -Wall -Wextra -Werror #-g -fsanitize=address
 # CFLAGS				=	-Werror
 LIBFT				=	./libraries/libft/libft.a
 MLXFLAGS			=	$(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm
@@ -60,7 +60,7 @@ $(NAME): 			$(OBJ) $(LIBFT)
 					@$(CC) $(CFLAGS) $(OBJ) $(LIBFT) $(MLXFLAGS) $(INC) -o $(NAME)
 
 # Compile object files from source files
-$(OBJ_DIR)%.o:		$(SRC_DIR)%.c 
+$(OBJ_DIR)%.o:		$(SRC_DIR)%.c
 					@echo "Compiling ${notdir $<}"
 					@mkdir -p $(@D)
 					$(CC) $(CFLAGS) $(INC) -c $< -o $@

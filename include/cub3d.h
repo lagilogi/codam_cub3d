@@ -19,8 +19,8 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <errno.h>
-# define WIDTH 1920
-# define HEIGHT 1080
+# define WIDTH 1280
+# define HEIGHT 720
 # define DIM 20
 # define SPEED 0.1
 # define PI 3.14159265359

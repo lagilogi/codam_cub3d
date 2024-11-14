@@ -91,7 +91,7 @@ static void	draw_floor(t_cub3d *cub3d, mlx_t *mlx, int x, int y)
 	{
 		while (x < DIM)
 		{
-			if (x == 0 || x == DIM - 1 || y == 0 || y == DIM - 1) 
+			if (x == 0 || x == DIM - 1 || y == 0 || y == DIM - 1)
 				mlx_put_pixel(cub3d->mini.f, x, y, 0xdfdfdfFF);
 			else
 				mlx_put_pixel(cub3d->mini.f, x, y, 0xFFFFFFFF);

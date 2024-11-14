@@ -14,7 +14,7 @@
 
 static void	window_initilization(t_cub3d *cub3d)
 {
-	cub3d->mlx = mlx_init(WIDTH, HEIGHT, "Cub3D", true);
+	cub3d->mlx = mlx_init(WIDTH * 2, HEIGHT * 2, "Cub3D", true);
 	if (cub3d->mlx == NULL)
 		close_program(cub3d, 1);
 	mlx_set_setting(MLX_STRETCH_IMAGE, 1);
@@ -26,7 +26,7 @@ static void	window_initilization(t_cub3d *cub3d)
 void	run_cub3d(t_cub3d *cub3d)
 {
 	// mlx_loop_hook(cub3d->mlx, &time_passage, cub3d);
-	mlx_key_hook(cub3d->mlx, &user_input, cub3d);	
+	mlx_key_hook(cub3d->mlx, &user_input, cub3d);
 	mlx_loop(cub3d->mlx);
 }
 
@@ -34,7 +34,7 @@ void	run_cub3d(t_cub3d *cub3d)
 void	starting_exec(t_cub3d *cub3d)
 {
 	window_initilization(cub3d);
-	
+
 	create_minimap(cub3d);
 	run_cub3d(cub3d);
 }

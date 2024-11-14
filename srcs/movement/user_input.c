@@ -14,14 +14,14 @@
 
 static void	ft_forward(t_cub3d *cub3d)
 {
-	cub3d->player.y -= cub3d->player.delta_y * SPEED;
-	cub3d->player.x -= cub3d->player.delta_x * SPEED;
+	cub3d->player.y += cub3d->player.delta_y * SPEED;
+	cub3d->player.x += cub3d->player.delta_x * SPEED;
 }
 
 static void	ft_backward(t_cub3d *cub3d)
 {
-	cub3d->player.y += cub3d->player.delta_y * SPEED;
-	cub3d->player.x += cub3d->player.delta_x * SPEED;
+	cub3d->player.y -= cub3d->player.delta_y * SPEED;
+	cub3d->player.x -= cub3d->player.delta_x * SPEED;
 }
 
 static void	ft_move_left(t_cub3d *cub3d)

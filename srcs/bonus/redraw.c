@@ -21,6 +21,7 @@ void draw_vertical_line(mlx_image_t *img, int x, int start, int end, int color)
 	if (end >= HEIGHT)
 		end = HEIGHT - 1;
 
+	// if ()
 	// Extract RGB components from color
 	uint8_t r = (color >> 16) & 0xFF;
 	uint8_t g = (color >> 8) & 0xFF;
@@ -45,32 +46,32 @@ void drawline(t_cub3d *cub3d, float delta_dist_x, float delta_dist_y, float perp
 	// const float delta_dist_y = sqrt(1 + (ray_dir_y * ray_dir_y) / (ray_dir_x * ray_dir_x));
 	int pixel_x = (cub3d->player.x + 0.25) * DIM;
 	int pixel_y = (cub3d->player.y + 0.25) * DIM;
-	
+
 	float total_x;
 	float total_y;
 	float i = 0;
 	total_x = 0;
 	total_y = 0;
-	printf("perp_wall_dist: %f\n", perp_wall_dist);
 	int step_x;
 	int step_y;
 	if (cast.ray_dir_x < 0)
 	{
-		step_x = 1;
+		step_x = -1;
 	}
 	else
 	{
-		step_x = -1;
+		step_x = 1;
 	}
 	if (cast.ray_dir_y < 0)
 	{
-		step_y = 1;
+		step_y = -1;
 	}
 	else
 	{
-		step_y = -1;
+		step_y = 1;
 	}
-	while ((float)i < 50)
+	(void)perp_wall_dist;
+	while ((float)i < perp_wall_dist * DIM)
 	{
 		if (total_x + delta_dist_x < total_y + delta_dist_y)
 		{
@@ -85,25 +86,30 @@ void drawline(t_cub3d *cub3d, float delta_dist_x, float delta_dist_y, float perp
 		if (pixel_x < 0 || pixel_x >= WIDTH || pixel_y < 0 || pixel_y >= HEIGHT)
 			break ;
 		mlx_put_pixel(cub3d->rays_minimap_img, pixel_x, pixel_y, 0xFF0000FF);
+		// printf("x: %d, y: %d\n", pixel_x, pixel_y);
 		++i;
 	}
 }
 
 void draw_rays(t_cub3d *cub3d, mlx_t *mlx)
 {
-	if (cub3d->rays_minimap_img != NULL)
+	// if (cub3d->rays_minimap_img != NULL)
+	// 	mlx_delete_image(mlx, cub3d->rays_minimap_img);
+	// cub3d->rays_minimap_img  = mlx_new_image(mlx, WIDTH, HEIGHT);
+	// mlx_image_to_window(mlx, cub3d->rays_minimap_img, 0, 0);
+	if (cub3d->render_img)
+		mlx_delete_image(mlx, cub3d->render_img);
+	cub3d->render_img = mlx_new_image(mlx, WIDTH, HEIGHT);
+	mlx_image_to_window(mlx, cub3d->render_img, 300, 300);
+	if (cub3d->rays_minimap_img)
 		mlx_delete_image(mlx, cub3d->rays_minimap_img);
-	cub3d->rays_minimap_img  = mlx_new_image(mlx, WIDTH, HEIGHT);
+	cub3d->rays_minimap_img = mlx_new_image(mlx, WIDTH, HEIGHT);
 	mlx_image_to_window(mlx, cub3d->rays_minimap_img, 0, 0);
 	t_raycast cast;
 	for (int x = 0; x < WIDTH; x++)
 	{
 		// calculate ray position and direction
 		cast.camera_x = 2 * x / (double)WIDTH - 1; // x-coordinate in camera space left side -1 right side 1
-		// if (x % 50 != 0)
-		// {
-		// 	continue;
-		// }
 		cast.ray_dir_x = cub3d->player.delta_x + cub3d->player.plane_x * cast.camera_x;
 		cast.ray_dir_y = cub3d->player.delta_y + cub3d->player.plane_y * cast.camera_x;
 
@@ -158,7 +164,7 @@ void draw_rays(t_cub3d *cub3d, mlx_t *mlx)
 			if (cast.map_y > cub3d->map.rows || cast.map_x > cub3d->map.cols || cast.map_y < 0 || cast.map_x < 0)
 				break ;
 			// Check if ray has hit a wall
-			if (cub3d->map.grid[cast.map_y][cast.map_x] > 0)
+			if (cub3d->map.grid[cast.map_y][cast.map_x] == '1')
 			{
 				// double angle = atan2(cast.map_y - cub3d->player.y, cast.map_x - cub3d->player.x);
 				// double length = sqrt(pow(cast.map_x - cub3d->player.x, 2) + pow(cast.map_y - cub3d->player.y, 2));
@@ -166,7 +172,6 @@ void draw_rays(t_cub3d *cub3d, mlx_t *mlx)
 				break ;
 			}
 		}
-
 		// Calculate distance of perpendicular ray (Euclidean distance would give fisheye effect!)
 		if (cast.side_hit == vertical)
 		{
@@ -196,25 +201,38 @@ void draw_rays(t_cub3d *cub3d, mlx_t *mlx)
 		// if (cast.wall_bottom >= HEIGHT)
 		// 	cast.wall_bottom = HEIGHT - 1;
 		double wallX; // where exactly the wall was hit
-		drawline(cub3d, cast.delta_dist_x, cast.delta_dist_y, cast.perp_wall_dist, cast);
 		if (cast.side_hit == 0)
 			wallX = cub3d->player.y + cast.perp_wall_dist * cast.ray_dir_y;
 		else
 			wallX = cub3d->player.x + cast.perp_wall_dist * cast.ray_dir_x;
 		wallX -= floor((wallX));
 
+		if (x % 50 == 0)
+		{
+			float wall_dist   = sqrt(pow(cast.map_x - cub3d->player.x, 2) + pow(cast.map_y - cub3d->player.y, 2));
+			// if (cast.side_hit == 0 && cast.ray_dir_x > 0)
+			// 	wall_dist = sqrt(pow(cast.map_x - cub3d->player.x, 2) + pow(cast.map_y - cub3d->player.y, 2)) + wallX;
+			// else if (cast.side_hit == 0 && cast.ray_dir_x < 0)
+			// 	wall_dist = sqrt(pow(cast.map_x - cub3d->player.x, 2) + pow(cast.map_y - cub3d->player.y, 2)) + (1 - wallX);
+			// else if (cast.side_hit == 1 && cast.ray_dir_y > 0)
+			// 	wall_dist = sqrt(pow(cast.map_x - cub3d->player.x, 2) + pow(cast.map_y - cub3d->player.y, 2)) + wallX;
+			// else
+			// 	wall_dist = sqrt(pow(cast.map_x - cub3d->player.x, 2) + pow(cast.map_y - cub3d->player.y, 2)) + (1 - wallX);
+			printf("%f\n", wall_dist);
+			drawline(cub3d, cast.delta_dist_x, cast.delta_dist_y, wall_dist, cast);
+		}
+
 		// draw_vertical_line_texture(game, x, cast.wall_top, cast.wall_bottom, wallX, cast.side_hit, &cast);
-		draw_vertical_line(cub3d->render_img, x, cast.wall_bottom, cast.wall_top, 0xFF0000FF);
+		draw_vertical_line(cub3d->render_img, x, cast.wall_top, cast.wall_bottom, 0xFFFF00);
 		draw_vertical_line(cub3d->render_img, x, 0, cast.wall_top, 0x000000);
 		draw_vertical_line(cub3d->render_img, x, cast.wall_bottom, HEIGHT, 0xFFFFFF);
 	}
 }
-
 void	redraw_player(t_cub3d *cub3d, mlx_t *mlx, int y, int x)
 {
 	int	px;
 	int	py;
-	
+
 	if (cub3d->mini.p != NULL)
 		mlx_delete_image(cub3d->mlx, cub3d->mini.p);
 	cub3d->mini.p = mlx_new_image(mlx, DIM / 2, DIM / 2);
