@@ -23,6 +23,7 @@ static void	window_initilization(t_cub3d *cub3d)
 void	run_cub3d(t_cub3d *cub3d)
 {
 	mlx_loop_hook(cub3d->mlx, user_input, cub3d);
+	mlx_close_hook(cub3d->mlx, &close_program_wrapper, cub3d);
 	mlx_loop(cub3d->mlx);
 }
 

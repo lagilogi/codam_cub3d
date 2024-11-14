@@ -17,7 +17,7 @@ static void	free_map_array(t_cub3d *cub3d)
 	int	i;
 
 	i = 0;
-	while (i < cub3d->file.map_rows && cub3d->map.grid[i] != NULL)
+	while (i < cub3d->map.rows && cub3d->map.grid[i] != NULL)
 	{
 		free(cub3d->map.grid[i]);
 		i++;
@@ -39,14 +39,18 @@ static void	clean_up(t_cub3d *cub3d)
 		mlx_delete_texture(cub3d->map.EA);
 	if (cub3d->map.grid != NULL)
 		free_map_array(cub3d);
-	if (cub3d->mini.f != NULL)
-		mlx_delete_image(cub3d->mlx, cub3d->mini.f);
-	if (cub3d->mini.w != NULL)
-		mlx_delete_image(cub3d->mlx, cub3d->mini.w);
-	if (cub3d->mini.p != NULL)
-		mlx_delete_image(cub3d->mlx, cub3d->mini.p);
+	if (cub3d->mini.map != NULL)
+		mlx_delete_image(cub3d->mlx, cub3d->mini.map);
 	if (cub3d->mlx)
 		mlx_terminate(cub3d->mlx);
+}
+
+void	close_program_wrapper(void *param)
+{
+	t_cub3d	*cub3d;
+
+	cub3d = param;
+	close_program(cub3d, 0);
 }
 
 void	close_program(t_cub3d *cub3d, int exit_code)

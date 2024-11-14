@@ -43,8 +43,6 @@ typedef struct s_player
 typedef struct s_file
 {
 	int		data_c;
-	int		map_cols;
-	int		map_rows;
 	int		NO;
 	int		SO;
 	int		WE;
@@ -75,10 +73,6 @@ typedef struct s_map
 
 typedef struct s_minimap
 {
-	mlx_image_t	*f;
-	mlx_image_t	*w;
-	mlx_image_t	*p;
-	mlx_image_t	*r;
 	mlx_image_t	*map;
 	int			my;
 	int			mx;
@@ -115,6 +109,7 @@ void	user_input(void *param);
 
 // Close program
 void	close_program(t_cub3d *cub3d, int exit_code);
+void	close_program_wrapper(void *param);
 void	error_handler(int i);
 void	checkfile_error_handler(int i);
 void	parsefile_error_handler(t_cub3d *cub3d, int i);
