@@ -6,7 +6,7 @@
 /*   By: saleunin <saleunin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 13:14:48 by wsonepou          #+#    #+#             */
-/*   Updated: 2024/11/15 16:00:37 by saleunin         ###   ########.fr       */
+/*   Updated: 2024/11/15 17:57:45 by saleunin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # define WIDTH 1920
 # define HEIGHT 1080
 # define DIM 40
-# define TXTR_DIM 600
+# define TXTR_DIM 500
 # define SPEED 0.06
 # define PI 3.14159265359
 
@@ -100,12 +100,12 @@ enum e_side_hit
 };
 
 typedef struct s_raycast {
-	double			camera_x; // x coordinate in camera space for current width pixel on screen
+	int				x;
 	double			ray_dir_x; //x angle ray travel
 	double			ray_dir_y; // y angle ray travel
 	int				map_x; // current x coordinate map to check
 	int				map_y; // curent y coordinate map to check
-	double			perp_wall_dist; // distance to the wall at angle of 90 degrees
+	double			wall_dist; // distance to the wall at angle of 90 degrees
 	double			side_dist_x; // length between player and x side for first position
 	double			side_dist_y; // length between player and y side for first position
 	short			step_x; // check if ray is left(-) or right(+)
@@ -115,8 +115,12 @@ typedef struct s_raycast {
 	int				wall_height; // height of the wall to draw
 	int				wall_bottom; // where to start drawing the wall
 	int				wall_top; // where to stop drawing the wall
+	double			wall_x; //where on wall horizontally was hit
+	double			tex_x; //pixel where on texture horizontal wall was hit
+	double			tex_y; //pixel where on texture vertical wall was hit
 	enum e_side_hit	side_hit; // which side of wall was hit
 	mlx_texture_t	*texture; // texture of the wall
+	double			tex_step;
 }	t_raycast;
 
 // Parser
@@ -156,4 +160,12 @@ void	create_minimap(t_cub3d *cub3d, mlx_t *mlx);
 
 //render frame
 void render_frame(t_cub3d *cub3d);
+
+//calculate ray funcs
+void calc_rays(t_cub3d *cub3d, t_raycast *cast);
+void calc_step_deltas(t_cub3d *cub3d, t_raycast *cast);
+void calc_wall_dist(t_cub3d *cub3d, t_raycast *cast);
+void calc_wall(t_cub3d *cub3d, t_raycast *cast);
+
+void trace_ray_path(t_cub3d *cub3d, t_raycast *cast);
 #endif
