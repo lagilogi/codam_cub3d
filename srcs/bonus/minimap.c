@@ -6,7 +6,7 @@
 /*   By: saleunin <saleunin@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/29 16:03:39 by wsonepou      #+#    #+#                 */
-/*   Updated: 2024/11/15 17:07:14 by wsonepou      ########   odam.nl         */
+/*   Updated: 2024/11/15 18:30:30 by wsonepou      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static void	draw_minimap(t_cub3d *cub3d, int y, int x)
 
 	my = cub3d->mini.my / DIM;
 	mx = cub3d->mini.mx / DIM;
-	if (x < 3 || x > 316 || y < 3 || y > 317)
+	if (x < 3 || x > 316 || y < 3 || y > 316)
 		return ;
 	else if (cub3d->mini.mx < 0 || cub3d->mini.my < 0 || mx >= cub3d->map.cols)
 		return ;
@@ -84,6 +84,7 @@ void	create_minimap(t_cub3d *cub3d, mlx_t *mlx)
 	if (cub3d->mini.map == NULL)
 		execution_error_handler(cub3d, 2);
 	draw_map_loop(cub3d, 0, 0);
+	draw_rays_loop(cub3d);
 	draw_border(cub3d);
 	if (mlx_image_to_window(mlx, cub3d->mini.map, OFFSET, OFFSET) == -1)
 		execution_error_handler(cub3d, 3);

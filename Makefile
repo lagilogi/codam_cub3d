@@ -32,6 +32,7 @@ CLOSING_DIR			=	$(SRC_DIR)close_program/error_handler.c \
 						$(SRC_DIR)close_program/close_program.c
 
 BONUS_DIR			=	$(SRC_DIR)bonus/minimap.c \
+						$(SRC_DIR)bonus/minimap_rays.c \
 						$(SRC_DIR)bonus/collision.c \
 						$(SRC_DIR)bonus/bonus_utils.c
 

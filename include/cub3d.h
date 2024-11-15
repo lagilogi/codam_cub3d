@@ -6,7 +6,7 @@
 /*   By: saleunin <saleunin@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/21 13:14:48 by wsonepou      #+#    #+#                 */
-/*   Updated: 2024/11/15 17:05:19 by wsonepou      ########   odam.nl         */
+/*   Updated: 2024/11/15 19:29:30 by wsonepou      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@
 # define COL SPEED + SPEED * 3
 # define MAPSIZE 320
 # define OFFSET 10
+# define MINIRAYS 10
 
 typedef struct s_player
 {
@@ -152,5 +153,6 @@ void	execution_error_handler(t_cub3d *cub3d, int i);
 bool	collision_check(t_cub3d *cub3d, char c);
 bool	out_of_bounds(t_cub3d *cub3d, int y, int x);
 void	create_minimap(t_cub3d *cub3d, mlx_t *mlx);
+void	draw_rays_loop(t_cub3d *cub3d);
 
 #endif
