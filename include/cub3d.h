@@ -6,7 +6,7 @@
 /*   By: wsonepou <wsonepou@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/21 13:14:48 by wsonepou      #+#    #+#                 */
-/*   Updated: 2024/11/12 18:13:14 by wsonepou      ########   odam.nl         */
+/*   Updated: 2024/11/15 14:24:48 by wsonepou      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 # define PI 3.14159265359
 
 # define COL SPEED + SPEED * 3
-# define COL2 SPEED + SPEED * 2
+// # define COL2 SPEED + SPEED * 2
 # define MAPSIZE 320
 # define OFFSET 10
 // # define ACC 2 	<--- Has to do with Version 2 of collision

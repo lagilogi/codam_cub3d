@@ -6,7 +6,7 @@
 /*   By: wsonepou <wsonepou@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/21 13:22:33 by wsonepou      #+#    #+#                 */
-/*   Updated: 2024/11/12 14:59:15 by wsonepou      ########   odam.nl         */
+/*   Updated: 2024/11/15 14:05:36 by wsonepou      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ static void	parse_tester(t_cub3d *cub3d)
 
 	printf("\n");
 
-	while (y < cub3d->file.map_rows)
+	while (y < cub3d->map.rows)
 	{
-		while (x < cub3d->file.map_cols)
+		while (x < cub3d->map.cols)
 		{
 			printf("%c", cub3d->map.grid[y][x]);
 			x++;
