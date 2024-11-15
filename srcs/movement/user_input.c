@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   user_input.c                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: saleunin <saleunin@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/29 13:30:05 by wsonepou          #+#    #+#             */
-/*   Updated: 2024/11/15 16:07:14 by saleunin         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   user_input.c                                       :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: saleunin <saleunin@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/10/29 13:30:05 by wsonepou      #+#    #+#                 */
+/*   Updated: 2024/11/15 16:48:43 by wsonepou      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,8 +102,8 @@ void	user_input(void *param)
 		ft_turn(cub3d, 1);
 	else if (mlx_is_key_down(cub3d->mlx, MLX_KEY_RIGHT))
 		ft_turn(cub3d, 2);
-	// else
-	// 	handle_mouse(cub3d);
+	else
+		handle_mouse(cub3d);
 	if (cub3d->moving == true)
 	{
 		render_frame(cub3d);

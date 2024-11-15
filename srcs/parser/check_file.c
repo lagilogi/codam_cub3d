@@ -6,7 +6,7 @@
 /*   By: wsonepou <wsonepou@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/21 13:26:13 by wsonepou      #+#    #+#                 */
-/*   Updated: 2024/11/11 18:29:54 by wsonepou      ########   odam.nl         */
+/*   Updated: 2024/11/15 16:45:13 by wsonepou      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,11 +73,13 @@ static int	check_line(t_cub3d *cub3d, char *line, int i)
 {
 	while (line[i] && check_whitespace(line[i]))
 		i++;
-	if ((cub3d->file.after_map == true && (line[i] != '\n' || line[i] != '\0')) || (cub3d->file.data_c == 6 && line[i] != '\n' && line[i] != '1'))
+	if ((cub3d->file.after_map == true && (line[i] != '\n' || line[i] != '\0'))
+		|| (cub3d->file.data_c == 6 && line[i] != '\n' && line[i] != '1'))
 		return (4);
 	else if (line[i] == 'F' || line[i] == 'C')
 		return (check_colors(cub3d, line + i));
-	else if (ft_strnstr(line + i, "NO", 2) || ft_strnstr(line + i, "SO", 2) || ft_strnstr(line + i, "WE", 2) || ft_strnstr(line + i, "EA", 2))
+	else if (ft_strnstr(line + i, "NO", 2) || ft_strnstr(line + i, "SO", 2)
+		|| ft_strnstr(line + i, "WE", 2) || ft_strnstr(line + i, "EA", 2))
 		return (check_texture(cub3d, line + i, 2));
 	else if (line[i] == '1' || line[i] == '0')
 		return (check_map(cub3d, line, 0));

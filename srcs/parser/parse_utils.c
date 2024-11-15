@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   parse_utils.c                                      :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: saleunin <saleunin@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/21 18:10:42 by wsonepou          #+#    #+#             */
-/*   Updated: 2024/11/15 16:00:57 by saleunin         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   parse_utils.c                                      :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: saleunin <saleunin@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/10/21 18:10:42 by wsonepou      #+#    #+#                 */
+/*   Updated: 2024/11/15 16:47:43 by wsonepou      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,8 @@ int	check_identifier(t_cub3d *cub3d, char *line)
 		cub3d->file.floor++;
 	else if (ft_strnstr(line, "C", 1))
 		cub3d->file.ceil++;
-	if (cub3d->file.NO > 1 || cub3d->file.SO > 1 || cub3d->file.WE > 1 || cub3d->file.EA > 1)
+	if (cub3d->file.NO > 1 || cub3d->file.SO > 1
+		|| cub3d->file.WE > 1 || cub3d->file.EA > 1)
 		return (3);
 	if (cub3d->file.floor > 1 || cub3d->file.ceil > 1)
 		return (3);

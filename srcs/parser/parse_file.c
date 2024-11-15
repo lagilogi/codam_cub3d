@@ -6,7 +6,7 @@
 /*   By: wsonepou <wsonepou@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/10/21 13:26:13 by wsonepou      #+#    #+#                 */
-/*   Updated: 2024/10/28 14:05:22 by wsonepou      ########   odam.nl         */
+/*   Updated: 2024/11/15 17:00:56 by wsonepou      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,8 @@ static int	parse_line(t_cub3d *cub3d, char *line, int i)
 		i++;
 	if (line[i] == 'F' || line[i] == 'C')
 		return (-1);
-	else if (ft_strnstr(line + i, "NO", 2) || ft_strnstr(line + i, "SO", 2) || ft_strnstr(line + i, "WE", 2) || ft_strnstr(line + i, "EA", 2))
+	else if (ft_strnstr(line + i, "NO", 2) || ft_strnstr(line + i, "SO", 2)
+		|| ft_strnstr(line + i, "WE", 2) || ft_strnstr(line + i, "EA", 2))
 	{
 		r_code = get_txtr_str(cub3d, line + i);
 		return (r_code);

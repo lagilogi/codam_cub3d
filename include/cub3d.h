@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   cub3d.h                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: saleunin <saleunin@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/21 13:14:48 by wsonepou          #+#    #+#             */
-/*   Updated: 2024/11/15 16:00:37 by saleunin         ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   cub3d.h                                            :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: saleunin <saleunin@student.42.fr>            +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2024/10/21 13:14:48 by wsonepou      #+#    #+#                 */
+/*   Updated: 2024/11/15 17:05:19 by wsonepou      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,14 @@
 # define WIDTH 1920
 # define HEIGHT 1080
 # define DIM 40
-# define TXTR_DIM 600
+# define TXTR_DIM 100
 # define SPEED 0.06
 # define PI 3.14159265359
 
+// Bonus
 # define COL SPEED + SPEED * 3
-// # define COL2 SPEED + SPEED * 2
 # define MAPSIZE 320
 # define OFFSET 10
-// # define ACC 2 	<--- Has to do with Version 2 of collision
 
 typedef struct s_player
 {
@@ -73,6 +72,7 @@ typedef struct s_map
 	mlx_texture_t	*WE;
 	mlx_texture_t	*EA;
 	mlx_image_t		*walls;
+
 }	t_map;
 
 typedef struct s_minimap
@@ -137,6 +137,9 @@ int		check_char(char c, int x);
 void	starting_exec(t_cub3d *cub3d);
 void	user_input(void *param);
 
+//render frame
+void render_frame(t_cub3d *cub3d);
+
 // Close program
 void	close_program(t_cub3d *cub3d, int exit_code);
 void	close_program_wrapper(void *param);
@@ -146,14 +149,8 @@ void	parsefile_error_handler(t_cub3d *cub3d, int i);
 void	execution_error_handler(t_cub3d *cub3d, int i);
 
 // Bonus
-// void	create_minimap(t_cub3d *cub3d);
 bool	collision_check(t_cub3d *cub3d, char c);
 bool	out_of_bounds(t_cub3d *cub3d, int y, int x);
-
-// void	draw_minimap(t_cub3d *cub3d, mlx_t *mlx);
 void	create_minimap(t_cub3d *cub3d, mlx_t *mlx);
-// void	draw_player(t_cub3d *cub3d, mlx_t *mlx, int y, int x);
 
-//render frame
-void render_frame(t_cub3d *cub3d);
 #endif
