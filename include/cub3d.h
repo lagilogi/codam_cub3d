@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   cub3d.h                                            :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: wsonepou <wsonepou@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2024/10/21 13:14:48 by wsonepou      #+#    #+#                 */
-/*   Updated: 2024/11/15 14:24:48 by wsonepou      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: saleunin <saleunin@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/21 13:14:48 by wsonepou          #+#    #+#             */
+/*   Updated: 2024/11/15 16:00:37 by saleunin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@
 # define WIDTH 1920
 # define HEIGHT 1080
 # define DIM 40
-# define SPEED 0.05
+# define TXTR_DIM 600
+# define SPEED 0.06
 # define PI 3.14159265359
 
 # define COL SPEED + SPEED * 3
@@ -38,6 +39,8 @@ typedef struct s_player
 	float		y;
 	float		delta_y;
 	float		angle;
+	float		plane_x;
+	float		plane_y;
 }	t_player;
 
 typedef struct s_file
@@ -47,8 +50,8 @@ typedef struct s_file
 	int		SO;
 	int		WE;
 	int		EA;
-	int		F;
-	int		C;
+	int		floor;
+	int		ceil;
 	int		lines_till_map;
 	int		player_count;
 	bool	after_map;
@@ -69,6 +72,7 @@ typedef struct s_map
 	mlx_texture_t	*SO;
 	mlx_texture_t	*WE;
 	mlx_texture_t	*EA;
+	mlx_image_t		*walls;
 }	t_map;
 
 typedef struct s_minimap
@@ -88,6 +92,32 @@ typedef struct s_cub3d
 	t_player	player;
 	bool		moving;
 }	t_cub3d;
+
+enum e_side_hit
+{
+	vertical,
+	horizontal
+};
+
+typedef struct s_raycast {
+	double			camera_x; // x coordinate in camera space for current width pixel on screen
+	double			ray_dir_x; //x angle ray travel
+	double			ray_dir_y; // y angle ray travel
+	int				map_x; // current x coordinate map to check
+	int				map_y; // curent y coordinate map to check
+	double			perp_wall_dist; // distance to the wall at angle of 90 degrees
+	double			side_dist_x; // length between player and x side for first position
+	double			side_dist_y; // length between player and y side for first position
+	short			step_x; // check if ray is left(-) or right(+)
+	short			step_y; // check if ray is down(-) or up(+)
+	double			delta_dist_x; // length of one x side to next x side; (1 / ray_dir_x)
+	double			delta_dist_y; // length of one y side to next y side; (1 / ray_dir_y)
+	int				wall_height; // height of the wall to draw
+	int				wall_bottom; // where to start drawing the wall
+	int				wall_top; // where to stop drawing the wall
+	enum e_side_hit	side_hit; // which side of wall was hit
+	mlx_texture_t	*texture; // texture of the wall
+}	t_raycast;
 
 // Parser
 void	check_file(t_cub3d *cub3d, char *line, int r_code);
@@ -124,4 +154,6 @@ bool	out_of_bounds(t_cub3d *cub3d, int y, int x);
 void	create_minimap(t_cub3d *cub3d, mlx_t *mlx);
 // void	draw_player(t_cub3d *cub3d, mlx_t *mlx, int y, int x);
 
+//render frame
+void render_frame(t_cub3d *cub3d);
 #endif

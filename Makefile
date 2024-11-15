@@ -24,7 +24,7 @@ PARSER_DIR			=	$(SRC_DIR)parser/check_file.c \
 						$(SRC_DIR)parser/parse_map.c \
 						$(SRC_DIR)parser/parse_utils.c
 
-EXEC_DIR			=	$(SRC_DIR)execution/execution.c
+EXEC_DIR			=	$(SRC_DIR)execution/execution.c $(SRC_DIR)execution/render.c
 
 MOVEMENT_DIR		=	$(SRC_DIR)movement/user_input.c
 
@@ -57,7 +57,7 @@ $(NAME): 			$(OBJ) $(LIBFT)
 					@$(CC) $(CFLAGS) $(OBJ) $(LIBFT) $(MLXFLAGS) $(INC) -o $(NAME)
 
 # Compile object files from source files
-$(OBJ_DIR)%.o:		$(SRC_DIR)%.c 
+$(OBJ_DIR)%.o:		$(SRC_DIR)%.c
 					@echo "Compiling ${notdir $<}"
 					@mkdir -p $(@D)
 					$(CC) $(CFLAGS) $(INC) -c $< -o $@

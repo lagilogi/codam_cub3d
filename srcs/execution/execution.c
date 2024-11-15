@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   execution.c                                        :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: wsonepou <wsonepou@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2024/10/29 13:15:43 by wsonepou      #+#    #+#                 */
-/*   Updated: 2024/11/12 17:42:21 by wsonepou      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   execution.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: saleunin <saleunin@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/29 13:15:43 by wsonepou          #+#    #+#             */
+/*   Updated: 2024/11/15 15:47:58 by saleunin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,11 @@ static void	window_initilization(t_cub3d *cub3d)
 	if (cub3d->mlx == NULL)
 		close_program(cub3d, 1);
 	mlx_set_setting(MLX_STRETCH_IMAGE, 1);
+	mlx_set_cursor_mode(cub3d->mlx, MLX_MOUSE_HIDDEN);
+	cub3d->map.walls = mlx_new_image(cub3d->mlx, WIDTH, HEIGHT);
+	if (cub3d->map.walls == NULL)
+		close_program(cub3d, 1);
+	mlx_image_to_window(cub3d->mlx, cub3d->map.walls, 0, 0);
 }
 
 void	run_cub3d(t_cub3d *cub3d)

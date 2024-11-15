@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   parse_map.c                                        :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: wsonepou <wsonepou@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2024/10/28 13:28:10 by wsonepou      #+#    #+#                 */
-/*   Updated: 2024/11/11 18:28:35 by wsonepou      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   parse_map.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: saleunin <saleunin@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/28 13:28:10 by wsonepou          #+#    #+#             */
+/*   Updated: 2024/11/15 15:13:23 by saleunin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,10 @@ static void	check_inner_map(t_cub3d *cub3d, int rows, int cols)
 		x = 0;
 		y++;
 	}
+	cub3d->player.delta_y = sin(cub3d->player.angle);
+	cub3d->player.delta_x = cos(cub3d->player.angle);
+	cub3d->player.plane_x = cos(cub3d->player.angle + PI / 2);
+	cub3d->player.plane_y = sin(cub3d->player.angle + PI / 2);
 }
 
 static void	create_map_array(t_cub3d *cub3d)
@@ -99,8 +103,6 @@ static void	copy_map_data(t_cub3d *cub3d, char *line, int y, int x)
 			cub3d->map.grid[y][x] = ' ';
 		x++;
 	}
-	cub3d->player.delta_y = sin(cub3d->player.angle);
-	cub3d->player.delta_x = cos(cub3d->player.angle);
 }
 
 void	parse_map(t_cub3d *cub3d)
