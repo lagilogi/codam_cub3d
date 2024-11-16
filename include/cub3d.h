@@ -81,6 +81,8 @@ typedef struct s_minimap
 	mlx_image_t	*map;
 	int			my;
 	int			mx;
+	int			p_pos;
+	int			p_dim;
 }	t_minimap;
 
 typedef struct s_cub3d
@@ -153,6 +155,5 @@ void	execution_error_handler(t_cub3d *cub3d, int i);
 bool	collision_check(t_cub3d *cub3d, char c);
 bool	out_of_bounds(t_cub3d *cub3d, int y, int x);
 void	create_minimap(t_cub3d *cub3d, mlx_t *mlx);
-void	draw_rays_loop(t_cub3d *cub3d);
 
 #endif
