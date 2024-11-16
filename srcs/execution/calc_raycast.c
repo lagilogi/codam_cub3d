@@ -70,10 +70,10 @@ void calc_wall(t_cub3d *cub3d, t_raycast *cast)
 	if (cast->wall_bottom < HEIGHT)
 		cast->tex_y = 0;
 	else
-		cast->tex_y = (cast->wall_bottom - HEIGHT - 1) * cast->tex_step;
+		cast->tex_y = (cast->wall_top - HEIGHT) * cast->tex_step;
 	cast->tex_x = (int)(cast->wall_x * cast->texture->width);
-	if (cast->side_hit == 0 && cast->step_x > 0)
+	if (cast->side_hit == 0 && cast->step_x < 0)
 		cast->tex_x = cast->texture->width - cast->tex_x - 1;
-	else if (cast->side_hit == 1 && cast->step_y < 0)
+	else if (cast->side_hit == 1 && cast->step_y > 0)
 		cast->tex_x = cast->texture->width - cast->tex_x - 1;
 }

@@ -22,7 +22,7 @@
 # define WIDTH 1920
 # define HEIGHT 1080
 # define DIM 40
-# define TXTR_DIM 500
+// # define TXTR_DIM 500
 # define SPEED 0.06
 # define PI 3.14159265359
 
