@@ -30,7 +30,7 @@
 # define COL SPEED + SPEED * 3
 # define MAPSIZE 320
 # define OFFSET 10
-# define MINIRAYS 10
+# define MINIRAYS 20
 
 typedef struct s_player
 {
