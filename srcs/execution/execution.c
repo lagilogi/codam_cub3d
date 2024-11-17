@@ -22,12 +22,7 @@ static void	window_initilization(t_cub3d *cub3d)
 	cub3d->map.walls = mlx_new_image(cub3d->mlx, WIDTH, HEIGHT);
 	if (cub3d->map.walls == NULL)
 		close_program(cub3d, 1);
-	// mlx_image_to_window(cub3d->mlx, cub3d->map.walls, 0, 0);
-	// mlx_texture_t *torch = mlx_load_png("textures/torch1.png");
-	// if (torch == NULL)
-	// 	close_program(cub3d, 1);
-	// mlx_image_t *torch_img = mlx_texture_to_image(cub3d->mlx, torch);
-	// mlx_image_to_window(cub3d->mlx, torch_img, WIDTH - 300, HEIGHT - 650);
+	mlx_image_to_window(cub3d->mlx, cub3d->map.walls, 0, 0);
 }
 
 void load_torches(t_cub3d *cub3d)
