@@ -19,9 +19,10 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <errno.h>
+# include <sys/time.h>
 # define WIDTH 1920
 # define HEIGHT 1080
-# define DIM 40
+# define N_TORCH_TXTRS 5
 // # define TXTR_DIM 500
 # define SPEED 0.06
 # define PI 3.14159265359
@@ -93,6 +94,7 @@ typedef struct s_cub3d
 	t_file		file;
 	t_player	player;
 	bool		moving;
+	mlx_image_t **torch_images;
 }	t_cub3d;
 
 enum e_side_hit

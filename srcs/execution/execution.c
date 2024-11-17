@@ -22,7 +22,46 @@ static void	window_initilization(t_cub3d *cub3d)
 	cub3d->map.walls = mlx_new_image(cub3d->mlx, WIDTH, HEIGHT);
 	if (cub3d->map.walls == NULL)
 		close_program(cub3d, 1);
-	mlx_image_to_window(cub3d->mlx, cub3d->map.walls, 0, 0);
+	// mlx_image_to_window(cub3d->mlx, cub3d->map.walls, 0, 0);
+	// mlx_texture_t *torch = mlx_load_png("textures/torch1.png");
+	// if (torch == NULL)
+	// 	close_program(cub3d, 1);
+	// mlx_image_t *torch_img = mlx_texture_to_image(cub3d->mlx, torch);
+	// mlx_image_to_window(cub3d->mlx, torch_img, WIDTH - 300, HEIGHT - 650);
+}
+
+void load_torches(t_cub3d *cub3d)
+{
+	mlx_texture_t *torch;
+	char *tmp;
+	char *str;
+	int i;
+
+	i = 1;
+	cub3d->torch_images = malloc(sizeof(mlx_image_t *) * 6);
+	if (!cub3d->torch_images)
+		close_program(cub3d, 1);
+	while (i - 1 < N_TORCH_TXTRS)
+	{
+		tmp = ft_itoa(i);
+		str = ft_strjoin("textures/torch", tmp);
+		free(tmp);
+		tmp = ft_strjoin(str, ".png");
+		free(str);
+		torch = mlx_load_png(tmp);
+		free(tmp);
+		if (torch == NULL)
+			close_program(cub3d, 1);
+		cub3d->torch_images[i - 1] = mlx_texture_to_image(cub3d->mlx, torch);
+		mlx_delete_texture(torch);
+		if (cub3d->torch_images[i - 1] == NULL)
+			close_program(cub3d, 1);
+		mlx_image_to_window(cub3d->mlx, cub3d->torch_images[i - 1], WIDTH - 300, HEIGHT - 650);
+		cub3d->torch_images[i - 1]->instances->enabled = false;
+		i++;
+	}
+	cub3d->torch_images[i - 1] = NULL;
+	cub3d->torch_images[0]->instances->enabled = true;
 }
 
 void	run_cub3d(t_cub3d *cub3d)
@@ -35,6 +74,7 @@ void	run_cub3d(t_cub3d *cub3d)
 void	starting_exec(t_cub3d *cub3d)
 {
 	window_initilization(cub3d);
+	load_torches(cub3d);
 	create_minimap(cub3d, cub3d->mlx);
 	run_cub3d(cub3d);
 }
