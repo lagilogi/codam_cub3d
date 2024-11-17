@@ -6,7 +6,7 @@
 /*   By: saleunin <saleunin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 13:15:43 by wsonepou          #+#    #+#             */
-/*   Updated: 2024/11/15 15:47:58 by saleunin         ###   ########.fr       */
+/*   Updated: 2024/11/17 15:12:29 by saleunin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ void	run_cub3d(t_cub3d *cub3d)
 	mlx_close_hook(cub3d->mlx, &close_program_wrapper, cub3d);
 	mlx_loop(cub3d->mlx);
 }
-
 
 void	starting_exec(t_cub3d *cub3d)
 {

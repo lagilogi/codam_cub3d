@@ -39,17 +39,20 @@ int	get_floor_color(t_cub3d *cub3d, char *line, int i)
 {
 	while (check_whitespace(line[i]))
 		i++;
-	cub3d->map.f_r = ft_special_atoi(line + i);
+	// cub3d->map.f_r = ft_special_atoi(line + i);
+	cub3d->map.f_col += ft_special_atoi(line + i) << 24;
 	while (line[i] >= '0' && line[i] <= '9')
 		i++;
 	if (line[i++] != ',')
 		return (1);
-	cub3d->map.f_g = ft_special_atoi(line + i);
+	// cub3d->map.f_g = ft_special_atoi(line + i);
+	cub3d->map.f_col += ft_special_atoi(line + i) << 16;
 	while (line[i] >= '0' && line[i] <= '9')
 		i++;
 	if (line[i++] != ',')
 		return (1);
-	cub3d->map.f_b = ft_special_atoi(line + i);
+	// cub3d->map.f_b = ft_special_atoi(line + i);
+	cub3d->map.f_col += ft_special_atoi(line + i) << 8;
 	if (cub3d->map.f_r == -1 || cub3d->map.f_g == -1 || cub3d->map.f_b == -1)
 		return (1);
 	while (line[i] >= '0' && line[i] <= '9')
@@ -65,17 +68,20 @@ int	get_ceiling_color(t_cub3d *cub3d, char *line, int i)
 {
 	while (check_whitespace(line[i]))
 		i++;
-	cub3d->map.c_r = ft_special_atoi(line + i);
+	// cub3d->map.c_r = ft_special_atoi(line + i);
+	cub3d->map.c_col += ft_special_atoi(line + i) << 24;
 	while (line[i] >= '0' && line[i] <= '9')
 		i++;
 	if (line[i++] != ',')
 		return (1);
-	cub3d->map.c_g = ft_special_atoi(line + i);
+	// cub3d->map.c_g = ft_special_atoi(line + i);
+	cub3d->map.c_col += ft_special_atoi(line + i) << 16;
 	while (line[i] >= '0' && line[i] <= '9')
 		i++;
 	if (line[i++] != ',')
 		return (1);
-	cub3d->map.c_b = ft_special_atoi(line + i);
+	// cub3d->map.c_b = ft_special_atoi(line + i);
+	cub3d->map.c_col += ft_special_atoi(line + i) << 8;
 	if (cub3d->map.c_r == -1 || cub3d->map.c_g == -1 || cub3d->map.c_b == -1)
 		return (1);
 	while (line[i] >= '0' && line[i] <= '9')

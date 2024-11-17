@@ -1,78 +1,83 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   render.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: saleunin <saleunin@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/17 14:42:56 by saleunin          #+#    #+#             */
+/*   Updated: 2024/11/17 15:44:46 by saleunin         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
-void draw_vertical_line(mlx_image_t *img, int x, int start, int end, int color)
+void	draw_vertical_line(
+			t_raycast *cast, int start, int end, int color)
 {
-	// Clamp line coordinates to screen bounds
+	const int	x = cast->x;
+	int			y;
+
 	if (start < 0)
 		start = 0;
 	if (end >= HEIGHT)
-		end = HEIGHT - 1;
-
-	// if ()
-	// Extract RGB components from color
-	uint8_t r = (color >> 16) & 0xFF;
-	uint8_t g = (color >> 8) & 0xFF;
-	uint8_t b = color & 0xFF;
-	// Draw the line pixel by pixel
-	for (int y = start; y <= end; y++)
+		end = HEIGHT;
+	y = start;
+	while (y < end)
 	{
-		// mlx_put_pixel(img, x, y, color);
-		// // Calculate pixel index (4 bytes per pixel: RGBA)
-		int index = (y * img->width + x) * 4; // it is stored bottom to top in index and * 4 is because there are 3 colours and transparency
-		// // Set pixel color components
-		img->pixels[index] = r;
-		img->pixels[index + 1] = g;
-		img->pixels[index + 2] = b;
-		img->pixels[index + 3] = 255; // Alpha (fully opaque)
+		mlx_put_pixel(cast->img, x, y, color);
+		++y;
 	}
 }
 
-void draw_vertical_line_texture(t_cub3d *cub3d, t_raycast *cast)
+void	draw_vertical_line_texture(t_cub3d *cub3d, t_raycast *cast)
 {
-	const int txtr_width = cast->texture->width;
-	int	y;
-	int	index;
+	const int	txtr_width = cast->texture->width;
+	const int	txtr_height = cast->texture->height;
+	int			index;
+	uint32_t	color;
+	int			y;
 
 	if (cast->wall_top < 0 || cast->wall_bottom >= HEIGHT)
 	{
 		cast->wall_top = 0;
-		cast->wall_bottom = HEIGHT - 1;
+		cast->wall_bottom = HEIGHT;
 	}
-	y = cast->wall_top;
-	while (y < cast->wall_bottom)
+	y = cast->wall_top - 1;
+	while (++y < cast->wall_bottom)
 	{
+		color = 0;
 		index = (txtr_width * (int)cast->tex_y + (int)cast->tex_x) * 4;
-		uint8_t r = cast->texture->pixels[index];
-		uint8_t g = cast->texture->pixels[index + 1];
-		uint8_t b = cast->texture->pixels[index + 2];
-		index = (y * cub3d->map.walls->width + cast->x) * 4;
-		cub3d->map.walls->pixels[index] = r;
-		cub3d->map.walls->pixels[index + 1] = g;
-		cub3d->map.walls->pixels[index + 2] = b;
-		cub3d->map.walls->pixels[index + 3] = 255;
+		color += cast->texture->pixels[index] << 24;
+		color += cast->texture->pixels[index + 1] << 16;
+		color += cast->texture->pixels[index + 2] << 8;
+		color += 255;
 		cast->tex_y += cast->tex_step;
-		y++;
+		if (cast->tex_y >= txtr_height)
+			cast->tex_y = txtr_height - 1;
+		mlx_put_pixel(cub3d->map.walls, cast->x, y, color);
 	}
 }
 
-void render_frame(t_cub3d *cub3d)
+void	render_frame(t_cub3d *cub3d)
 {
-	t_raycast cast;
+	t_raycast	cast;
+
 	ft_bzero(&cast, sizeof(t_raycast));
+	cast.img = cub3d->map.walls;
 	while (cast.x < WIDTH)
 	{
-
 		cast.map_x = (int)cub3d->player.x;
 		cast.map_y = (int)cub3d->player.y;
 		calc_rays(cub3d, &cast);
-		calc_step_deltas(cub3d, &cast);
+		calc_step_deltas_x(cub3d, &cast);
+		calc_step_deltas_y(cub3d, &cast);
 		trace_ray_path(cub3d, &cast);
 		calc_wall_dist(cub3d, &cast);
 		calc_wall(cub3d, &cast);
 		draw_vertical_line_texture(cub3d, &cast);
-		draw_vertical_line(cub3d->map.walls, cast.x, cast.wall_bottom, HEIGHT, (cub3d->map.f_r << 16) + (cub3d->map.f_g << 8) + cub3d->map.f_b);
-		draw_vertical_line(cub3d->map.walls, cast.x, 0, cast.wall_top, (cub3d->map.c_r << 16) + (cub3d->map.c_g << 8) + cub3d->map.c_b);
+		draw_vertical_line(&cast, cast.wall_bottom, HEIGHT, cub3d->map.f_col);
+		draw_vertical_line(&cast, 0, cast.wall_top, cub3d->map.c_col);
 		++cast.x;
 	}
 }
-

@@ -6,7 +6,7 @@
 /*   By: saleunin <saleunin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 13:14:48 by wsonepou          #+#    #+#             */
-/*   Updated: 2024/11/15 17:57:45 by saleunin         ###   ########.fr       */
+/*   Updated: 2024/11/17 15:44:06 by saleunin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,11 @@ typedef struct s_map
 	int				f_r;
 	int				f_g;
 	int				f_b;
+	uint32_t		f_col;
 	int				c_r;
 	int				c_g;
 	int				c_b;
+	uint32_t		c_col;
 	mlx_texture_t	*NO;
 	mlx_texture_t	*SO;
 	mlx_texture_t	*WE;
@@ -118,9 +120,10 @@ typedef struct s_raycast {
 	double			wall_x; //where on wall horizontally was hit
 	double			tex_x; //pixel where on texture horizontal wall was hit
 	double			tex_y; //pixel where on texture vertical wall was hit
+	double			tex_step;
 	enum e_side_hit	side_hit; // which side of wall was hit
 	mlx_texture_t	*texture; // texture of the wall
-	double			tex_step;
+	mlx_image_t		*img;
 }	t_raycast;
 
 // Parser
@@ -162,10 +165,12 @@ void	create_minimap(t_cub3d *cub3d, mlx_t *mlx);
 void render_frame(t_cub3d *cub3d);
 
 //calculate ray funcs
-void calc_rays(t_cub3d *cub3d, t_raycast *cast);
-void calc_step_deltas(t_cub3d *cub3d, t_raycast *cast);
-void calc_wall_dist(t_cub3d *cub3d, t_raycast *cast);
-void calc_wall(t_cub3d *cub3d, t_raycast *cast);
+void	calc_rays(t_cub3d *cub3d, t_raycast *cast);
+// void	calc_step_deltas(t_cub3d *cub3d, t_raycast *cast);
+void	calc_step_deltas_x(t_cub3d *cub3d, t_raycast *cast);
+void	calc_step_deltas_y(t_cub3d *cub3d, t_raycast *cast);
+void	calc_wall_dist(t_cub3d *cub3d, t_raycast *cast);
+void	calc_wall(t_cub3d *cub3d, t_raycast *cast);
 
 void trace_ray_path(t_cub3d *cub3d, t_raycast *cast);
 #endif
