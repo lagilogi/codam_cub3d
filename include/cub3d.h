@@ -6,7 +6,7 @@
 /*   By: saleunin <saleunin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 13:14:48 by wsonepou          #+#    #+#             */
-/*   Updated: 2024/11/17 15:44:06 by saleunin         ###   ########.fr       */
+/*   Updated: 2024/11/18 13:52:09 by saleunin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # define WIDTH 1920
 # define HEIGHT 1080
 # define N_TORCH_TXTRS 5
+# define DIM 40
 // # define TXTR_DIM 500
 # define SPEED 0.06
 # define PI 3.14159265359
