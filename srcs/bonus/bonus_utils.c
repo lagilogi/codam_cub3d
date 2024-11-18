@@ -20,3 +20,19 @@ bool	out_of_bounds(t_cub3d *cub3d, int y, int x)
 		return (true);
 	return (false);
 }
+
+bool	check_coll_char(char c)
+{
+	char	*coll_chars;
+	int		i;
+
+	coll_chars = "1D";
+	i = 0;
+	while (i < 2)
+	{
+		if (coll_chars[i] == c)
+			return (true);
+		i++;
+	}
+	return (false);
+}

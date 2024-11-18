@@ -29,7 +29,7 @@ static void	draw_mini_ray(t_cub3d *cub3d, float ray_y, float ray_x, float angle)
 		ray_x -= delta_x * (1.0 / DIM);
 		map_y = (ray_y - cub3d->player.y) * DIM + (MAPSIZE / 2);
 		map_x = (ray_x - cub3d->player.x) * DIM + (MAPSIZE / 2);
-		if (cub3d->map.grid[(int)ray_y][(int)ray_x] == '1')
+		if (check_coll_char(cub3d->map.grid[(int)ray_y][(int)ray_x]))
 			break ;
 		if (!(map_x >= 150 && map_x <= 170 && map_y >= 150 && map_y <= 170))
 			mlx_put_pixel(cub3d->mini.map, map_x, map_y, 0xFF0000FF);
@@ -64,10 +64,14 @@ static void	draw_minimap(t_cub3d *cub3d, int y, int x)
 	mx = cub3d->mini.mx / DIM;
 	if (x >= 150 && x <= 170 && y >= 150 && y <= 170)
 		mlx_put_pixel(cub3d->mini.map, x, y, 0xd7ff33FF);
-	else if (check_char(cub3d->map.grid[my][mx], 5))
+	else if (cub3d->map.grid[my][mx] == '0')
 		mlx_put_pixel(cub3d->mini.map, x, y, 0xFFFFFFFF);
 	else if (cub3d->map.grid[my][mx] == '1')
 		mlx_put_pixel(cub3d->mini.map, x, y, 0x000000FF);
+	else if (cub3d->map.grid[my][mx] == 'D')
+		mlx_put_pixel(cub3d->mini.map, x, y, 0xFFFF00FF);
+	else if (cub3d->map.grid[my][mx] == 'd')
+		mlx_put_pixel(cub3d->mini.map, x, y, 0x00FFFFFF);
 	else
 		mlx_put_pixel(cub3d->mini.map, x, y, 0x444444FF);
 }

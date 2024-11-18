@@ -12,8 +12,6 @@
 
 #include "../../include/cub3d.h"
 
-// VERSION 1 ------------------
-
 static void	ft_move(t_cub3d *cub3d, char c)
 {
 	if (c == 'W' && !collision_check(cub3d, 'W'))
@@ -59,6 +57,16 @@ static void	ft_turn(t_cub3d *cub3d, int i)
 	cub3d->player.plane_y = sin(cub3d->player.angle + PI / 2);
 }
 
+static void	render_new_frame(t_cub3d *cub3d)
+{
+	if (cub3d->moving == true)
+	{
+		render_frame(cub3d);
+		create_minimap(cub3d, cub3d->mlx);
+	}
+	cub3d->moving = false;
+}
+
 void	user_input(void *param)
 {
 	t_cub3d	*cub3d;
@@ -74,16 +82,12 @@ void	user_input(void *param)
 		ft_move(cub3d, 'A');
 	if (mlx_is_key_down(cub3d->mlx, MLX_KEY_D))
 		ft_move(cub3d, 'D');
+	// if (mlx_is_key_down(cub3d->mlx, MLX_KEY_SPACE))
 	if (mlx_is_key_down(cub3d->mlx, MLX_KEY_LEFT))
 		ft_turn(cub3d, 1);
 	else if (mlx_is_key_down(cub3d->mlx, MLX_KEY_RIGHT))
 		ft_turn(cub3d, 2);
 	else
 		handle_mouse(cub3d);
-	if (cub3d->moving == true)
-	{
-		render_frame(cub3d);
-		create_minimap(cub3d, cub3d->mlx);
-	}
-	cub3d->moving = false;
+	render_new_frame(cub3d);
 }

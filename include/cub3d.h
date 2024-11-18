@@ -56,6 +56,7 @@ typedef struct s_file
 	int		lines_till_map;
 	int		player_count;
 	bool	after_map;
+	bool	door;
 }	t_file;
 
 typedef struct s_map
@@ -75,6 +76,7 @@ typedef struct s_map
 	mlx_texture_t	*so;
 	mlx_texture_t	*we;
 	mlx_texture_t	*ea;
+	mlx_texture_t	*door;
 	mlx_image_t		*walls;
 
 }	t_map;
@@ -161,11 +163,6 @@ void	checkfile_error_handler(int i);
 void	parsefile_error_handler(t_cub3d *cub3d, int i);
 void	execution_error_handler(t_cub3d *cub3d, int i);
 
-// Bonus
-bool	collision_check(t_cub3d *cub3d, char c);
-bool	out_of_bounds(t_cub3d *cub3d, int y, int x);
-void	create_minimap(t_cub3d *cub3d, mlx_t *mlx);
-
 //render frame
 void	render_frame(t_cub3d *cub3d);
 
@@ -183,7 +180,13 @@ void	trace_ray_path(t_cub3d *cub3d, t_raycast *cast);
 void	load_torches(t_cub3d *cub3d);
 void	update_torch(void *param);
 
-//mouse
+// Bonus
+bool	collision_check(t_cub3d *cub3d, char c);
+bool	out_of_bounds(t_cub3d *cub3d, int y, int x);
+void	create_minimap(t_cub3d *cub3d, mlx_t *mlx);
 void	handle_mouse(t_cub3d *cub3d);
+int		door_validity(t_cub3d *cub3d, int y, int x);
+void	check_door(mlx_key_data_t keydata, void *param);
+bool	check_coll_char(char c);
 
 #endif

@@ -14,24 +14,24 @@
 
 static bool	check_forward(t_cub3d *cub3d, float dis_y, float dis_x, float angle)
 {
-	dis_y = cub3d->player.y - sin(cub3d->player.angle) * (COL);
-	dis_x = cub3d->player.x - cos(cub3d->player.angle) * (COL);
+	dis_y = cub3d->player.y - sin(cub3d->player.angle) * COL;
+	dis_x = cub3d->player.x - cos(cub3d->player.angle) * COL;
 	if (out_of_bounds(cub3d, (int)dis_y, (int)dis_x)
-		|| cub3d->map.grid[(int)dis_y][(int)dis_x] == '1')
+		|| check_coll_char(cub3d->map.grid[(int)dis_y][(int)dis_x]))
 		return (true);
 	angle = cub3d->player.angle - 0.25 * PI;
 	if (angle < 0)
 		angle += PI * 2;
-	dis_y = cub3d->player.y - sin(angle) * (COL);
-	dis_x = cub3d->player.x - cos(angle) * (COL);
-	if (cub3d->map.grid[(int)dis_y][(int)dis_x] == '1')
+	dis_y = cub3d->player.y - sin(angle) * COL;
+	dis_x = cub3d->player.x - cos(angle) * COL;
+	if (check_coll_char(cub3d->map.grid[(int)dis_y][(int)dis_x]))
 		return (true);
 	angle = cub3d->player.angle + 0.25 * PI;
 	if (angle > 2 * PI)
 		angle -= PI * 2;
-	dis_y = cub3d->player.y - sin(angle) * (COL);
-	dis_x = cub3d->player.x - cos(angle) * (COL);
-	if (cub3d->map.grid[(int)dis_y][(int)dis_x] == '1')
+	dis_y = cub3d->player.y - sin(angle) * COL;
+	dis_x = cub3d->player.x - cos(angle) * COL;
+	if (check_coll_char(cub3d->map.grid[(int)dis_y][(int)dis_x]))
 		return (true);
 	return (false);
 }
@@ -41,24 +41,24 @@ static bool	check_back(t_cub3d *cub3d, float dis_y, float dis_x, float angle)
 	angle = cub3d->player.angle - PI;
 	if (angle < 0)
 		angle += PI * 2;
-	dis_y = cub3d->player.y - sin(angle) * (COL);
-	dis_x = cub3d->player.x - cos(angle) * (COL);
+	dis_y = cub3d->player.y - sin(angle) * COL;
+	dis_x = cub3d->player.x - cos(angle) * COL;
 	if (out_of_bounds(cub3d, (int)dis_y, (int)dis_x)
-		|| cub3d->map.grid[(int)dis_y][(int)dis_x] == '1')
+		|| check_coll_char(cub3d->map.grid[(int)dis_y][(int)dis_x]))
 		return (true);
 	angle = cub3d->player.angle - 0.75 * PI;
 	if (angle < 0)
 		angle += PI * 2;
-	dis_y = cub3d->player.y - sin(angle) * (COL);
-	dis_x = cub3d->player.x - cos(angle) * (COL);
-	if (cub3d->map.grid[(int)dis_y][(int)dis_x] == '1')
+	dis_y = cub3d->player.y - sin(angle) * COL;
+	dis_x = cub3d->player.x - cos(angle) * COL;
+	if (check_coll_char(cub3d->map.grid[(int)dis_y][(int)dis_x]))
 		return (true);
 	angle = cub3d->player.angle + 0.75 * PI;
 	if (angle > 2 * PI)
 		angle -= PI * 2;
-	dis_y = cub3d->player.y - sin(angle) * (COL);
-	dis_x = cub3d->player.x - cos(angle) * (COL);
-	if (cub3d->map.grid[(int)dis_y][(int)dis_x] == '1')
+	dis_y = cub3d->player.y - sin(angle) * COL;
+	dis_x = cub3d->player.x - cos(angle) * COL;
+	if (check_coll_char(cub3d->map.grid[(int)dis_y][(int)dis_x]))
 		return (true);
 	return (false);
 }
@@ -68,24 +68,24 @@ static bool	check_right(t_cub3d *cub3d, float dis_y, float dis_x, float angle)
 	angle = cub3d->player.angle - 1.5 * PI;
 	if (angle < 0)
 		angle += PI * 2;
-	dis_y = cub3d->player.y - sin(angle) * (COL);
-	dis_x = cub3d->player.x - cos(angle) * (COL);
+	dis_y = cub3d->player.y - sin(angle) * COL;
+	dis_x = cub3d->player.x - cos(angle) * COL;
 	if (out_of_bounds(cub3d, (int)dis_y, (int)dis_x)
-		|| cub3d->map.grid[(int)dis_y][(int)dis_x] == '1')
+		|| check_coll_char(cub3d->map.grid[(int)dis_y][(int)dis_x]))
 		return (true);
 	angle = cub3d->player.angle - 1.25 * PI;
 	if (angle < 0)
 		angle += PI * 2;
-	dis_y = cub3d->player.y - sin(angle) * (COL);
-	dis_x = cub3d->player.x - cos(angle) * (COL);
-	if (cub3d->map.grid[(int)dis_y][(int)dis_x] == '1')
+	dis_y = cub3d->player.y - sin(angle) * COL;
+	dis_x = cub3d->player.x - cos(angle) * COL;
+	if (check_coll_char(cub3d->map.grid[(int)dis_y][(int)dis_x]))
 		return (true);
 	angle = cub3d->player.angle - 1.75 * PI;
 	if (angle < 0)
 		angle += PI * 2;
-	dis_y = cub3d->player.y - sin(angle) * (COL);
-	dis_x = cub3d->player.x - cos(angle) * (COL);
-	if (cub3d->map.grid[(int)dis_y][(int)dis_x] == '1')
+	dis_y = cub3d->player.y - sin(angle) * COL;
+	dis_x = cub3d->player.x - cos(angle) * COL;
+	if (check_coll_char(cub3d->map.grid[(int)dis_y][(int)dis_x]))
 		return (true);
 	return (false);
 }
@@ -95,24 +95,24 @@ static bool	check_left(t_cub3d *cub3d, float dis_y, float dis_x, float angle)
 	angle = cub3d->player.angle - 0.5 * PI;
 	if (angle < 0)
 		angle += PI * 2;
-	dis_y = cub3d->player.y - sin(angle) * (COL);
-	dis_x = cub3d->player.x - cos(angle) * (COL);
+	dis_y = cub3d->player.y - sin(angle) * COL;
+	dis_x = cub3d->player.x - cos(angle) * COL;
 	if (out_of_bounds(cub3d, (int)dis_y, (int)dis_x)
-		|| cub3d->map.grid[(int)dis_y][(int)dis_x] == '1')
+		|| check_coll_char(cub3d->map.grid[(int)dis_y][(int)dis_x]))
 		return (true);
 	angle = cub3d->player.angle - 0.25 * PI;
 	if (angle < 0)
 		angle += PI * 2;
-	dis_y = cub3d->player.y - sin(angle) * (COL);
-	dis_x = cub3d->player.x - cos(angle) * (COL);
-	if (cub3d->map.grid[(int)dis_y][(int)dis_x] == '1')
+	dis_y = cub3d->player.y - sin(angle) * COL;
+	dis_x = cub3d->player.x - cos(angle) * COL;
+	if (check_coll_char(cub3d->map.grid[(int)dis_y][(int)dis_x]))
 		return (true);
 	angle = cub3d->player.angle - 0.75 * PI;
 	if (angle < 0)
 		angle += PI * 2;
-	dis_y = cub3d->player.y - sin(angle) * (COL);
-	dis_x = cub3d->player.x - cos(angle) * (COL);
-	if (cub3d->map.grid[(int)dis_y][(int)dis_x] == '1')
+	dis_y = cub3d->player.y - sin(angle) * COL;
+	dis_x = cub3d->player.x - cos(angle) * COL;
+	if (check_coll_char(cub3d->map.grid[(int)dis_y][(int)dis_x]))
 		return (true);
 	return (false);
 }

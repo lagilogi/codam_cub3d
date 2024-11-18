@@ -18,7 +18,7 @@ int	check_char(char c, int len)
 	int		i;
 
 	i = 0;
-	map_chars = "NSWE01 ";
+	map_chars = "NSWE01D ";
 	while (i < len)
 	{
 		if (map_chars[i] == c)

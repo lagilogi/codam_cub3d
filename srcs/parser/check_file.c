@@ -27,10 +27,11 @@ static int	check_map(t_cub3d *cub3d, char *str, int i)
 			cub3d->player.y = cub3d->map.rows + 0.5;
 			cub3d->player.x = i + 0.5;
 		}
-		if (check_char(str[i], 7) == 0)
+		else if (str[i] == 'D' || str[i] == 'd')
+			cub3d->file.door = true;
+		else if (str[i] != '0' && str[i] != '1' && str[i] != ' ')
 			return (4);
-		else
-			map_size++;
+		map_size++;
 		i++;
 	}
 	if (cub3d->map.cols < map_size)

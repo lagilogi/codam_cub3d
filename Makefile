@@ -39,6 +39,7 @@ BONUS_DIR			=	$(SRC_DIR)bonus/minimap.c \
 						$(SRC_DIR)bonus/bonus_utils.c \
 						$(SRC_DIR)bonus/sprite_animation.c \
 						$(SRC_DIR)bonus/mouse_input.c \
+						$(SRC_DIR)bonus/doors.c
 
 # Concatenate all source files
 SRCS 				= $(MAIN_DIR) $(PARSER_DIR) $(EXEC_DIR) $(MOVEMENT_DIR) $(BONUS_DIR) $(CLOSING_DIR)
