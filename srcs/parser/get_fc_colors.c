@@ -6,7 +6,7 @@
 /*   By: saleunin <saleunin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 18:43:25 by wsonepou          #+#    #+#             */
-/*   Updated: 2024/11/18 13:56:37 by saleunin         ###   ########.fr       */
+/*   Updated: 2024/11/18 14:03:58 by saleunin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int	get_ceiling_color(t_cub3d *cub3d, char *line, int i)
 		i++;
 	if (line[i] != '\n')
 		return (1);
-	cub3d->map.f_col += 255;
+	cub3d->map.c_col += 255;
 
 	return (0);
 }
