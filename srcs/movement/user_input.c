@@ -83,6 +83,31 @@ void	handle_mouse(t_cub3d *cub3d)
 	}
 }
 
+long long	get_current_time(void)
+{
+	struct timeval	time;
+
+	if (gettimeofday(&time, NULL) == -1)
+		write(2, "gettimeofday() error\n", 22);
+	return (time.tv_sec * 1000 + time.tv_usec / 1000);
+}
+
+void update_torch(t_cub3d *cub3d)
+{
+	static int i = 0;
+	static long long last_frame;
+
+
+	if (get_current_time() - last_frame < 100)
+		return ;
+	cub3d->torch_images[i]->instances->enabled = false;
+	i++;
+	if (i == N_TORCH_TXTRS)
+		i = 0;
+	cub3d->torch_images[i]->instances->enabled = true;
+	last_frame = get_current_time();
+}
+
 void	user_input(void *param)
 {
 	t_cub3d	*cub3d;
@@ -110,4 +135,5 @@ void	user_input(void *param)
 		create_minimap(cub3d, cub3d->mlx);
 	}
 	cub3d->moving = false;
+	update_torch(cub3d);
 }

@@ -24,7 +24,7 @@ PARSER_DIR			=	$(SRC_DIR)parser/check_file.c \
 						$(SRC_DIR)parser/parse_map.c \
 						$(SRC_DIR)parser/parse_utils.c
 
-EXEC_DIR			=	$(SRC_DIR)execution/execution.c $(SRC_DIR)execution/render.c
+EXEC_DIR			=	$(SRC_DIR)execution/execution.c $(SRC_DIR)execution/render.c $(SRC_DIR)execution/calc_raycast.c $(SRC_DIR)execution/trace_ray_path.c
 
 MOVEMENT_DIR		=	$(SRC_DIR)movement/user_input.c
 
