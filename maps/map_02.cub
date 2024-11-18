@@ -3,7 +3,7 @@ C 200,200,200
 
 NO ./textures/wall_no.png
 SO ./textures/wall_so.png
-WE ./textures/wall_we.png
+WE ./textures/wall.png
 EA ./textures/wall_ea.png
 
              1111111111
