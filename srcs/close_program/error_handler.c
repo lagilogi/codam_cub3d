@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   error_handler.c                                    :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: wsonepou <wsonepou@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2024/10/21 17:09:11 by wsonepou      #+#    #+#                 */
-/*   Updated: 2024/11/08 16:22:22 by wsonepou      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   error_handler.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: saleunin <saleunin@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/21 17:09:11 by wsonepou          #+#    #+#             */
+/*   Updated: 2024/11/18 14:12:28 by saleunin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	checkfile_error_handler(int i)
 void	error_handler(int i)
 {
 	if (i == 1)
-		write(2, "ERROR: Too many arguments\n", 27);
+		write(2, "ERROR: Invalid amount of arguments\n", 36);
 	else if (i == 2)
 		write(2, "ERROR: Incorrect file type\n", 28);
 	else if (i == 3)

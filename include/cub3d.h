@@ -6,7 +6,7 @@
 /*   By: saleunin <saleunin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 13:14:48 by wsonepou          #+#    #+#             */
-/*   Updated: 2024/11/18 13:56:24 by saleunin         ###   ########.fr       */
+/*   Updated: 2024/11/18 15:30:31 by saleunin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,11 @@
 # define HEIGHT 1080
 # define N_TORCH_TXTRS 5
 # define DIM 40
-// # define TXTR_DIM 500
 # define SPEED 0.06
 # define PI 3.14159265359
 
 // Bonus
-# define COL SPEED + SPEED * 3
+# define COL 0.24 // SPEED * 4
 # define MAPSIZE 320
 # define OFFSET 10
 # define MINIRAYS 20
@@ -48,10 +47,10 @@ typedef struct s_player
 typedef struct s_file
 {
 	int		data_c;
-	int		NO;
-	int		SO;
-	int		WE;
-	int		EA;
+	int		no;
+	int		so;
+	int		we;
+	int		ea;
 	int		floor;
 	int		ceil;
 	int		lines_till_map;
@@ -72,10 +71,10 @@ typedef struct s_map
 	int				c_g;
 	int				c_b;
 	uint32_t		c_col;
-	mlx_texture_t	*NO;
-	mlx_texture_t	*SO;
-	mlx_texture_t	*WE;
-	mlx_texture_t	*EA;
+	mlx_texture_t	*no;
+	mlx_texture_t	*so;
+	mlx_texture_t	*we;
+	mlx_texture_t	*ea;
 	mlx_image_t		*walls;
 
 }	t_map;
@@ -98,7 +97,7 @@ typedef struct s_cub3d
 	t_file		file;
 	t_player	player;
 	bool		moving;
-	mlx_image_t **torch_images;
+	mlx_image_t	**torch_images;
 }	t_cub3d;
 
 enum e_side_hit
@@ -107,19 +106,20 @@ enum e_side_hit
 	horizontal
 };
 
-typedef struct s_raycast {
+typedef struct s_raycast
+{
 	int				x;
 	double			ray_dir_x; //x angle ray travel
 	double			ray_dir_y; // y angle ray travel
 	int				map_x; // current x coordinate map to check
 	int				map_y; // curent y coordinate map to check
 	double			wall_dist; // distance to the wall at angle of 90 degrees
-	double			side_dist_x; // length between player and x side for first position
-	double			side_dist_y; // length between player and y side for first position
+	double			side_dist_x; // length between player and map x
+	double			side_dist_y; // length between player and map y
 	short			step_x; // check if ray is left(-) or right(+)
 	short			step_y; // check if ray is down(-) or up(+)
-	double			delta_dist_x; // length of one x side to next x side; (1 / ray_dir_x)
-	double			delta_dist_y; // length of one y side to next y side; (1 / ray_dir_y)
+	double			delta_dist_x; // length of one x side to next x side
+	double			delta_dist_y; // length of one y side to next y side
 	int				wall_height; // height of the wall to draw
 	int				wall_bottom; // where to start drawing the wall
 	int				wall_top; // where to stop drawing the wall
@@ -151,7 +151,7 @@ void	starting_exec(t_cub3d *cub3d);
 void	user_input(void *param);
 
 //render frame
-void render_frame(t_cub3d *cub3d);
+void	render_frame(t_cub3d *cub3d);
 
 // Close program
 void	close_program(t_cub3d *cub3d, int exit_code);
@@ -167,7 +167,7 @@ bool	out_of_bounds(t_cub3d *cub3d, int y, int x);
 void	create_minimap(t_cub3d *cub3d, mlx_t *mlx);
 
 //render frame
-void render_frame(t_cub3d *cub3d);
+void	render_frame(t_cub3d *cub3d);
 
 //calculate ray funcs
 void	calc_rays(t_cub3d *cub3d, t_raycast *cast);
@@ -177,5 +177,13 @@ void	calc_step_deltas_y(t_cub3d *cub3d, t_raycast *cast);
 void	calc_wall_dist(t_cub3d *cub3d, t_raycast *cast);
 void	calc_wall(t_cub3d *cub3d, t_raycast *cast);
 
-void trace_ray_path(t_cub3d *cub3d, t_raycast *cast);
+void	trace_ray_path(t_cub3d *cub3d, t_raycast *cast);
+
+//sprite animation
+void	load_torches(t_cub3d *cub3d);
+void	update_torch(void *param);
+
+//mouse
+void	handle_mouse(t_cub3d *cub3d);
+
 #endif

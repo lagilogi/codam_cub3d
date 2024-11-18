@@ -6,7 +6,7 @@
 /*   By: saleunin <saleunin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 15:09:56 by saleunin          #+#    #+#             */
-/*   Updated: 2024/11/17 15:47:07 by saleunin         ###   ########.fr       */
+/*   Updated: 2024/11/18 14:44:54 by saleunin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,18 +61,18 @@ void	calc_wall_dist(t_cub3d *cub3d, t_raycast *cast)
 	if (cast->side_hit == vertical)
 	{
 		if (cast->step_x == -1)
-			cast->texture = cub3d->map.WE;
+			cast->texture = cub3d->map.ea;
 		else
-			cast->texture = cub3d->map.EA;
+			cast->texture = cub3d->map.we;
 		cast->wall_dist = (cast->map_x - cub3d->player.x + \
 		(1 - cast->step_x) / 2) / cast->ray_dir_x;
 	}
 	else
 	{
 		if (cast->step_y == -1)
-			cast->texture = cub3d->map.NO;
+			cast->texture = cub3d->map.so;
 		else
-			cast->texture = cub3d->map.SO;
+			cast->texture = cub3d->map.no;
 		cast->wall_dist = (cast->map_y - cub3d->player.y + \
 		(1 - cast->step_y) / 2) / cast->ray_dir_y;
 	}

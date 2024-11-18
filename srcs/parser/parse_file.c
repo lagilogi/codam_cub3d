@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   parse_file.c                                       :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: wsonepou <wsonepou@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2024/10/21 13:26:13 by wsonepou      #+#    #+#                 */
-/*   Updated: 2024/11/15 17:00:56 by wsonepou      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   parse_file.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: saleunin <saleunin@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/21 13:26:13 by wsonepou          #+#    #+#             */
+/*   Updated: 2024/11/18 14:44:54 by saleunin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,26 +16,26 @@ static int	set_texture(t_cub3d *cub3d, char *txtr_str, char c)
 {
 	if (c == 'N')
 	{
-		cub3d->map.NO = mlx_load_png(txtr_str);
-		if (cub3d->map.NO == NULL)
+		cub3d->map.no = mlx_load_png(txtr_str);
+		if (cub3d->map.no == NULL)
 			return (1);
 	}
 	if (c == 'S')
 	{
-		cub3d->map.SO = mlx_load_png(txtr_str);
-		if (cub3d->map.SO == NULL)
+		cub3d->map.so = mlx_load_png(txtr_str);
+		if (cub3d->map.so == NULL)
 			return (1);
 	}
 	if (c == 'W')
 	{
-		cub3d->map.WE = mlx_load_png(txtr_str);
-		if (cub3d->map.WE == NULL)
+		cub3d->map.we = mlx_load_png(txtr_str);
+		if (cub3d->map.we == NULL)
 			return (1);
 	}
 	if (c == 'E')
 	{
-		cub3d->map.EA = mlx_load_png(txtr_str);
-		if (cub3d->map.EA == NULL)
+		cub3d->map.ea = mlx_load_png(txtr_str);
+		if (cub3d->map.ea == NULL)
 			return (1);
 	}
 	return (0);

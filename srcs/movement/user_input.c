@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   user_input.c                                       :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: saleunin <saleunin@student.42.fr>            +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2024/10/29 13:30:05 by wsonepou      #+#    #+#                 */
-/*   Updated: 2024/11/15 18:07:02 by wsonepou      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   user_input.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: saleunin <saleunin@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/29 13:30:05 by wsonepou          #+#    #+#             */
+/*   Updated: 2024/11/18 15:38:52 by saleunin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,66 +46,17 @@ static void	ft_turn(t_cub3d *cub3d, int i)
 		cub3d->player.angle -= 0.1;
 		if (cub3d->player.angle < 0)
 			cub3d->player.angle += 2 * PI;
-		printf("LEFT!\n");
 	}
 	else
 	{
 		cub3d->player.angle += 0.1;
 		if (cub3d->player.angle > 2 * PI)
 			cub3d->player.angle -= 2 * PI;
-		printf("RIGHT!\n");
 	}
 	cub3d->player.delta_x = cos(cub3d->player.angle);
 	cub3d->player.delta_y = sin(cub3d->player.angle);
 	cub3d->player.plane_x = cos(cub3d->player.angle + PI / 2);
 	cub3d->player.plane_y = sin(cub3d->player.angle + PI / 2);
-}
-
-void	handle_mouse(t_cub3d *cub3d)
-{
-	int	current_x;
-	int	current_y;
-
-	mlx_get_mouse_pos(cub3d->mlx, &current_x, &current_y);
-	if (current_x != WIDTH / 2)
-	{
-		mlx_set_mouse_pos(cub3d->mlx, WIDTH / 2, HEIGHT / 2);
-		cub3d->player.angle += ((double)current_x - (WIDTH / 2)) / 30 * 0.05;
-		if (cub3d->player.angle > 2 * PI)
-			cub3d->player.angle -= 2 * PI;
-		if (cub3d->player.angle < 2 * PI)
-			cub3d->player.angle += 2 * PI;
-		cub3d->player.delta_x = cos(cub3d->player.angle);
-		cub3d->player.delta_y = sin(cub3d->player.angle);
-		cub3d->player.plane_x = cos(cub3d->player.angle + PI / 2);
-		cub3d->player.plane_y = sin(cub3d->player.angle + PI / 2);
-		cub3d->moving = true;
-	}
-}
-
-long long	get_current_time(void)
-{
-	struct timeval	time;
-
-	if (gettimeofday(&time, NULL) == -1)
-		write(2, "gettimeofday() error\n", 22);
-	return (time.tv_sec * 1000 + time.tv_usec / 1000);
-}
-
-void update_torch(t_cub3d *cub3d)
-{
-	static int i = 0;
-	static long long last_frame;
-
-
-	if (get_current_time() - last_frame < 100)
-		return ;
-	cub3d->torch_images[i]->instances->enabled = false;
-	i++;
-	if (i == N_TORCH_TXTRS)
-		i = 0;
-	cub3d->torch_images[i]->instances->enabled = true;
-	last_frame = get_current_time();
 }
 
 void	user_input(void *param)
@@ -135,5 +86,4 @@ void	user_input(void *param)
 		create_minimap(cub3d, cub3d->mlx);
 	}
 	cub3d->moving = false;
-	update_torch(cub3d);
 }

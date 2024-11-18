@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   minimap.c                                          :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: saleunin <saleunin@student.42.fr>            +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2024/10/29 16:03:39 by wsonepou      #+#    #+#                 */
-/*   Updated: 2024/11/15 18:30:30 by wsonepou      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   minimap.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: saleunin <saleunin@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/29 16:03:39 by wsonepou          #+#    #+#             */
+/*   Updated: 2024/11/18 14:20:39 by saleunin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static void	draw_rays_loop(t_cub3d *cub3d)
 {
 	float	ray_angle;
 	int		ray;
-	
+
 	ray = 0;
 	ray_angle = cub3d->player.angle - 0.25 * PI;
 	while (ray < MINIRAYS)
@@ -60,7 +60,6 @@ static void	draw_minimap(t_cub3d *cub3d, int y, int x)
 	int	my;
 	int	mx;
 
-
 	my = cub3d->mini.my / DIM;
 	mx = cub3d->mini.mx / DIM;
 	if (x >= 150 && x <= 170 && y >= 150 && y <= 170)
@@ -75,7 +74,6 @@ static void	draw_minimap(t_cub3d *cub3d, int y, int x)
 
 static void	draw_map_loop(t_cub3d *cub3d, int y, int x)
 {
-
 	cub3d->mini.my = (cub3d->player.y * DIM) - MAPSIZE / 2;
 	while (y < MAPSIZE)
 	{

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   parse_utils.c                                      :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: saleunin <saleunin@student.42.fr>            +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2024/10/21 18:10:42 by wsonepou      #+#    #+#                 */
-/*   Updated: 2024/11/15 16:47:43 by wsonepou      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   parse_utils.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: saleunin <saleunin@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/21 18:10:42 by wsonepou          #+#    #+#             */
+/*   Updated: 2024/11/18 15:21:29 by saleunin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,19 +46,19 @@ int	check_whitespace(char c)
 int	check_identifier(t_cub3d *cub3d, char *line)
 {
 	if (ft_strnstr(line, "NO", 2))
-		cub3d->file.NO++;
+		cub3d->file.no++;
 	else if (ft_strnstr(line, "SO", 2))
-		cub3d->file.SO++;
+		cub3d->file.so++;
 	else if (ft_strnstr(line, "WE", 2))
-		cub3d->file.WE++;
+		cub3d->file.we++;
 	else if (ft_strnstr(line, "EA", 2))
-		cub3d->file.EA++;
+		cub3d->file.ea++;
 	else if (ft_strnstr(line, "F", 1))
 		cub3d->file.floor++;
 	else if (ft_strnstr(line, "C", 1))
 		cub3d->file.ceil++;
-	if (cub3d->file.NO > 1 || cub3d->file.SO > 1
-		|| cub3d->file.WE > 1 || cub3d->file.EA > 1)
+	if (cub3d->file.no > 1 || cub3d->file.so > 1
+		|| cub3d->file.we > 1 || cub3d->file.ea > 1)
 		return (3);
 	if (cub3d->file.floor > 1 || cub3d->file.ceil > 1)
 		return (3);

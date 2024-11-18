@@ -11,7 +11,7 @@ INC					=	-I ./include -I $(LIBMLX)include
 
 # Compiler and CFlags
 CC					=	cc
-CFLAGS				=	-g -Wall -Werror -Wextra #-g -fsanitize=address
+CFLAGS				=	-g -Wall -Wextra#-Werror  #-g -fsanitize=address
 LIBFT				=	./libraries/libft/libft.a
 MLXFLAGS			=	$(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm
 
@@ -24,7 +24,10 @@ PARSER_DIR			=	$(SRC_DIR)parser/check_file.c \
 						$(SRC_DIR)parser/parse_map.c \
 						$(SRC_DIR)parser/parse_utils.c
 
-EXEC_DIR			=	$(SRC_DIR)execution/execution.c $(SRC_DIR)execution/render.c $(SRC_DIR)execution/calc_raycast.c $(SRC_DIR)execution/trace_ray_path.c
+EXEC_DIR			=	$(SRC_DIR)execution/execution.c \
+						$(SRC_DIR)execution/render.c \
+						$(SRC_DIR)execution/calc_raycast.c \
+						$(SRC_DIR)execution/trace_ray_path.c
 
 MOVEMENT_DIR		=	$(SRC_DIR)movement/user_input.c
 
@@ -33,7 +36,9 @@ CLOSING_DIR			=	$(SRC_DIR)close_program/error_handler.c \
 
 BONUS_DIR			=	$(SRC_DIR)bonus/minimap.c \
 						$(SRC_DIR)bonus/collision.c \
-						$(SRC_DIR)bonus/bonus_utils.c
+						$(SRC_DIR)bonus/bonus_utils.c \
+						$(SRC_DIR)bonus/sprite_animation.c \
+						$(SRC_DIR)bonus/mouse_input.c \
 
 # Concatenate all source files
 SRCS 				= $(MAIN_DIR) $(PARSER_DIR) $(EXEC_DIR) $(MOVEMENT_DIR) $(BONUS_DIR) $(CLOSING_DIR)

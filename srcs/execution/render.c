@@ -6,7 +6,7 @@
 /*   By: saleunin <saleunin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 14:42:56 by saleunin          #+#    #+#             */
-/*   Updated: 2024/11/17 15:44:46 by saleunin         ###   ########.fr       */
+/*   Updated: 2024/11/18 15:38:14 by saleunin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	draw_vertical_line(
 	if (end >= HEIGHT)
 		end = HEIGHT;
 	y = start;
+	color += 255;
 	while (y < end)
 	{
 		mlx_put_pixel(cast->img, x, y, color);
