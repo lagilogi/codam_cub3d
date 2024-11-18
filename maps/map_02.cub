@@ -2,9 +2,9 @@ F 100,100,100
 C 200,200,200
 
 NO ./textures/wall_no.png
-SO ./textures/wall_so.png
+SO ./textures/saleunin.png
 WE ./textures/wall.png
-EA ./textures/wall_ea.png
+EA ./textures/bloody_wall.png
 
              1111111111
              1001000101
