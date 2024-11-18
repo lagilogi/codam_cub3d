@@ -6,7 +6,7 @@
 /*   By: saleunin <saleunin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 17:09:11 by wsonepou          #+#    #+#             */
-/*   Updated: 2024/11/18 14:12:28 by saleunin         ###   ########.fr       */
+/*   Updated: 2024/11/18 15:55:21 by saleunin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	checkfile_error_handler(int i)
 	else if (i == 9)
 		write(2, "ERROR: couldn't close map_fd\n", 30);
 	else if (i == 10)
-		write(2, "ERROR: empty file or failed malloc gnl\n", 36);
+		write(2, "ERROR: empty file or failed malloc gnl\n", 40);
 	close_program(NULL, 1);
 }
 

@@ -1,10 +1,10 @@
-F 1,255,0
-C 220,30,0
+C 200,200,200
+F 100,100,100
 
-NO ./textures/north_txtr.png
-SO ./textures/south_txtr.png
-WE ./textures/west_txtr.png
-EA ./textures/east_txtr.png
+NO ./textures/wall_no.png
+SO ./textures/wall_so.png
+WE ./textures/wall_we.png
+EA ./textures/wall_ea.png
 
 11111111
 10000001
