@@ -6,7 +6,7 @@
 /*   By: saleunin <saleunin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 15:09:56 by saleunin          #+#    #+#             */
-/*   Updated: 2024/11/18 14:44:54 by saleunin         ###   ########.fr       */
+/*   Updated: 2024/11/19 16:00:42 by saleunin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,9 @@ void	calc_step_deltas_y(t_cub3d *cub3d, t_raycast *cast)
 
 void	calc_wall_dist(t_cub3d *cub3d, t_raycast *cast)
 {
+	mlx_texture_t	*tmp;
+
+	tmp = cast->texture;
 	if (cast->side_hit == vertical)
 	{
 		if (cast->step_x == -1)
@@ -76,6 +79,8 @@ void	calc_wall_dist(t_cub3d *cub3d, t_raycast *cast)
 		cast->wall_dist = (cast->map_y - cub3d->player.y + \
 		(1 - cast->step_y) / 2) / cast->ray_dir_y;
 	}
+	if (tmp != NULL)
+		cast->texture = tmp;
 }
 
 void	calc_wall(t_cub3d *cub3d, t_raycast *cast)

@@ -6,7 +6,7 @@
 /*   By: saleunin <saleunin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 13:14:48 by wsonepou          #+#    #+#             */
-/*   Updated: 2024/11/18 15:30:31 by saleunin         ###   ########.fr       */
+/*   Updated: 2024/11/19 15:58:25 by saleunin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,7 @@ typedef struct s_raycast
 	enum e_side_hit	side_hit; // which side of wall was hit
 	mlx_texture_t	*texture; // texture of the wall
 	mlx_image_t		*img;
+	bool			open_door;
 }	t_raycast;
 
 // Parser
