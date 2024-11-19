@@ -38,6 +38,7 @@ void	run_cub3d(t_cub3d *cub3d)
 
 void	starting_exec(t_cub3d *cub3d)
 {
+	load_doors(cub3d);
 	window_initilization(cub3d);
 	load_torches(cub3d);
 	create_minimap(cub3d, cub3d->mlx);

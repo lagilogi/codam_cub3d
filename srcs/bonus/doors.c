@@ -1,5 +1,17 @@
 #include "../../include/cub3d.h"
 
+void	load_doors(t_cub3d *cub3d)
+{
+	if (cub3d->file.door == false)
+		return ;
+	cub3d->map.closed_door = mlx_load_png("./textures/closed_door.png");
+	if (cub3d->map.closed_door == NULL)
+		execution_error_handler(cub3d, 5);
+	cub3d->map.open_door = mlx_load_png("./textures/open_door.png");
+	if (cub3d->map.open_door == NULL)
+		execution_error_handler(cub3d, 5);
+}
+
 int	door_validity(t_cub3d *cub3d, int y, int x)
 {
 	if (cub3d->map.grid[y + 1][x] == '1' && cub3d->map.grid[y - 1][x] == '1')
@@ -11,7 +23,7 @@ int	door_validity(t_cub3d *cub3d, int y, int x)
 	return (false);
 }
 
-void	open_close_door(t_cub3d *cub3d, float y, float x)
+static void	open_close_door(t_cub3d *cub3d, float y, float x)
 {
 	float	delta_y;
 	float	delta_x;

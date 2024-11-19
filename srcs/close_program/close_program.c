@@ -53,6 +53,10 @@ static void	clean_up(t_cub3d *cub3d)
 		mlx_delete_texture(cub3d->map.we);
 	if (cub3d->map.ea != NULL)
 		mlx_delete_texture(cub3d->map.ea);
+	if (cub3d->map.closed_door != NULL)
+		mlx_delete_texture(cub3d->map.closed_door);
+	if (cub3d->map.open_door != NULL)
+		mlx_delete_texture(cub3d->map.open_door);
 	if (cub3d->map.grid != NULL)
 		free_map_array(cub3d);
 	if (cub3d->mini.map != NULL)

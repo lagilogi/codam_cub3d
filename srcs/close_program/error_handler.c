@@ -16,12 +16,20 @@ void	execution_error_handler(t_cub3d *cub3d, int i)
 {
 	if (i == 1)
 		write(2, "ERROR: MLX failed initializing\n", 32);
-	if (i == 2)
+	else if (i == 2)
 		write(2, "ERROR: failed creating minimap image\n", 38);
-	if (i == 3)
+	else if (i == 3)
 		write(2, "ERROR: failed putting minimap image to window\n", 47);
-	if (i == 4)
+	else if (i == 4)
 		write(2, "ERROR: failed drawing minimap rays\n", 36);
+	else if (i == 5)
+		write(2, "ERROR: Couldn't load door texture\n", 35);
+	else if (i == 6)
+		write(2, "ERROR: Couldn't load torch textures\n", 37);
+	else if (i == 7)
+		write(2, "ERROR: failed putting torch txtr to image to window\n", 53);
+	else if (i == 8)
+		write(2, "ERROR: failed putting torch image to window\n", 45);
 	close_program(cub3d, 1);
 }
 
@@ -36,7 +44,9 @@ void	parsefile_error_handler(t_cub3d *cub3d, int i)
 	else if (i == 4)
 		write(2, "ERROR: Parse_file failed malloc\n", 33);
 	else if (i == 5)
-		write(2, "ERROR: Door placement is invalid\n", 33);
+		write(2, "ERROR: Couldn't load door texture\n", 35);
+	else if (i == 6)
+		write(2, "ERROR: Door placement is invalid\n", 34);
 	close_program(cub3d, 1);
 }
 

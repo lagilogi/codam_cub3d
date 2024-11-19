@@ -76,7 +76,8 @@ typedef struct s_map
 	mlx_texture_t	*so;
 	mlx_texture_t	*we;
 	mlx_texture_t	*ea;
-	mlx_texture_t	*door;
+	mlx_texture_t	*closed_door;
+	mlx_texture_t	*open_door;
 	mlx_image_t		*walls;
 
 }	t_map;
@@ -151,9 +152,15 @@ int		check_char(char c, int x);
 // Execution
 void	starting_exec(t_cub3d *cub3d);
 void	user_input(void *param);
-
-//render frame
 void	render_frame(t_cub3d *cub3d);
+
+//calculate ray funcs
+void	calc_rays(t_cub3d *cub3d, t_raycast *cast);
+void	calc_step_deltas_x(t_cub3d *cub3d, t_raycast *cast);
+void	calc_step_deltas_y(t_cub3d *cub3d, t_raycast *cast);
+void	calc_wall_dist(t_cub3d *cub3d, t_raycast *cast);
+void	calc_wall(t_cub3d *cub3d, t_raycast *cast);
+void	trace_ray_path(t_cub3d *cub3d, t_raycast *cast);
 
 // Close program
 void	close_program(t_cub3d *cub3d, int exit_code);
@@ -163,30 +170,16 @@ void	checkfile_error_handler(int i);
 void	parsefile_error_handler(t_cub3d *cub3d, int i);
 void	execution_error_handler(t_cub3d *cub3d, int i);
 
-//render frame
-void	render_frame(t_cub3d *cub3d);
-
-//calculate ray funcs
-void	calc_rays(t_cub3d *cub3d, t_raycast *cast);
-// void	calc_step_deltas(t_cub3d *cub3d, t_raycast *cast);
-void	calc_step_deltas_x(t_cub3d *cub3d, t_raycast *cast);
-void	calc_step_deltas_y(t_cub3d *cub3d, t_raycast *cast);
-void	calc_wall_dist(t_cub3d *cub3d, t_raycast *cast);
-void	calc_wall(t_cub3d *cub3d, t_raycast *cast);
-
-void	trace_ray_path(t_cub3d *cub3d, t_raycast *cast);
-
-//sprite animation
-void	load_torches(t_cub3d *cub3d);
-void	update_torch(void *param);
-
 // Bonus
 bool	collision_check(t_cub3d *cub3d, char c);
 bool	out_of_bounds(t_cub3d *cub3d, int y, int x);
 void	create_minimap(t_cub3d *cub3d, mlx_t *mlx);
 void	handle_mouse(t_cub3d *cub3d);
 int		door_validity(t_cub3d *cub3d, int y, int x);
+void	load_doors(t_cub3d *cub3d);
 void	check_door(mlx_key_data_t keydata, void *param);
 bool	check_coll_char(char c);
+void	load_torches(t_cub3d *cub3d);
+void	update_torch(void *param);
 
 #endif
