@@ -16,7 +16,7 @@ static void	window_initilization(t_cub3d *cub3d)
 {
 	cub3d->mlx = mlx_init(WIDTH, HEIGHT, "Cub3D", true);
 	if (cub3d->mlx == NULL)
-		close_program(cub3d, 1);
+		execution_error_handler(cub3d, 1);
 	mlx_set_setting(MLX_STRETCH_IMAGE, 1);
 	mlx_set_cursor_mode(cub3d->mlx, MLX_MOUSE_HIDDEN);
 	mlx_set_mouse_pos(cub3d->mlx, WIDTH / 2, HEIGHT / 2);

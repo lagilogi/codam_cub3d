@@ -6,8 +6,8 @@ EA ./textures/wall_ea.png
 NO ./textures/wall_no.png
 SO ./textures/wall_so.png
 
-
-11111111
-100D00W1
-10010001
-11111111
+   11111111
+ 1100010000111
+100000D000000W1
+ 1100010000111
+   11111111

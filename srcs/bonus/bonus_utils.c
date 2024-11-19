@@ -26,9 +26,9 @@ bool	check_coll_char(char c)
 	char	*coll_chars;
 	int		i;
 
-	coll_chars = "1D";
+	coll_chars = "1D ";
 	i = 0;
-	while (i < 2)
+	while (i < 3)
 	{
 		if (coll_chars[i] == c)
 			return (true);

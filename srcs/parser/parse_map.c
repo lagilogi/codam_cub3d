@@ -23,11 +23,9 @@ static void	check_map_edge(t_cub3d *cub3d, int rows, int cols)
 	{
 		while (x < cols)
 		{
-			if (cub3d->map.grid[0][x] == '0'
-				|| cub3d->map.grid[rows - 1][x] == '0')
+			if (cub3d->map.grid[0][x] == '0' || cub3d->map.grid[rows - 1][x] == '0')
 				parsefile_error_handler(cub3d, 2);
-			else if (cub3d->map.grid[y][0] == '0'
-				|| cub3d->map.grid[y][cols - 1] == '0')
+			else if (cub3d->map.grid[y][0] == '0' || cub3d->map.grid[y][cols - 1] == '0')
 				parsefile_error_handler(cub3d, 2);
 			x++;
 		}
@@ -55,7 +53,7 @@ static void	check_inner_map(t_cub3d *cub3d, int rows, int cols, int y)
 			}
 			else if ((cub3d->map.grid[y][x] == 'D'
 				|| cub3d->map.grid[y][x] == 'D') && !door_validity(cub3d, y, x))
-				parsefile_error_handler(cub3d, 5);
+				parsefile_error_handler(cub3d, 2);
 
 			x++;
 		}
@@ -113,7 +111,7 @@ static void	create_map_array(t_cub3d *cub3d)
 	{
 		line = get_next_line(cub3d->map_fd);
 		if (line == NULL)
-			parsefile_error_handler(cub3d, 4);
+			parsefile_error_handler(cub3d, 5);
 		copy_map_data(cub3d, line, y, 0);
 		free(line);
 		y++;
@@ -130,8 +128,6 @@ void	parse_map(t_cub3d *cub3d)
 	cub3d->map_fd = 0;
 	check_map_edge(cub3d, cub3d->map.rows, cub3d->map.cols);
 	check_inner_map(cub3d, cub3d->map.rows, cub3d->map.cols, 0);
-	if (close(cub3d->map_fd) == -1)
-		parsefile_error_handler(cub3d, 3);
 	cub3d->player.delta_y = sin(cub3d->player.angle);
 	cub3d->player.delta_x = cos(cub3d->player.angle);
 	cub3d->player.plane_x = cos(cub3d->player.angle + PI / 2);

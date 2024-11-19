@@ -42,11 +42,9 @@ void	parsefile_error_handler(t_cub3d *cub3d, int i)
 	else if (i == 3)
 		write(2, "ERROR: couldn't close map_fd\n", 30);
 	else if (i == 4)
-		write(2, "ERROR: Parse_file failed malloc\n", 33);
+		write(2, "ERROR: Failed mallocing map grid\n", 34);
 	else if (i == 5)
-		write(2, "ERROR: Couldn't load door texture\n", 35);
-	else if (i == 6)
-		write(2, "ERROR: Door placement is invalid\n", 34);
+		write(2, "ERROR: GNL failed malloc\n", 26);
 	close_program(cub3d, 1);
 }
 

@@ -14,6 +14,8 @@ void	load_doors(t_cub3d *cub3d)
 
 int	door_validity(t_cub3d *cub3d, int y, int x)
 {
+	if (y == 0 || x == 0 || y == cub3d->map.rows - 1 || x == cub3d->map.cols - 1)
+		return (false);
 	if (cub3d->map.grid[y + 1][x] == '1' && cub3d->map.grid[y - 1][x] == '1')
 		if (cub3d->map.grid[y][x + 1] == '0' && cub3d->map.grid[y][x - 1] == '0')
 			return (true);
@@ -30,8 +32,8 @@ static void	open_close_door(t_cub3d *cub3d, float y, float x)
 	int		i;
 
 	i = 0;
-	delta_y = sin(cub3d->player.angle);
-	delta_x = cos(cub3d->player.angle);
+	delta_y = sin(cub3d->player.angle) + 0.2;
+	delta_x = cos(cub3d->player.angle) + 0.2;
 	while (i < 40)
 	{
 		y -= delta_y * 0.025;
@@ -41,7 +43,7 @@ static void	open_close_door(t_cub3d *cub3d, float y, float x)
 			cub3d->moving = true;
 			if (cub3d->map.grid[(int)y][(int)x] == 'D')
 				cub3d->map.grid[(int)y][(int)x] = 'd';
-			else if (cub3d->map.grid[(int)y][(int)x] == 'd')
+			else if (cub3d->map.grid[(int)y][(int)x] == 'd' && i > 5)
 				cub3d->map.grid[(int)y][(int)x] = 'D';
 			break ;
 		}

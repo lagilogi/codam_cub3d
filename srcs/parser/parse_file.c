@@ -97,7 +97,7 @@ void	parse_file(t_cub3d *cub3d, char *input)
 		error_handler(3);
 	line = get_next_line(cub3d->map_fd);
 	if (line == NULL)
-		parsefile_error_handler(cub3d, 1);
+		parsefile_error_handler(cub3d, 5);
 	while (line != NULL)
 	{
 		r_code = parse_line(cub3d, line, 0);
