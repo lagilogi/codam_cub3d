@@ -6,7 +6,7 @@
 /*   By: saleunin <saleunin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 14:42:56 by saleunin          #+#    #+#             */
-/*   Updated: 2024/11/19 15:55:28 by saleunin         ###   ########.fr       */
+/*   Updated: 2024/11/19 16:17:00 by saleunin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,25 +75,7 @@ void	render_frame(t_cub3d *cub3d)
 		calc_step_deltas_y(cub3d, &cast);
 		trace_ray_path(cub3d, &cast);
 		calc_wall_dist(cub3d, &cast);
-		if (cub3d->map.grid[(int)cub3d->player.y][(int)cub3d->player.x] == 'd')
-		{
-			if (cast.side_hit == vertical)
-			{
-				if (cast.step_x == -1 && cast.map_x + 1 == (int)cub3d->player.x && cast.map_y == (int)cub3d->player.y)
-				{
-					cast.texture = cub3d->map.open_door;
-				}
-				// else if (cast.step_x == 1 && cast.map_x - 1 == (int)cub3d->player.x && cast.map_y == (int)cub3d->player.y)
-				// 	cast.texture = cub3d->map.door_txtr;
-			}
-			else
-			{
-				if (cast.step_y == -1 && cast.map_y + 1 == (int)cub3d->player.y && cast.map_x == (int)cub3d->player.x)
-					cast.texture = cub3d->map.open_door;
-				// else if (cast.step_y == 1 && cast.map_y - 1 == (int)cub3d->player.y && cast.map_x == (int)cub3d->player.x)
-				// 	cast.texture = cub3d->map.door_txtr;
-			}
-		}
+		render_sides_door_in_door(cub3d, &cast);
 		calc_wall(cub3d, &cast);
 		draw_vertical_line_texture(cub3d, &cast);
 		draw_vertical_line(&cast, cast.wall_bottom, HEIGHT, cub3d->map.f_col);
