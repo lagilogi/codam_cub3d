@@ -6,7 +6,7 @@
 /*   By: saleunin <saleunin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 13:14:48 by wsonepou          #+#    #+#             */
-/*   Updated: 2024/11/19 15:58:25 by saleunin         ###   ########.fr       */
+/*   Updated: 2024/11/19 16:07:58 by saleunin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,5 +182,7 @@ void	check_door(mlx_key_data_t keydata, void *param);
 bool	check_coll_char(char c);
 void	load_torches(t_cub3d *cub3d);
 void	update_torch(void *param);
+void	render_sides_door_in_door(t_cub3d *cub3d, t_raycast *cast);
+
 
 #endif
