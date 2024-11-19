@@ -6,7 +6,7 @@
 /*   By: saleunin <saleunin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/17 15:09:56 by saleunin          #+#    #+#             */
-/*   Updated: 2024/11/18 14:44:54 by saleunin         ###   ########.fr       */
+/*   Updated: 2024/11/19 15:16:15 by saleunin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,9 @@ void	calc_wall_dist(t_cub3d *cub3d, t_raycast *cast)
 		cast->wall_dist = (cast->map_y - cub3d->player.y + \
 		(1 - cast->step_y) / 2) / cast->ray_dir_y;
 	}
+	if (cast->use_door_texture)
+		cast->texture = cub3d->map.door_txtr;
+	cast->use_door_texture = false;
 }
 
 void	calc_wall(t_cub3d *cub3d, t_raycast *cast)
