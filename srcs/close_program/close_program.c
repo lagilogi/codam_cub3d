@@ -12,20 +12,32 @@
 
 #include "../../include/cub3d.h"
 
-static void	clean_up_torches(t_cub3d *cub3d)
+static void clean_up_torches(t_cub3d *cub3d)
 {
-	int	i;
+	int i;
 
 	i = 0;
-	while (i < N_TORCH_TXTRS)
+	if (cub3d->torch_images != NULL)
 	{
-		if (cub3d->torch_images[i] != NULL)
-			mlx_delete_image(cub3d->mlx, cub3d->torch_images[i]);
-		else
-			break ;
-		i++;
+		while (i < N_TORCH_TXTRS)
+		{
+			if (cub3d->torch_images[i] != NULL)
+				mlx_delete_image(cub3d->mlx, cub3d->torch_images[i]);
+			i++;
+		}
+		free(cub3d->torch_images);
 	}
-	free(cub3d->torch_images);
+	if (cub3d->torch_textures != NULL)
+	{
+		i = 0;
+		while (i < N_TORCH_TXTRS)
+		{
+			if (cub3d->torch_textures[i] != NULL)
+				mlx_delete_texture(cub3d->torch_textures[i]);
+			i++;
+		}
+		free(cub3d->torch_textures);
+	}
 }
 
 static void	free_map_array(t_cub3d *cub3d)
@@ -63,8 +75,7 @@ static void	clean_up(t_cub3d *cub3d)
 		mlx_delete_image(cub3d->mlx, cub3d->mini.map);
 	if (cub3d->map.walls != NULL)
 		mlx_delete_image(cub3d->mlx, cub3d->map.walls);
-	if (cub3d->torch_images != NULL)
-		clean_up_torches(cub3d);
+	clean_up_torches(cub3d);
 	if (cub3d->mlx)
 		mlx_terminate(cub3d->mlx);
 }

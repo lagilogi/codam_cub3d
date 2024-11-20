@@ -100,6 +100,7 @@ typedef struct s_cub3d
 	t_file		file;
 	t_player	player;
 	bool		moving;
+	mlx_texture_t	**torch_textures;
 	mlx_image_t	**torch_images;
 }	t_cub3d;
 
@@ -180,7 +181,8 @@ int		door_validity(t_cub3d *cub3d, int y, int x);
 void	load_doors(t_cub3d *cub3d);
 void	check_door(mlx_key_data_t keydata, void *param);
 bool	check_coll_char(char c);
-void	load_torches(t_cub3d *cub3d);
+void	load_torch_textures(t_cub3d *cub3d);
+void	load_torch_images_to_screen(t_cub3d *cub3d);
 void	update_torch(void *param);
 void	render_sides_door_in_door(t_cub3d *cub3d, t_raycast *cast);
 

@@ -30,6 +30,12 @@ void	execution_error_handler(t_cub3d *cub3d, int i)
 		write(2, "ERROR: failed putting torch txtr to image to window\n", 53);
 	else if (i == 8)
 		write(2, "ERROR: failed putting torch image to window\n", 45);
+	else if (i == 9)
+		write(2, "ERROR: failed allocating memory\n", 32);
+	else if (i == 10)
+		write(2, "ERROR: failed opening walls, ceiling, floor to img\n", 52);
+	else if (i == 11)
+		write(2, "ERROR: failed putting walls, ceiling, floor to window\n", 55);
 	close_program(cub3d, 1);
 }
 

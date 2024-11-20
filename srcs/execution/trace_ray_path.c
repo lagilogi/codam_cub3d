@@ -17,6 +17,13 @@ static bool	handle_walls(t_cub3d *cub3d, t_raycast *cast)
 	if (cast->map_y > cub3d->map.rows || cast->map_x > cub3d->map.cols || \
 		cast->map_y < 0 || cast->map_x < 0)
 		return (true);
+	if (cub3d->map.grid[cast->map_y][cast->map_x] == '1')
+	{
+		if (cast->open_door == true)
+			cast->texture = cub3d->map.open_door;
+		cast->open_door = false;
+		return (true);
+	}
 	if (cub3d->map.grid[cast->map_y][cast->map_x] == 'D')
 	{
 		cast->texture = cub3d->map.closed_door;
@@ -46,13 +53,6 @@ void	trace_ray_path(t_cub3d *cub3d, t_raycast *cast)
 			cast->side_dist_y += cast->delta_dist_y;
 			cast->map_y += cast->step_y;
 			cast->side_hit = horizontal;
-		}
-		if (cub3d->map.grid[cast->map_y][cast->map_x] == '1')
-		{
-			if (cast->open_door == true)
-				cast->texture = cub3d->map.open_door;
-			cast->open_door = false;
-			break ;
 		}
 		if (handle_walls(cub3d, cast) == true)
 			break ;

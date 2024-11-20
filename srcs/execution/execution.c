@@ -22,8 +22,10 @@ static void	window_initilization(t_cub3d *cub3d)
 	mlx_set_mouse_pos(cub3d->mlx, WIDTH / 2, HEIGHT / 2);
 	cub3d->map.walls = mlx_new_image(cub3d->mlx, WIDTH, HEIGHT);
 	if (cub3d->map.walls == NULL)
-		close_program(cub3d, 1);
-	mlx_image_to_window(cub3d->mlx, cub3d->map.walls, 0, 0);
+		execution_error_handler(cub3d, 10);
+	if (mlx_image_to_window(cub3d->mlx, cub3d->map.walls, 0, 0) == -1)
+		execution_error_handler(cub3d, 11);
+	load_torch_images_to_screen(cub3d);
 	render_frame(cub3d);
 }
 
@@ -39,8 +41,8 @@ void	run_cub3d(t_cub3d *cub3d)
 void	starting_exec(t_cub3d *cub3d)
 {
 	load_doors(cub3d);
+	load_torch_textures(cub3d);
 	window_initilization(cub3d);
-	load_torches(cub3d);
 	create_minimap(cub3d, cub3d->mlx);
 	run_cub3d(cub3d);
 }
