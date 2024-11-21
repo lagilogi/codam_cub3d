@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   parse_map.c                                        :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: saleunin <saleunin@student.42.fr>            +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2024/10/28 13:28:10 by wsonepou      #+#    #+#                 */
-/*   Updated: 2024/11/15 16:47:29 by wsonepou      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   parse_map.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: saleunin <saleunin@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/28 13:28:10 by wsonepou          #+#    #+#             */
+/*   Updated: 2024/11/21 13:01:27 by saleunin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,11 @@ static void	check_map_edge(t_cub3d *cub3d, int rows, int cols)
 	{
 		while (x < cols)
 		{
-			if (cub3d->map.grid[0][x] == '0' || cub3d->map.grid[rows - 1][x] == '0')
+			if (cub3d->map.grid[0][x] == '0'
+				|| cub3d->map.grid[rows - 1][x] == '0')
 				parsefile_error_handler(cub3d, 2);
-			else if (cub3d->map.grid[y][0] == '0' || cub3d->map.grid[y][cols - 1] == '0')
+			else if (cub3d->map.grid[y][0] == '0'
+				|| cub3d->map.grid[y][cols - 1] == '0')
 				parsefile_error_handler(cub3d, 2);
 			x++;
 		}
@@ -49,12 +51,11 @@ static void	check_inner_map(t_cub3d *cub3d, int rows, int cols, int y)
 					|| !check_char(cub3d->map.grid[y - 1][x], 7)
 					|| !check_char(cub3d->map.grid[y][x + 1], 7)
 					|| !check_char(cub3d->map.grid[y][x - 1], 7))
-						parsefile_error_handler(cub3d, 2);
+					parsefile_error_handler(cub3d, 2);
 			}
 			else if ((cub3d->map.grid[y][x] == 'D'
 				|| cub3d->map.grid[y][x] == 'D') && !door_validity(cub3d, y, x))
 				parsefile_error_handler(cub3d, 2);
-
 			x++;
 		}
 		y++;

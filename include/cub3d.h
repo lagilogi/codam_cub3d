@@ -6,7 +6,7 @@
 /*   By: saleunin <saleunin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 13:14:48 by wsonepou          #+#    #+#             */
-/*   Updated: 2024/11/19 16:07:58 by saleunin         ###   ########.fr       */
+/*   Updated: 2024/11/21 13:06:29 by saleunin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,15 +93,15 @@ typedef struct s_minimap
 
 typedef struct s_cub3d
 {
-	mlx_t		*mlx;
-	int			map_fd;
-	t_map		map;
-	t_minimap	mini;
-	t_file		file;
-	t_player	player;
-	bool		moving;
+	mlx_t			*mlx;
+	int				map_fd;
+	t_map			map;
+	t_minimap		mini;
+	t_file			file;
+	t_player		player;
+	bool			moving;
 	mlx_texture_t	**torch_textures;
-	mlx_image_t	**torch_images;
+	mlx_image_t		**torch_images;
 }	t_cub3d;
 
 enum e_side_hit
@@ -185,6 +185,5 @@ void	load_torch_textures(t_cub3d *cub3d);
 void	load_torch_images_to_screen(t_cub3d *cub3d);
 void	update_torch(void *param);
 void	render_sides_door_in_door(t_cub3d *cub3d, t_raycast *cast);
-
 
 #endif

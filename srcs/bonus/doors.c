@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   doors.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: saleunin <saleunin@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/21 13:00:29 by wsonepou          #+#    #+#             */
+/*   Updated: 2024/11/21 13:01:04 by saleunin         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/cub3d.h"
 
 void	load_doors(t_cub3d *cub3d)
@@ -14,13 +26,16 @@ void	load_doors(t_cub3d *cub3d)
 
 int	door_validity(t_cub3d *cub3d, int y, int x)
 {
-	if (y == 0 || x == 0 || y == cub3d->map.rows - 1 || x == cub3d->map.cols - 1)
+	if (y == 0 || x == 0 || y == cub3d->map.rows - 1
+		|| x == cub3d->map.cols - 1)
 		return (false);
 	if (cub3d->map.grid[y + 1][x] == '1' && cub3d->map.grid[y - 1][x] == '1')
-		if (cub3d->map.grid[y][x + 1] == '0' && cub3d->map.grid[y][x - 1] == '0')
+		if (cub3d->map.grid[y][x + 1] == '0'
+			&& cub3d->map.grid[y][x - 1] == '0')
 			return (true);
 	if (cub3d->map.grid[y][x + 1] == '1' && cub3d->map.grid[y][x - 1] == '1')
-		if (cub3d->map.grid[y + 1][x] == '0' && cub3d->map.grid[y - 1][x] == '0')
+		if (cub3d->map.grid[y + 1][x] == '0'
+			&& cub3d->map.grid[y - 1][x] == '0')
 			return (true);
 	return (false);
 }
@@ -38,7 +53,8 @@ static void	open_close_door(t_cub3d *cub3d, float y, float x)
 	{
 		y -= delta_y * 0.025;
 		x -= delta_x * 0.025;
-		if (cub3d->map.grid[(int)y][(int)x] == 'D' || cub3d->map.grid[(int)y][(int)x] == 'd')
+		if (cub3d->map.grid[(int)y][(int)x] == 'D'
+			|| cub3d->map.grid[(int)y][(int)x] == 'd')
 		{
 			cub3d->moving = true;
 			if (cub3d->map.grid[(int)y][(int)x] == 'D')
