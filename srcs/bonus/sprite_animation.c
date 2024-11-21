@@ -6,7 +6,7 @@
 /*   By: saleunin <saleunin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 14:21:55 by saleunin          #+#    #+#             */
-/*   Updated: 2024/11/18 15:42:51 by saleunin         ###   ########.fr       */
+/*   Updated: 2024/11/21 12:52:13 by saleunin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@ void	load_torch_textures(t_cub3d *cub3d)
 		if (torch_name == NULL)
 			execution_error_handler(cub3d, 9);
 		cub3d->torch_textures[i - 1] = mlx_load_png(torch_name);
+		free(torch_name);
 		if (cub3d->torch_textures[i - 1] == NULL)
 			execution_error_handler(cub3d, 6);
-		free(torch_name);
 		i++;
 	}
 }
