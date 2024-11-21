@@ -6,15 +6,15 @@
 /*   By: saleunin <saleunin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 17:49:45 by wsonepou          #+#    #+#             */
-/*   Updated: 2024/11/18 15:28:41 by saleunin         ###   ########.fr       */
+/*   Updated: 2024/11/21 12:45:46 by saleunin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
 
-static void clean_up_torches(t_cub3d *cub3d)
+static void	clean_up_torches(t_cub3d *cub3d)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (cub3d->torch_images != NULL)

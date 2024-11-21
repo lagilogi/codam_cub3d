@@ -47,7 +47,7 @@ static void	open_close_door(t_cub3d *cub3d, float y, float x)
 				cub3d->map.grid[(int)y][(int)x] = 'D';
 			break ;
 		}
-		i++;		
+		i++;
 	}
 }
 

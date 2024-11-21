@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   ft_strjoin.c                                       :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: wsonepou <wsonepou@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/10/12 10:21:57 by wsonepou      #+#    #+#                 */
-/*   Updated: 2023/11/09 17:59:14 by wsonepou      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: saleunin <saleunin@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/10/12 10:21:57 by wsonepou          #+#    #+#             */
+/*   Updated: 2024/11/21 12:44:45 by saleunin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	return (p);
 }
 
-char *ft_strjoin_free_s2(char *s1, char *s2, char *s3)
+char	*ft_strjoin_free_s2(char *s1, char *s2, char *s3)
 {
 	int		i;
 	int		o;

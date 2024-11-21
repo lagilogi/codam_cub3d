@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   libft.h                                            :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: wsonepou <wsonepou@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/10/18 15:08:38 by wsonepou      #+#    #+#                 */
-/*   Updated: 2024/02/05 14:15:10 by wsonepou      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   libft.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: saleunin <saleunin@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/10/18 15:08:38 by wsonepou          #+#    #+#             */
+/*   Updated: 2024/11/21 12:44:51 by saleunin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ char	*ft_strchr(const char *s, int c);
 char	*ft_strdup(const char *s);
 void	ft_striteri(char *s, void (*f)(unsigned int, char*));
 char	*ft_strjoin(char const *s1, char const *s2);
-char *ft_strjoin_free_s2(char *s1, char *s2, char *s3);
+char	*ft_strjoin_free_s2(char *s1, char *s2, char *s3);
 size_t	ft_strlcat(char *dst, const char *src, size_t size);
 size_t	ft_strlcpy(char *dst, const char *src, size_t size);
 int		ft_strlen(const char *s);
